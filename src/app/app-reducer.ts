@@ -62,3 +62,4 @@ type ActionsType =
     | SetAppErrorActionType
     | SetAppStatusActionType
     | SetIsInitialized
+// adas
