@@ -100,3 +100,4 @@ export type TodolistDomainType = TodolistType & {
     entityStatus: RequestStatusType
 }
 type ThunkDispatch = Dispatch<ActionsType | SetAppStatusActionType>
+// ada
