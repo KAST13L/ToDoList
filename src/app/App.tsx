@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import './App.css'
 import {TodolistsList} from '../features/TodolistsList/TodolistsList'
 import {useDispatch, useSelector} from 'react-redux'
-import {AppRootStateType} from './store'
+import {AppRootStateType, useAppSelector} from './store'
 import {initializeAppTC, RequestStatusType} from './app-reducer'
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -23,9 +23,9 @@ type PropsType = {
 }
 
 function App({demo = false}: PropsType) {
-    const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
-    const isInitialized = useSelector<AppRootStateType, boolean>( state => state.app.isInitialized)
-    const isLoggedIn = useSelector<AppRootStateType, boolean>( state => state.auth.isLoggedIn)
+    const status = useAppSelector((state) => state.app.status)
+    const isInitialized = useAppSelector( state => state.app.isInitialized)
+    const isLoggedIn = useAppSelector( state => state.auth.isLoggedIn)
     const dispatch = useDispatch()
 
     useEffect(()=>{
@@ -53,7 +53,9 @@ function App({demo = false}: PropsType) {
                     </Typography>
                     {isLoggedIn && <Button onClick={()=>{dispatch(logoutTC())}} color="inherit">Log out </Button> }
                 </Toolbar>
-                {status === 'loading' && <LinearProgress/>}
+                <div style={{height:'5px'}}>
+                    {status === 'loading' && <LinearProgress/>}
+                </div>
             </AppBar>
             <Container fixed>
                 <Routes>

@@ -60,7 +60,7 @@ export const Login = () => {
                 <FormControl>
                     <FormLabel>
                         <h1 style={{textAlign: 'center'}}>
-                            -- Login --
+                            SIGN UP
                         </h1>
                     </FormLabel>
                     <FormGroup>
