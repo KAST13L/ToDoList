@@ -14,28 +14,28 @@ import {addTodolistAC, removeTodolistAC, setTodolistsAC} from "./todolists-reduc
 
 const initialState: TasksStateType = {}
 
-export const fetchTasksTC = createAsyncThunk('tasks/fetchTusks', (todolistId: string,thunkAPI) => {
+export const fetchTasksTC = createAsyncThunk('tasks/fetchTasks', (todolistId: string,thunkAPI) => {
     thunkAPI.dispatch(setAppStatusAC({status: 'loading'}))
     return todolistsAPI.getTasks(todolistId)
         .then((res) => {
             const tasks = res.data.items
-            /*thunkAPI.dispatch(setTasksAC({tasks, todolistId}))*/
             thunkAPI.dispatch(setAppStatusAC({status: 'succeeded'}))
             return {tasks, todolistId}
         })
 } )
+
+export const removeTaskTC = createAsyncThunk('tasks/removeTask', ({taskId, todolistId}: {taskId: string, todolistId: string}, thunkAPI) => {
+    return todolistsAPI.deleteTask(todolistId, taskId)
+        .then(() => {
+            return {taskId, todolistId}
+        })
+})
 
 
 const slice = createSlice({
     name: 'task',
     initialState: initialState,
     reducers: {
-        removeTaskAC(state, action: PayloadAction<{ taskId: string, todolistId: string }>) {
-            return {
-                ...state,
-                [action.payload.todolistId]: state[action.payload.todolistId].filter(t => t.id !== action.payload.taskId)
-            }
-        },
         addTaskAC(state, action: PayloadAction<{ task: TaskType }>) {
             return {
                 ...state,
@@ -69,21 +69,20 @@ const slice = createSlice({
         builder.addCase(fetchTasksTC.fulfilled, (state, action) => {
             return {...state, [action.payload.todolistId]: action.payload.tasks}
         });
+        builder.addCase(removeTaskTC.fulfilled, (state, action) => {
+            return {
+                ...state, [action.payload.todolistId]: state[action.payload.todolistId].filter(t => t.id !== action.payload.taskId)
+            }
+        })
     }
 })
 
 export const tasksReducer = slice.reducer
-export const {removeTaskAC, updateTaskAC, addTaskAC} = slice.actions
+export const { updateTaskAC, addTaskAC} = slice.actions
 
 // thunks
 
-export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: Dispatch) => {
-    todolistsAPI.deleteTask(todolistId, taskId)
-        .then(() => {
-            const action = removeTaskAC({taskId, todolistId})
-            dispatch(action)
-        })
-}
+
 export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC({status: 'loading'}))
     todolistsAPI.createTask(todolistId, title)
