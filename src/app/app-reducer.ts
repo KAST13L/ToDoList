@@ -46,7 +46,7 @@ export const initializeAppTC = () => async (dispatch: Dispatch) => {
     const response = await authAPI.me()
     try {
         if (response.data.resultCode === 0) {
-            dispatch(setIsLoggedInAC({value: true}))
+            dispatch(setIsLoggedInAC({isLoggedIn: true}))
         } else {
             handleServerAppError(response.data, dispatch)
         }

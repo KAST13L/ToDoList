@@ -7,16 +7,22 @@ import FormGroup from '@mui/material/FormGroup';
 import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import {useFormik} from "formik";
-import {useDispatch, useSelector} from "react-redux";
+import {FormikHelpers, useFormik} from "formik";
+import {useSelector} from "react-redux";
 import {loginTC} from "./auth-reducer";
-import {AppRootStateType} from "../../../app/store";
+import {AppRootStateType, useAppDispatch} from "../../../app/store";
 import {Navigate} from "react-router-dom";
 
 export const Login = () => {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+
+    type FormDataType = {
+        email: string
+        password: string
+        rememberMe: boolean
+    }
 
     type FormikErrorType = {
         email?: string
@@ -44,8 +50,9 @@ export const Login = () => {
             }
             return errors
         },
-        onSubmit: values => {
-            dispatch(loginTC(values))
+        onSubmit: async (values: FormDataType, formikHelpers: FormikHelpers<FormDataType>) => {
+            const res = await dispatch(loginTC(values))
+
             formik.resetForm()
         },
     })

@@ -29,7 +29,6 @@ function App({demo = false}: PropsType) {
     const dispatch = useDispatch()
 
     useEffect(()=>{
-
         dispatch(initializeAppTC())
     },[])
 

@@ -5,7 +5,7 @@ import thunkMiddleware from 'redux-thunk'
 import {appReducer} from './app-reducer'
 import {authReducer} from "../features/TodolistsList/Login/auth-reducer";
 import {configureStore} from "@reduxjs/toolkit";
-import {TypedUseSelectorHook, useSelector} from "react-redux";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
 
 const rootReducer = combineReducers({
@@ -24,5 +24,6 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 
 
 // hooks
-
+type AppDispatchType = typeof store.dispatch
+export const useAppDispatch = () => useDispatch<AppDispatchType>()
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
