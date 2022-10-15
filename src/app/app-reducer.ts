@@ -1,9 +1,8 @@
-import {Dispatch} from "redux";
 import {authAPI} from "../api/auth-api";
 import {setIsLoggedInAC} from "../features/TodolistsList/Login/auth-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 import axios from "axios";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 // types
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -13,36 +12,8 @@ export type InitialStateType = {
     isInitialized: boolean
 }
 
-// initState
-const initialState: InitialStateType = {
-    status: 'idle',
-    error: null,
-    isInitialized: false
-}
-
-// slice
-const slice = createSlice({
-    name: 'app',
-    initialState,
-    reducers: {
-        setAppErrorAC(state, action: PayloadAction<{ error: string | null}>) {
-            state.error = action.payload.error
-        },
-        setAppStatusAC(state, action: PayloadAction<{status: RequestStatusType}>){
-            state.status = action.payload.status
-        },
-        setIsInitialized(state, action: PayloadAction<{isInitialized:boolean}>){
-            state.isInitialized = action.payload.isInitialized
-        }
-    }
-})
-export const appReducer = slice.reducer
-
-// actions
-export const {setAppErrorAC, setAppStatusAC, setIsInitialized} = slice.actions
-
 //thunk
-export const initializeAppTC = () => async (dispatch: Dispatch) => {
+export const initializeAppTC = createAsyncThunk('app/initializeApp', async (arg, {dispatch}) => {
     const response = await authAPI.me()
     try {
         if (response.data.resultCode === 0) {
@@ -56,6 +27,35 @@ export const initializeAppTC = () => async (dispatch: Dispatch) => {
         }
     } finally {
         dispatch(setAppStatusAC({status:"idle"}))
-        dispatch(setIsInitialized({isInitialized:true}))
     }
-}
+    return;
+
+})
+
+// slice
+const slice = createSlice({
+    name: 'app',
+    initialState: {
+        status: 'idle',
+        error: null,
+        isInitialized: false
+    } as InitialStateType,
+    reducers: {
+        setAppErrorAC(state, action: PayloadAction<{ error: string | null}>) {
+            state.error = action.payload.error
+        },
+        setAppStatusAC(state, action: PayloadAction<{status: RequestStatusType}>){
+            state.status = action.payload.status
+        }
+    },
+    extraReducers: builder => {
+        builder.addCase(initializeAppTC.fulfilled, (state) => {
+            state.isInitialized = true
+        })
+    }
+})
+export const appReducer = slice.reducer
+
+// actions
+export const {setAppErrorAC, setAppStatusAC} = slice.actions
+
