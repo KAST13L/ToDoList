@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import './App.css'
 import {TodolistsList} from '../features/TodolistsList/TodolistsList'
 import {useDispatch} from 'react-redux'
-import {useAppSelector} from './store'
+import {AppRootStateType, useAppSelector} from './store'
 import {initializeAppTC} from './app-reducer'
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -22,10 +22,14 @@ type PropsType = {
     demo?: boolean
 }
 
+const selectStatus = ( state: AppRootStateType ) => state.app.status
+const selectIsInitialized = ( state: AppRootStateType ) => state.app.isInitialized
+const selectIsLoggedIn = ( state: AppRootStateType ) => state.auth.isLoggedIn
+
 function App({demo = false}: PropsType) {
-    const status = useAppSelector((state) => state.app.status)
-    const isInitialized = useAppSelector( state => state.app.isInitialized)
-    const isLoggedIn = useAppSelector( state => state.auth.isLoggedIn)
+    const status = useAppSelector(selectStatus)
+    const isInitialized = useAppSelector(selectIsInitialized)
+    const isLoggedIn = useAppSelector(selectIsLoggedIn)
     const dispatch = useDispatch()
 
     useEffect(()=>{
