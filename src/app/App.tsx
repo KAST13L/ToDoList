@@ -22,6 +22,7 @@ type PropsType = {
     demo?: boolean
 }
 
+//selectors
 const selectStatus = ( state: AppRootStateType ) => state.app.status
 const selectIsInitialized = ( state: AppRootStateType ) => state.app.isInitialized
 const selectIsLoggedIn = ( state: AppRootStateType ) => state.auth.isLoggedIn
