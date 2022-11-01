@@ -22,7 +22,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
 
     const dispatch = useAppDispatch()
 
-    const {fetchTodolistsTC, addTodolistTC} = useActions(todolistsActions)
+    const {fetchTodolistsTC} = useActions(todolistsActions)
 
     const addTodolistCallback = useCallback(async (title: string, helper: AddItemFormSubmitHelperType) => {
         let thunk = todolistsActions.addTodolistTC(title)
@@ -33,7 +33,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
                 const errorMessage = resultAction.payload?.errors[0]
                 helper.setError(errorMessage)
             } else {
-                helper.setError('Some error occured')
+                helper.setError('Some error occurred')
             }
         } else {
             helper.setTitle('')
