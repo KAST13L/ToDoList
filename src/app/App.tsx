@@ -49,7 +49,7 @@ function App({demo = false}: PropsType) {
                     </Typography>
                     {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
                 </Toolbar>
-                {status === 'loading' && <LinearProgress/>}
+                <div style={{height:'1px'}}>{status === 'loading' && <LinearProgress/>}</div>
             </AppBar>
             <Container fixed>
                 <Route exact path={'/'} render={() => <TodolistsList demo={demo}/>}/>
