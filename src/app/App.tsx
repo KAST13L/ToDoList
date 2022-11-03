@@ -70,7 +70,7 @@ function App({demo = false}: PropsType) {
                         </Typography>
                         {isLoggedIn && <AddItemForm addItem={addTodolistCallback}/>}
                     </div>
-                    {isLoggedIn && <Button color="secondary" onClick={logoutHandler}>Log out</Button>}
+                    {isLoggedIn && <Button variant={'contained'} color={'secondary'} onClick={logoutHandler}>Log out</Button>}
                 </Toolbar>
                 <div style={{height: '1px'}}>{status === 'loading' && <LinearProgress/>}</div>
             </AppBar>
