@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import {useSelector} from 'react-redux'
 import {TodolistDomainType} from './todolists-reducer'
 import {TasksStateType} from './tasks-reducer'
-import {Grid} from '@material-ui/core'
+import {Grid, Paper} from '@material-ui/core'
 import {Todolist} from './Todolist/Todolist'
 import {Redirect} from 'react-router-dom'
 import {selectIsLoggedIn} from '../Auth/selectors'
@@ -40,11 +40,13 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
 
                     return <Grid item key={tl.id}>
                         <div style={{width: '350px'}}>
-                            <Todolist
-                                todolist={tl}
-                                tasks={allTodolistTasks}
-                                demo={demo}
-                            />
+                            <Paper elevation={9}>
+                                <Todolist
+                                    todolist={tl}
+                                    tasks={allTodolistTasks}
+                                    demo={demo}
+                                />
+                            </Paper>
                         </div>
                     </Grid>
                 })
