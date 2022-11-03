@@ -33,13 +33,13 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     }
 
     return <>
-        <Grid container spacing={10}>
+        <Grid container spacing={7}>
             {
                 todolists.map(tl => {
                     let allTodolistTasks = tasks[tl.id]
 
                     return <Grid item key={tl.id}>
-                        <div style={{width: '300px'}}>
+                        <div style={{width: '350px'}}>
                             <Todolist
                                 todolist={tl}
                                 tasks={allTodolistTasks}
