@@ -38,7 +38,7 @@ export const Todolist = React.memo(function ({demo = false, ...props}: PropsType
                 const errorMessage = resultAction.payload?.errors[0]
                 helper.setError(errorMessage)
             } else {
-                helper.setError('Some error occured')
+                helper.setError('Some error occurred')
             }
         } else {
             helper.setTitle('')
