@@ -1,0 +1,26 @@
+.App {
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    @media (max-width: 500px) {
+      display: inline;
+    }
+
+    .containerAppBar {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 5px 0;
+    }
+  }
+
+  .content{
+    padding: 60px 0;
+    @media (max-width: 669px) {
+      padding: 120px 0;
+    }
+    @media (max-width: 500px) {
+      padding: 170px 0;
+    }
+  }
+}

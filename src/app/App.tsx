@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from 'react'
-import './App.css'
+import './App.module.scss'
 import {AppBar, Button, CircularProgress, Container, LinearProgress, Toolbar, Typography} from '@material-ui/core'
 import {todolistsActions, TodolistsList} from '../features/TodolistsList'
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
@@ -10,6 +10,7 @@ import {authActions, authSelectors, Login} from '../features/Auth'
 import {selectIsInitialized, selectStatus} from '../features/Application/selectors'
 import {useActions, useAppDispatch} from '../utils/redux-utils'
 import {AddItemForm, AddItemFormSubmitHelperType} from "../components/AddItemForm/AddItemForm";
+import s from './App.module.scss'
 
 type PropsType = {
     demo?: boolean
@@ -60,21 +61,23 @@ export const App = ({demo = false}: PropsType) => {
     }
 
     return (
-        <div className="App">
+        <div className={s.App}>
             <ErrorSnackbar/>
-            <AppBar position="static" color='transparent'>
-                <Toolbar style={{display: 'flex', justifyContent: 'space-between', }}>
-                    <div style={{display:'flex', flexDirection:'row', width: '750px', justifyContent:'space-between', padding: '10px'}}>
-                        <Typography variant="h3">
+            <AppBar position="fixed" color='transparent'>
+                <Toolbar className={s.toolbar}>
+                    <div className={s.containerAppBar}>
+                        <Typography variant="h3" style={{padding:'0 20px'}}>
                             TODO LIST
                         </Typography>
                         {isLoggedIn && <AddItemForm addItem={addTodolistCallback}/>}
                     </div>
-                    {isLoggedIn && <Button variant={'contained'} color={'secondary'} onClick={logoutHandler}>Log out</Button>}
+                    {isLoggedIn && <div style={{textAlign:'center', padding:'10px'}}>
+                        <Button variant={'contained'} color={'secondary'} onClick={logoutHandler}>Log out</Button>
+                    </div>}
                 </Toolbar>
                 <div style={{height: '1px'}}>{status === 'loading' && <LinearProgress/>}</div>
             </AppBar>
-            <Container fixed style={{paddingTop: '25px'}}>
+            <Container className={s.content}>
                 <Route exact path={'/'} render={() => <TodolistsList demo={demo}/>}/>
                 <Route path={'/login'} render={() => <Login/>}/>
             </Container>
