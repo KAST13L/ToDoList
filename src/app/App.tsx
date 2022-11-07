@@ -63,7 +63,7 @@ export const App = ({demo = false}: PropsType) => {
     return (
         <div className={s.App}>
             <ErrorSnackbar/>
-            <AppBar position="fixed" color='transparent'>
+            <AppBar position="fixed" color='default'>
                 <Toolbar className={s.toolbar}>
                     <div className={s.containerAppBar}>
                         <Typography variant="h3" style={{padding:'0 20px'}}>
