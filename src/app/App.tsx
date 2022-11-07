@@ -15,7 +15,7 @@ type PropsType = {
     demo?: boolean
 }
 
-export const App = ({demo = false}: PropsType) => {
+function App({demo = false}: PropsType) {
     const status = useSelector(selectStatus)
     const isInitialized = useSelector(selectIsInitialized)
     const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn)
@@ -63,21 +63,14 @@ export const App = ({demo = false}: PropsType) => {
         <div className="App">
             <ErrorSnackbar/>
             <AppBar position="static" color='transparent'>
-                <Toolbar style={{display: 'flex', justifyContent: 'space-between',}}>
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        width: '750px',
-                        justifyContent: 'space-between',
-                        padding: '10px'
-                    }}>
+                <Toolbar style={{display: 'flex', justifyContent: 'space-between', }}>
+                    <div style={{display:'flex', flexDirection:'row', width: '750px', justifyContent:'space-between', padding: '10px'}}>
                         <Typography variant="h3">
                             TODO LIST
                         </Typography>
                         {isLoggedIn && <AddItemForm addItem={addTodolistCallback}/>}
                     </div>
-                    {isLoggedIn &&
-                        <Button variant={'contained'} color={'secondary'} onClick={logoutHandler}>Log out</Button>}
+                    {isLoggedIn && <Button variant={'contained'} color={'secondary'} onClick={logoutHandler}>Log out</Button>}
                 </Toolbar>
                 <div style={{height: '1px'}}>{status === 'loading' && <LinearProgress/>}</div>
             </AppBar>
@@ -89,3 +82,4 @@ export const App = ({demo = false}: PropsType) => {
     )
 }
 
+export default App

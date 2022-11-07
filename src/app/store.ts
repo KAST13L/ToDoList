@@ -4,7 +4,6 @@ import {appReducer} from '../features/Application'
 import {authReducer} from '../features/Auth'
 import {tasksReducer, todolistsReducer} from '../features/TodolistsList'
 import {configureStore} from '@reduxjs/toolkit'
-import {TypedUseSelectorHook, useSelector} from "react-redux";
 
 // обєднуємо редюсери за допомогою combineReducers,
 export const rootReducer = combineReducers({
@@ -22,9 +21,9 @@ export const store = configureStore({
     middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware)
 })
 
-// створення хуку який дозволяє при виклику його в компонетні не уточнювати типуванням
+/*// створення хуку який дозволяє при виклику його в компонетні не уточнювати типуванням
 export type RootStateType = ReturnType<typeof store.getState>
-export const useAppSelector: TypedUseSelectorHook<RootStateType> = useSelector
+export const useAppSelector: TypedUseSelectorHook<RootStateType> = useSelector*/
 
 // а це для того щоб можна було в консолі звернутися до store
 // @ts-ignore
