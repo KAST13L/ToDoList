@@ -15,7 +15,7 @@ type PropsType = {
     demo?: boolean
 }
 
-function App({demo = false}: PropsType) {
+export const App = ({demo = false}: PropsType) => {
     const status = useSelector(selectStatus)
     const isInitialized = useSelector(selectIsInitialized)
     const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn)
@@ -82,4 +82,3 @@ function App({demo = false}: PropsType) {
     )
 }
 
-export default App
