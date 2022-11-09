@@ -19,7 +19,7 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
             setError('Title is required')
             setTimeout(()=>{
                 setError(null)
-            },3000)
+            },5000)
         }
     }
 
