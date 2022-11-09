@@ -76,7 +76,7 @@ export const Todolist = React.memo(function ({demo = false, ...props}: PropsType
         </Button>
     }
 
-    return <Paper style={{padding: '10px', position: 'relative'}}>
+    return <Paper style={{padding: '10px'}}>
         <IconButton
             size={'small'}
             onClick={removeTodolist} disabled={props.todolist.entityStatus === 'loading'}
