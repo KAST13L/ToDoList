@@ -1,8 +1,8 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
 import {IconButton, TextField} from '@material-ui/core'
-import {AddBox} from '@material-ui/icons'
+import AddBox from '@material-ui/icons/AddBox'
 
-export type AddItemFormSubmitHelperType = { setError: (error: string) => void, setTitle: (title: string) => void}
+export type AddItemFormSubmitHelperType = { setError: (error: string) => void, setTitle: (title: string) => void }
 type AddItemFormPropsType = {
     addItem: (title: string, helper: AddItemFormSubmitHelperType) => void
     disabled?: boolean
@@ -14,12 +14,12 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
 
     const addItemHandler = async () => {
         if (title.trim() !== '') {
-                addItem(title, {setError, setTitle})
+            addItem(title, {setError, setTitle})
         } else {
             setError('Title is required')
-            setTimeout(()=>{
+            setTimeout(() => {
                 setError(null)
-            },5000)
+            }, 5000)
         }
     }
 
@@ -48,6 +48,6 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
         <IconButton color="primary" onClick={addItemHandler} disabled={disabled} style={{marginLeft: '5px'}}>
             <AddBox/>
         </IconButton>
-        <div style={{height:'1px', fontSize:'13px', color:'red', padding: '0 0 10px 10px'}}>{error}</div>
+        <div style={{height: '1px', fontSize: '13px', color: 'red', padding: '0 0 10px 10px'}}>{error}</div>
     </div>
 })

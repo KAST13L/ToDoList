@@ -66,12 +66,16 @@ export const App = ({demo = false}: PropsType) => {
             <AppBar position="fixed" color='default'>
                 <Toolbar className={s.toolbar}>
                     <div className={s.containerAppBar}>
-                        <Typography variant="h3" style={{padding:'5px 20px'}}>
-                            TODO LIST
-                        </Typography>
-                        {isLoggedIn && <AddItemForm addItem={addTodolistCallback}/>}
+                        <div>
+                            <Typography variant="h3" style={{padding: '5px 20px'}}>
+                                TODO LIST
+                            </Typography>
+                        </div>
+                        <div>
+                            {isLoggedIn && <AddItemForm addItem={addTodolistCallback}/>}
+                        </div>
                     </div>
-                    {isLoggedIn && <div style={{textAlign:'center', padding:'10px'}}>
+                    {isLoggedIn && <div style={{textAlign: 'center', padding: '10px'}}>
                         <Button variant={'contained'} color={'secondary'} onClick={logoutHandler}>Log out</Button>
                     </div>}
                 </Toolbar>
