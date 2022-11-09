@@ -66,7 +66,7 @@ export const App = ({demo = false}: PropsType) => {
             <AppBar position="fixed" color='default'>
                 <Toolbar className={s.toolbar}>
                     <div className={s.containerAppBar}>
-                        <Typography variant="h3" style={{padding:'0 20px'}}>
+                        <Typography variant="h3" style={{padding:'5px 20px'}}>
                             TODO LIST
                         </Typography>
                         {isLoggedIn && <AddItemForm addItem={addTodolistCallback}/>}
