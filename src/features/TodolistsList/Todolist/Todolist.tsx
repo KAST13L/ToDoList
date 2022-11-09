@@ -80,7 +80,7 @@ export const Todolist = React.memo(function ({demo = false, ...props}: PropsType
         <IconButton
             size={'small'}
             onClick={removeTodolist} disabled={props.todolist.entityStatus === 'loading'}
-                    style={{position: 'absolute', right: '5px', top: '5px'}}
+            style={{position: 'absolute', right: '5px', top: '5px'}}
         >
             <Delete fontSize={'small'}/>
         </IconButton>
@@ -89,9 +89,7 @@ export const Todolist = React.memo(function ({demo = false, ...props}: PropsType
         </h3>
         <AddItemForm addItem={addTaskCallback} disabled={props.todolist.entityStatus === 'loading'}/>
         <div>
-            {
-                tasksForTodolist.map(t => <Task key={t.id} task={t} todolistId={props.todolist.id}/>)
-            }
+            {tasksForTodolist.map(t => <Task key={t.id} task={t} todolistId={props.todolist.id}/>)}
             {!tasksForTodolist.length && <div style={{padding: '10px', color: 'grey'}}>No task</div>}
         </div>
         <div style={{paddingTop: '10px'}}>
