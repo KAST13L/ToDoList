@@ -56,7 +56,7 @@ export const Login = () => {
     }
 
 
-    return <div style={{display: 'flex', justifyContent: 'center'}}>
+    return <div style={{display: 'flex', justifyContent: 'center',padding: '40px'}}>
         <Paper elevation={6} style={{justifyContent:'center',padding: '20px'}}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl style={{textAlign: 'center'}}>
