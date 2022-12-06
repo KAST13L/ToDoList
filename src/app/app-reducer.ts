@@ -1,8 +1,8 @@
-import {Dispatch} from "redux";
-import {authAPI} from "../api/auth-api";
+import {authAPI, ResponseMeType} from "../api/auth-api";
 import {setIsLoggedInAC} from "../features/TodolistsList/Login/auth-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 import axios from "axios";
+import {call, put, takeEvery} from 'redux-saga/effects';
 
 const initialState: InitialStateType = {
     status: 'idle',
@@ -22,7 +22,40 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
             return {...state}
     }
 }
+// AC's
+export const setAppErrorAC = (error: string | null) => ({type: 'APP/SET-ERROR', error} as const)
+export const setAppStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATUS', status} as const)
+export const setIsInitialized = (isInitialized: boolean) => ({type: 'APP/SET-IS-INITIALIZED', isInitialized} as const)
 
+// AC's types
+export type SetAppErrorACType = ReturnType<typeof setAppErrorAC>
+export type SetAppStatusACType = ReturnType<typeof setAppStatusAC>
+export type SetIsInitializedACType = ReturnType<typeof setIsInitialized>
+
+// sagas
+export function* initializeAppWS() {
+    // @ts-ignore
+    const data: ResponseMeType = yield call(authAPI.me)
+    try {
+        if (data.resultCode === 0) {
+            yield put(setIsLoggedInAC(true))
+        } else {
+            handleServerAppError(data, put)
+        }
+    } catch (e) {
+        if (axios.isAxiosError(e)) {
+            handleServerNetworkError(e, put)
+        }
+    } finally {
+        yield put(setAppStatusAC("idle"))
+        yield put(setIsInitialized(true))
+    }
+}
+
+// worker saga AC's
+export const initializeAppWSAC = () => ({type: 'APP/INITIALIZE'})
+
+// common types
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type InitialStateType = {
     // происходит ли сейчас взаимодействие с сервером
@@ -31,34 +64,10 @@ export type InitialStateType = {
     error: string | null
     isInitialized: boolean
 }
+type ActionsType = SetAppErrorACType | SetAppStatusACType | SetIsInitializedACType
 
-export const setAppErrorAC = (error: string | null) => ({type: 'APP/SET-ERROR', error} as const)
-export const setAppStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATUS', status} as const)
-export const setIsInitialized = (isInitialized: boolean) => ({type: 'APP/SET-IS-INITIALIZED', isInitialized} as const)
+// appWatcher
 
-export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
-export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
-export type SetIsInitialized = ReturnType<typeof setIsInitialized>
-
-export const initializeAppTC = () => async (dispatch: Dispatch) => {
-    const response = await authAPI.me()
-    try {
-        if (response.data.resultCode === 0) {
-            dispatch(setIsLoggedInAC(true))
-        } else {
-            handleServerAppError(response.data, dispatch)
-        }
-    } catch (e) {
-        if (axios.isAxiosError(e)) {
-            handleServerNetworkError(e, dispatch)
-        }
-    } finally {
-        dispatch(setAppStatusAC("idle"))
-        dispatch(setIsInitialized(true))
-    }
+export function* appWatcher(){
+    yield takeEvery('APP/INITIALIZE', initializeAppWS)
 }
-
-type ActionsType =
-    | SetAppErrorActionType
-    | SetAppStatusActionType
-    | SetIsInitialized

@@ -3,7 +3,7 @@ import './App.css'
 import {TodolistsList} from '../features/TodolistsList/TodolistsList'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from './store'
-import {initializeAppTC, RequestStatusType} from './app-reducer'
+import {initializeAppWSAC, RequestStatusType} from './app-reducer'
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -16,7 +16,7 @@ import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
 import {Navigate, Route, Routes} from "react-router-dom";
 import {Login} from "../features/TodolistsList/Login/Login";
 import {CircularProgress} from "@mui/material";
-import {logoutTC} from "../features/TodolistsList/Login/auth-reducer";
+import {logoutWorkerSagaAC} from "../features/TodolistsList/Login/auth-reducer";
 
 type PropsType = {
     demo?: boolean
@@ -24,14 +24,13 @@ type PropsType = {
 
 function App({demo = false}: PropsType) {
     const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
-    const isInitialized = useSelector<AppRootStateType, boolean>( state => state.app.isInitialized)
-    const isLoggedIn = useSelector<AppRootStateType, boolean>( state => state.auth.isLoggedIn)
+    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
     const dispatch = useDispatch()
 
-    useEffect(()=>{
-
-        dispatch(initializeAppTC())
-    },[])
+    useEffect(() => {
+        dispatch(initializeAppWSAC())
+    }, [])
 
     if (!isInitialized) {
         return <div
@@ -51,7 +50,9 @@ function App({demo = false}: PropsType) {
                     <Typography variant="h6">
                         News
                     </Typography>
-                    {isLoggedIn && <Button onClick={()=>{dispatch(logoutTC())}} color="inherit">Log out </Button> }
+                    {isLoggedIn && <Button onClick={() => {
+                        dispatch(logoutWorkerSagaAC())
+                    }} color="inherit">Log out </Button>}
                 </Toolbar>
                 {status === 'loading' && <LinearProgress/>}
             </AppBar>
@@ -60,7 +61,7 @@ function App({demo = false}: PropsType) {
                     <Route path='/' element={<TodolistsList/>}/>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/404' element={<h1>404: PAGE NOT FOUND</h1>}/>
-                    <Route path='*' element={<Navigate to={'/404'}/>} />
+                    <Route path='*' element={<Navigate to={'/404'}/>}/>
                 </Routes>
             </Container>
 
