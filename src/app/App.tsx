@@ -36,11 +36,11 @@ function App({demo = false}: PropsType) {
         dispatch(initializeAppWSAC())
     }, [])
 
+    if (demo) {
+    }
     if (!isInitialized) {
-        return <div
-            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
-            <CircularProgress/>
-        </div>
+        return <CircularProgress
+            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}/>
     }
 
     return (
