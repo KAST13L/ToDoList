@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react'
+import React, {ChangeEvent, useCallback, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType, store} from '../../app/store'
 import {
@@ -10,7 +10,12 @@ import {
     removeTodolistWorkerSagaAC,
     TodolistDomainType
 } from './todolists-reducer'
-import {addTaskWorkerSagaAC, removeTaskWorkerSagaAC, TasksStateType, updateTaskWorkerSagaAC} from './tasks-reducer'
+import {
+    addTaskWorkerSagaAC,
+    removeTaskWorkerSagaAC,
+    TasksStateType,
+    updateTaskWorkerSagaAC
+} from './tasks-reducer'
 import {TaskStatuses} from '../../api/todolists-api'
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -25,12 +30,12 @@ type PropsType = {
 export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
-    const isLoggedIn = useSelector<AppRootStateType, boolean>( state => state.auth.isLoggedIn)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
     const dispatch = useDispatch()
 
     useEffect(() => {
         if (demo || !isLoggedIn) {
-            return ;
+            return;
         }
         dispatch(fetchTodolistsWorkerSagaAC())
     }, [])
@@ -69,13 +74,29 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     }, [dispatch])
 
 
-
-    if(!isLoggedIn){
+    if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
     }
 
+    const debounce = (fn: any, ms: any) => {
+        let timeout: any;
+        return function () {
+            const fnCall = () => { // @ts-ignore
+                fn.apply(this, arguments)
+            }
+            clearTimeout(timeout)
+            timeout = setTimeout(fnCall, ms)
+        }
+
+    }
+
+    let onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        console.log(e.currentTarget.value)
+    }
+    let onChangeDebounce = debounce(onChange, 500)
 
     return <>
+        <input type="text" onChange={onChangeDebounce}/>
         <Grid container style={{padding: '20px'}}>
             <AddItemForm addItem={addTodolist}/>
         </Grid>
