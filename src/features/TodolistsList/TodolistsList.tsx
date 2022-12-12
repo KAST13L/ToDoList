@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback, useEffect} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType, store} from '../../app/store'
 import {
@@ -78,25 +78,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
         return <Navigate to={'/login'}/>
     }
 
-    const debounce = (fn: any, ms: any) => {
-        let timeout: any;
-        return function () {
-            const fnCall = () => { // @ts-ignore
-                fn.apply(this, arguments)
-            }
-            clearTimeout(timeout)
-            timeout = setTimeout(fnCall, ms)
-        }
-
-    }
-
-    let onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log(e.currentTarget.value)
-    }
-    let onChangeDebounce = debounce(onChange, 500)
-
     return <>
-        <input type="text" onChange={onChangeDebounce}/>
         <Grid container style={{padding: '20px'}}>
             <AddItemForm addItem={addTodolist}/>
         </Grid>
