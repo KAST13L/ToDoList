@@ -4,7 +4,7 @@ import {GetTasksResponse, TaskStatuses, todolistsAPI} from "../../api/todolists-
 import {setAppStatusAC} from "../../app/app-reducer";
 
 let response: GetTasksResponse
-beforeEach(()=>{
+beforeEach(() => {
     response = {
         error: null,
         totalCount: 3,
@@ -12,10 +12,14 @@ beforeEach(()=>{
             {
                 status: TaskStatuses.Completed,
                 title: '',
-                id:'',
+                id: '',
                 addedDate: '3',
-                description:'',
-                deadline:'',order:3,priority:3,startDate:'',todoListId:"todolistId"
+                description: '',
+                deadline: '',
+                order: 3,
+                priority: 3,
+                startDate: '',
+                todoListId: "todolistId"
             },
         ]
     }
