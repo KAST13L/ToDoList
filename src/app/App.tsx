@@ -1,18 +1,14 @@
 import React, {useEffect} from 'react'
-import './App.css'
-import {TodolistsList} from '../features/TodolistsList/TodolistsList'
 import {useDispatch, useSelector} from 'react-redux'
-import {AppRootStateType} from './store'
-import {initializeAppWSAC, RequestStatusType} from './app-reducer'
-import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
 import LinearProgress from '@mui/material/LinearProgress';
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
 import {Navigate, Route, Routes} from "react-router-dom";
 import {Login} from "../features/TodolistsList/Login/Login";
 import {CircularProgress} from "@mui/material";
 import {logoutWorkerSagaAC} from "../features/TodolistsList/Login/auth-reducer";
+import {TodolistsList} from "../features/TodolistsList/TodolistsList";
+import {initializeAppWSAC, RequestStatusType} from "./app-reducer";
+import {AppRootStateType} from "./store";
 
 
 const selectStatus = (state: AppRootStateType): RequestStatusType => state.app.status
@@ -35,12 +31,12 @@ export const App = () => {
     }
 
     return (
-        <div className="App">
+        <div>
             <ErrorSnackbar/>
             <div>
-                {isLoggedIn && <Button onClick={() => {
+                {isLoggedIn && <button onClick={() => {
                     dispatch(logoutWorkerSagaAC())
-                }} color="inherit">Log out </Button>}
+                }} >Log out </button>}
                 {status === 'loading' && <LinearProgress/>}
             </div>
             <Routes>
