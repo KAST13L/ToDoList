@@ -3,12 +3,12 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import { AddBox } from '@mui/icons-material';
 
-type AddItemFormPropsType = {
+interface AddItemFormPropsType {
     addItem: (title: string) => void
     disabled?: boolean
 }
 
-export const AddItemForm = React.memo(function ({addItem, disabled = false}: AddItemFormPropsType) {
+export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo(function ({addItem, disabled = false}) {
 
     let [title, setTitle] = useState('')
     let [error, setError] = useState<string | null>(null)
@@ -35,7 +35,7 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
         }
     }
 
-    return <div>
+    return <div className="relative">
         <TextField variant="outlined"
                    disabled={disabled}
                    error={!!error}
@@ -45,8 +45,12 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
                    label="Title"
                    helperText={error}
         />
-        <IconButton color="primary" onClick={addItemHandler} disabled={disabled}>
-            <AddBox/>
-        </IconButton>
+        <div className='absolute left-[11rem] top-[8px]'>
+            <IconButton color="primary"
+                        onClick={addItemHandler}
+                        disabled={disabled}>
+                <AddBox/>
+            </IconButton>
+        </div>
     </div>
 })

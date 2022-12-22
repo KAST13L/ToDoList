@@ -20,6 +20,7 @@ import {TaskStatuses} from "@app/api/todolists-api";
 import {AddItemForm} from "@app/components/AddItemForm/AddItemForm";
 import {AppRootStateType, store} from "@app/app/store";
 import {Todolist} from "@app/features/Todolist/todolist.component";
+import Grid from "@mui/material/Grid";
 
 type PropsType = {
     demo?: boolean
@@ -66,17 +67,11 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
         dispatch(changeTodolistTitleWorkerSagaAC(id, title))
     }, [])
 
-    const addTodolist = useCallback((title: string) => {
-        dispatch(addTodolistWorkerSagaAC(title))
-    }, [dispatch])
-
-
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
     }
 
-    return <>
-        <AddItemForm addItem={addTodolist}/>
+    return <Grid container spacing={6} style={{marginTop:'90px'}} className='flex justify-center' >
         {
             todolists.map(tl => {
                 let allTodolistTasks = tasks[tl.id]
@@ -94,7 +89,8 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
                     changeTodolistTitle={changeTodolistTitle}
                     demo={demo}
                 />
+
             })
         }
-    </>
+    </Grid>
 }
