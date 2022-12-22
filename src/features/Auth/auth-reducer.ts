@@ -1,6 +1,6 @@
-import {SetAppErrorACType, setAppStatusAC, SetAppStatusACType} from "../../../app/app-reducer";
-import {authAPI, LoginParamsType} from "../../../api/auth-api";
-import {handleServerAppError, handleServerNetworkError} from "../../../utils/error-utils";
+import {SetAppErrorACType, setAppStatusAC, SetAppStatusACType} from "../../app/app-reducer";
+import {authAPI, LoginParamsType} from "../../api/auth-api";
+import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 import axios from "axios";
 import {call, put, takeEvery} from 'redux-saga/effects';
 

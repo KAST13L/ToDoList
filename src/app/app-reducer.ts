@@ -1,5 +1,5 @@
 import {authAPI, ResponseMeType} from "../api/auth-api";
-import {setIsLoggedInAC} from "../features/TodolistsList/Login/auth-reducer";
+import {setIsLoggedInAC} from "../features/Auth/auth-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 import axios from "axios";
 import {call, put, takeEvery} from 'redux-saga/effects';

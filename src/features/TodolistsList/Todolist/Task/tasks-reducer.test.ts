@@ -1,7 +1,7 @@
 import {fetchTasksWorkerSaga, setTasksAC} from "./tasks-reducer";
 import {call, put} from "redux-saga/effects";
-import {GetTasksResponse, TaskStatuses, todolistsAPI} from "../../api/todolists-api";
-import {setAppStatusAC} from "../../app/app-reducer";
+import {GetTasksResponse, TaskStatuses, todolistsAPI} from "@app/api/todolists-api";
+import {setAppStatusAC} from "@app/app/app-reducer";
 
 let response: GetTasksResponse
 beforeEach(() => {

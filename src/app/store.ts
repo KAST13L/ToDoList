@@ -1,8 +1,8 @@
-import {tasksReducer, tasksWatcher} from '../features/TodolistsList/tasks-reducer';
-import {todolistsReducer, todolistsWatcher} from '../features/TodolistsList/todolists-reducer';
+import {tasksReducer, tasksWatcher} from '../features/TodolistsList/Todolist/Task/tasks-reducer';
+import {todolistsReducer, todolistsWatcher} from '../features/TodolistsList/Todolist/todolists-reducer';
 import {applyMiddleware, combineReducers, createStore} from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import {authReducer, authWatcher} from "../features/TodolistsList/Login/auth-reducer";
+import {authReducer, authWatcher} from "../features/Auth/auth-reducer";
 import createSagaMiddleware from 'redux-saga';
 import {all} from 'redux-saga/effects';
 import {appReducer, appWatcher} from './app-reducer'

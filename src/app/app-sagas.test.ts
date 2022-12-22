@@ -2,7 +2,7 @@
 import {initializeAppWS, setAppStatusAC, setIsInitialized} from "./app-reducer";
 import {call, put} from "redux-saga/effects";
 import {authAPI, ResponseMeType} from "../api/auth-api";
-import {setIsLoggedInAC} from "../features/TodolistsList/Login/auth-reducer";
+import {setIsLoggedInAC} from "../features/Auth/auth-reducer";
 
 let meResponse: ResponseMeType
 

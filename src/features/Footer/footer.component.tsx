@@ -15,7 +15,7 @@ export const Footer = () => {
             <hr className="relative left-[-3rem] w-[calc(100%_+_6rem)] border-zinc-500 mb-8"/>
             <div>
                 <span className="text-xl font-semibold text-white">
-                    Pizza-Yolla🍕🍕🍕
+                    To Do List
                 </span>
             </div>
         </div>
