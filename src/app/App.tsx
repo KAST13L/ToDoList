@@ -10,7 +10,6 @@ import {AppRootStateType} from "./store";
 import {Login} from "@app/features/Auth/login.component";
 import {TodolistsList} from "@app/features/TodolistsList/todolistsList.component";
 
-
 const selectStatus = (state: AppRootStateType): RequestStatusType => state.app.status
 const selectIsInitialized = (state: AppRootStateType): boolean => state.app.isInitialized
 const selectIsLoggedIn = (state: AppRootStateType): boolean => state.auth.isLoggedIn
@@ -40,7 +39,7 @@ export const App: FC<AppPropsType> = ({demo}) => {
             <div>
                 {isLoggedIn && <button onClick={() => {
                     dispatch(logoutWorkerSagaAC())
-                }} >Log out </button>}
+                }}>Log out </button>}
                 {status === 'loading' && <LinearProgress/>}
             </div>
             <Routes>
