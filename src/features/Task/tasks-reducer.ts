@@ -1,8 +1,8 @@
-import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType} from '../todolists-reducer'
-import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from '../../../../api/todolists-api'
-import {AppRootStateType} from '../../../../app/store'
-import {setAppStatusAC} from '../../../../app/app-reducer'
-import {handleServerAppError, handleServerNetworkError} from '../../../../utils/error-utils'
+import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType} from '../Todolist/todolists-reducer'
+import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from '../../api/todolists-api'
+import {AppRootStateType} from '../../app/store'
+import {setAppStatusAC} from '../../app/app-reducer'
+import {handleServerAppError, handleServerNetworkError} from '../../utils/error-utils'
 import {call, put, takeEvery} from 'redux-saga/effects';
 
 const initialState: TasksStateType = {}

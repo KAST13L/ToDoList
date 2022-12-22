@@ -1,5 +1,5 @@
-import {todolistsAPI, TodolistType} from '../../../api/todolists-api'
-import {RequestStatusType, setAppStatusAC} from '../../../app/app-reducer'
+import {todolistsAPI, TodolistType} from '../../api/todolists-api'
+import {RequestStatusType, setAppStatusAC} from '../../app/app-reducer'
 import {call, put, takeEvery} from 'redux-saga/effects'
 
 const initialState: Array<TodolistDomainType> = []

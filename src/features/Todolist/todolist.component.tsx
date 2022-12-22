@@ -1,11 +1,11 @@
-import React, {useCallback, useEffect} from 'react'
+import React, {FC, useCallback, useEffect} from 'react'
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import {Delete} from '@mui/icons-material';
-import {Task} from './Task/Task'
+import {Task} from '../Task/Task'
 import {FilterValuesType, TodolistDomainType} from './todolists-reducer'
 import {useDispatch} from 'react-redux'
-import {fetchTasksWorkerSagaAC} from './Task/tasks-reducer'
+import {fetchTasksWorkerSagaAC} from '../Task/tasks-reducer'
 import {TaskStatuses, TaskType} from "@app/api/todolists-api";
 import {EditableSpan} from "@app/components/EditableSpan/EditableSpan";
 import {AddItemForm} from "@app/components/AddItemForm/AddItemForm";
@@ -23,7 +23,7 @@ type PropsType = {
     demo?: boolean
 }
 
-export const Todolist = React.memo(function ({demo = false, ...props}: PropsType) {
+export const Todolist: FC<PropsType> = React.memo(function ({demo = false, ...props}) {
 
     const dispatch = useDispatch()
 

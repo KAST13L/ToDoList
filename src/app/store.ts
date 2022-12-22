@@ -1,5 +1,5 @@
-import {tasksReducer, tasksWatcher} from '../features/TodolistsList/Todolist/Task/tasks-reducer';
-import {todolistsReducer, todolistsWatcher} from '../features/TodolistsList/Todolist/todolists-reducer';
+import {tasksReducer, tasksWatcher} from '../features/Task/tasks-reducer';
+import {todolistsReducer, todolistsWatcher} from '../features/Todolist/todolists-reducer';
 import {applyMiddleware, combineReducers, createStore} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import {authReducer, authWatcher} from "../features/Auth/auth-reducer";

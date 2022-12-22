@@ -8,24 +8,24 @@ import {
     FilterValuesType,
     removeTodolistWorkerSagaAC,
     TodolistDomainType
-} from './Todolist/todolists-reducer'
+} from '../Todolist/todolists-reducer'
 import {
     addTaskWorkerSagaAC,
     removeTaskWorkerSagaAC,
     TasksStateType,
     updateTaskWorkerSagaAC
-} from './Todolist/Task/tasks-reducer'
-import {Todolist} from './Todolist/Todolist'
+} from '../Task/tasks-reducer'
 import {Navigate} from "react-router-dom";
 import {TaskStatuses} from "@app/api/todolists-api";
 import {AddItemForm} from "@app/components/AddItemForm/AddItemForm";
 import {AppRootStateType, store} from "@app/app/store";
+import {Todolist} from "@app/features/Todolist/todolist.component";
 
 type PropsType = {
     demo?: boolean
 }
 
-export const TodolistsListComponent: React.FC<PropsType> = ({demo = false}) => {
+export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
