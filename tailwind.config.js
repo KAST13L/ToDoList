@@ -5,8 +5,8 @@ module.exports = {
     ],
     theme: {
         screens: {
-            'md': {'max': '510px'},
-            'sm': {'max': '646px'}
+            'smd': {'max': '510px'},
+            'smw': {'max': '607px'}
         }
     },
     plugins: [],

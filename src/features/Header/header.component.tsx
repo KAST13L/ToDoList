@@ -28,13 +28,17 @@ export const Header = () => {
 
     return (
         <AppBar position={'static'} color='default'>
-            <div className='p-6'>
-                <div>
-                    <span className='text-5xl'>TODOLIST</span>
-                    <span className='py-[7px]'>{isLoggedIn && <AddItemForm addItem={addTodolist}/>}</span>
+            <div className='flex justify-between items-center p-3 text-center smw:flex-col'>
+                {!isLoggedIn && <div></div>}
+                <span className='flex justify-between smd:flex-col smw:mb-2'>
+                    <span className='text-5xl smd:mb-3'>TODOLIST</span>
+                    <span className='px-3'>{isLoggedIn && <AddItemForm addItem={addTodolist}/>}</span>
+                </span>
+                <span>
                     {isLoggedIn && <Button onClick={logoutClick} color={'error'} variant={'contained'}>Log out</Button>}
                     {status === 'loading' && <LinearProgress/>}
-                </div>
+                </span>
+
             </div>
         </AppBar>
 
