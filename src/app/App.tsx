@@ -29,15 +29,17 @@ export const App: FC<AppPropsType> = ({demo = false}) => {
     }
 
     return (
-        <div>
+        <>
             <ErrorSnackbar/>
             <Header/>
-            <Routes>
-                <Route path='/' element={<TodolistsList/>}/>
-                <Route path='/login' element={<Login/>}/>
-                <Route path='/404' element={<h1>404: PAGE NOT FOUND</h1>}/>
-                <Route path='*' element={<Navigate to={'/404'}/>}/>
-            </Routes>
-        </div>
+            <div className="mx-12 mt-[120px] sm:mt-[230px]">
+                <Routes>
+                    <Route path='/' element={<TodolistsList/>}/>
+                    <Route path='/login' element={<Login/>}/>
+                    <Route path='/404' element={<h1>404: PAGE NOT FOUND</h1>}/>
+                    <Route path='*' element={<Navigate to={'/404'}/>}/>
+                </Routes>
+            </div>
+        </>
     )
 }

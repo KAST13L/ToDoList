@@ -38,7 +38,7 @@ export const Header = () => {
                 </span>
                 </div>
                 <div>
-                    {isLoggedIn && <Button onClick={logoutClick} variant={'contained'}>Log out</Button>}
+                    {isLoggedIn && <Button onClick={logoutClick} color={'error'} variant={'contained'}>Log out</Button>}
                     {status === 'loading' && <LinearProgress/>}
                 </div>
             </div>
