@@ -60,7 +60,7 @@ export const Todolist: FC<PropsType> = React.memo(function ({demo = false, ...pr
         tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
-    return <span className='w-[300px] m-4 p-4 border-2 border-black'>
+    return <span className='w-[300px] m-2 p-2 border-2 border-black'>
         <EditableSpan value={props.todolist.title} onChange={changeTodolistTitle}/>
             <IconButton onClick={removeTodolist}
                         disabled={props.todolist.entityStatus === 'loading'}>

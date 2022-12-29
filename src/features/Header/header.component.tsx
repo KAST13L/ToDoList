@@ -27,17 +27,11 @@ export const Header = () => {
     }, [dispatch])
 
     return (
-        <AppBar position='fixed' color='default'>
-            <div className='flex relative items-center justify-between h-[77px] p-6 sm:h-[190px] sm:flex-col'>
-                <div className='flex justify-between items-center w-[500px] md:flex-col' >
-                <span className='text-5xl'>
-                    TODOLIST
-                </span>
-                    <span className='py-[7px]'>
-                    <AddItemForm addItem={addTodolist}/>
-                </span>
-                </div>
+        <AppBar position={'static'} color='default'>
+            <div className='p-6'>
                 <div>
+                    <span className='text-5xl'>TODOLIST</span>
+                    <span className='py-[7px]'>{isLoggedIn && <AddItemForm addItem={addTodolist}/>}</span>
                     {isLoggedIn && <Button onClick={logoutClick} color={'error'} variant={'contained'}>Log out</Button>}
                     {status === 'loading' && <LinearProgress/>}
                 </div>

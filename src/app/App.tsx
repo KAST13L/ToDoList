@@ -32,7 +32,7 @@ export const App: FC<AppPropsType> = ({demo = false}) => {
         <>
             <ErrorSnackbar/>
             <Header/>
-            <div className="mx-12 mt-[75px] sm:mt-[185px]">
+            <div className="mx-4">
                 <Routes>
                     <Route path='/' element={<TodolistsList/>}/>
                     <Route path='/login' element={<Login/>}/>
