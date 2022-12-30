@@ -4,6 +4,7 @@ import {Dispatch} from 'redux'
 
 export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: Dispatch<SetAppErrorACType | SetAppStatusACType>) => {
     if (data.messages.length) {
+        console.log('ok')
         dispatch(setAppErrorAC(data.messages[0]))
     } else {
         dispatch(setAppErrorAC('Some error occurred'))

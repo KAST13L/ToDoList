@@ -29,7 +29,7 @@ export const App: FC<AppPropsType> = ({demo = false}) => {
     }
 
     return (
-        <>
+        <span>
             <ErrorSnackbar/>
             <Header/>
             <div className="mx-4 mt-6">
@@ -40,6 +40,6 @@ export const App: FC<AppPropsType> = ({demo = false}) => {
                     <Route path='*' element={<Navigate to={'/404'}/>}/>
                 </Routes>
             </div>
-        </>
+        </span>
     )
 }

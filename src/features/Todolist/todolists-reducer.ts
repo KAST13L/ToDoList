@@ -1,6 +1,8 @@
 import {todolistsAPI, TodolistType} from '../../api/todolists-api'
 import {RequestStatusType, setAppStatusAC} from '../../app/app-reducer'
 import {call, put, takeEvery} from 'redux-saga/effects'
+import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
+import axios from "axios";
 
 const initialState: Array<TodolistDomainType> = []
 
@@ -61,8 +63,20 @@ export function* addTodolistWorkerSaga(action: ReturnType<typeof addTodolistWork
     yield put(setAppStatusAC('loading'))
     // @ts-ignore
     const res = yield call(todolistsAPI.createTodolist, action.title)
-    yield put(addTodolistAC(res.data.data.item))
-    yield put(setAppStatusAC('succeeded'))
+    console.dir(res)
+    try {
+         if (res.data.resultCode === 0) {
+             yield put(addTodolistAC(res.data.data.item))
+         } else {
+             handleServerAppError(res.data, put)
+         }
+    } catch (e) {
+        if (axios.isAxiosError(e)) {
+            handleServerNetworkError(e, put)
+        }
+    } finally {
+        yield put(setAppStatusAC('succeeded'))
+    }
 }
 export function* changeTodolistTitleWorkerSaga(action: ReturnType<typeof changeTodolistTitleWorkerSagaAC>){
     // @ts-ignore
