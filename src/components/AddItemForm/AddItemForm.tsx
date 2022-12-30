@@ -46,7 +46,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo(function (
                    label="Title"
                    helperText={error}
         />
-        <div className='absolute left-[12rem] top-[8px]'>
+        <div className='absolute left-[12.5rem] top-[8px]'>
             <IconButton color="primary"
                         onClick={addItemHandler}
                         disabled={disabled}>
