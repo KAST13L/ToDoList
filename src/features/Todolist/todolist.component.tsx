@@ -61,16 +61,21 @@ export const Todolist: FC<PropsType> = React.memo(function ({demo = false, ...pr
         tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
-    return <Paper elevation={8} className='w-[300px] m-2 p-2'>
-        <span className='text-xl font-semibold'>
-           <EditableSpan value={props.todolist.title} onChange={changeTodolistTitle}/>
-            <IconButton onClick={removeTodolist} disabled={props.todolist.entityStatus === 'loading'}>
-                <Delete/>
-            </IconButton>
-        </span>
-        <span>
+    return <Paper elevation={8} className='w-[280px] m-2 p-2'>
+        <div className='h-[40px]'>
+            <div className='relative h-[30px] text-2xl font-semibold'>
+                <EditableSpan value={props.todolist.title} onChange={changeTodolistTitle}/>
+                <span className='absolute left-[237px] bottom-[4px]'>
+                <IconButton onClick={removeTodolist}
+                            disabled={props.todolist.entityStatus === 'loading'}>
+                    <Delete/>
+                </IconButton>
+            </span>
+            </div>
+        </div>
+        <div>
             <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === 'loading'}/>
-        </span>
+        </div>
         <span>
             {
                 tasksForTodolist.map(t => <Task key={t.id} task={t}
