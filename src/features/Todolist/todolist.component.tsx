@@ -9,6 +9,7 @@ import {fetchTasksWorkerSagaAC} from '../Task/tasks-reducer'
 import {TaskStatuses, TaskType} from "@app/api/todolists-api";
 import {EditableSpan} from "@app/components/EditableSpan/EditableSpan";
 import {AddItemForm} from "@app/components/AddItemForm/AddItemForm";
+import Paper from '@mui/material/Paper';
 
 type PropsType = {
     todolist: TodolistDomainType
@@ -60,15 +61,17 @@ export const Todolist: FC<PropsType> = React.memo(function ({demo = false, ...pr
         tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
-    return <span className='w-[300px] m-2 p-2 border-2 border-black'>
-        <EditableSpan value={props.todolist.title} onChange={changeTodolistTitle}/>
-            <IconButton onClick={removeTodolist}
-                        disabled={props.todolist.entityStatus === 'loading'}>
+    return <Paper elevation={8} className='w-[300px] m-2 p-2'>
+        <span className='text-xl font-semibold'>
+           <EditableSpan value={props.todolist.title} onChange={changeTodolistTitle}/>
+            <IconButton onClick={removeTodolist} disabled={props.todolist.entityStatus === 'loading'}>
                 <Delete/>
             </IconButton>
-        <AddItemForm addItem={addTask}
-                     disabled={props.todolist.entityStatus === 'loading'}/>
-        <>
+        </span>
+        <span>
+            <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === 'loading'}/>
+        </span>
+        <span>
             {
                 tasksForTodolist.map(t => <Task key={t.id} task={t}
                                                 todolistId={props.todolist.id}
@@ -77,12 +80,11 @@ export const Todolist: FC<PropsType> = React.memo(function ({demo = false, ...pr
                                                 changeTaskStatus={props.changeTaskStatus}
                 />)
             }
-        </>
-        <div style={{paddingTop: '10px'}}>
+        </span>
+        <span>
             <Button variant={props.todolist.filter === 'all' ? 'outlined' : 'text'}
                     onClick={onAllClickHandler}
-                    color={'inherit'}
-            >All
+                    color={'inherit'}>All
             </Button>
             <Button variant={props.todolist.filter === 'active' ? 'outlined' : 'text'}
                     onClick={onActiveClickHandler}
@@ -92,8 +94,8 @@ export const Todolist: FC<PropsType> = React.memo(function ({demo = false, ...pr
                     onClick={onCompletedClickHandler}
                     color={'secondary'}>Completed
             </Button>
-        </div>
-    </span>
+        </span>
+    </Paper>
 })
 
 
