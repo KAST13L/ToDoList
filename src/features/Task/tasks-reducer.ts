@@ -87,7 +87,6 @@ export function* fetchTasksWorkerSaga(action: ReturnType<typeof fetchTasksWorker
     } finally {
         yield put(setAppStatusAC('idle'))
     }
-
 }
 
 export function* removeTaskWorkerSaga(action: ReturnType<typeof removeTaskWorkerSagaAC>) {
@@ -97,6 +96,7 @@ export function* removeTaskWorkerSaga(action: ReturnType<typeof removeTaskWorker
     try {
         if (res) {}
         yield put(removeTaskAC(action.taskId, action.todolistId))
+        yield put(setAppStatusAC('succeeded'))
         yield put(setAppSuccessAC('task was deleted'))
     } catch (e: any) {
         handleServerNetworkError(e)
@@ -109,13 +109,20 @@ export function* addTaskWorkerSaga(action: ReturnType<typeof addTaskWorkerSagaAC
     yield put(setAppStatusAC('loading'))
     // @ts-ignore
     const res = yield call(todolistsAPI.createTask, action.todolistId, action.title)
-    if (res.data.resultCode === 0) {
-        yield put(addTaskAC(res.data.data.item))
-        yield put(setAppStatusAC('succeeded'))
-        yield put(setAppSuccessAC('Ok'))
-    } else {
-        yield handleServerAppError(res.data);
+    try {
+        if (res.data.resultCode === 0) {
+            yield put(addTaskAC(res.data.data.item))
+            yield put(setAppStatusAC('succeeded'))
+            yield put(setAppSuccessAC('Task is added'))
+        } else {
+            yield handleServerAppError(res.data);
+        }
+    } catch (e: any) {
+        handleServerNetworkError(e)
+    } finally {
+        yield put(setAppStatusAC('idle'))
     }
+
 }
 
 export function* updateTaskWorkerSaga(action: ReturnType<typeof updateTaskWorkerSagaAC>) {
@@ -126,7 +133,6 @@ export function* updateTaskWorkerSaga(action: ReturnType<typeof updateTaskWorker
         console.warn('task not found in the state')
         return
     }
-
     const apiModel: UpdateTaskModelType = {
         deadline: task.deadline,
         description: task.description,
@@ -137,16 +143,21 @@ export function* updateTaskWorkerSaga(action: ReturnType<typeof updateTaskWorker
         ...action.domainModel
     }
 
+    yield put(setAppStatusAC('loading'))
     // @ts-ignore
     const res = yield call(todolistsAPI.updateTask, action.todolistId, action.taskId, apiModel)
     try {
         if (res.data.resultCode === 0) {
             yield put(updateTaskAC(action.taskId, action.domainModel, action.todolistId))
+            yield put(setAppStatusAC('succeeded'))
+            yield put(setAppSuccessAC('Task changed!'))
         } else {
-            handleServerAppError(res.data);
+            yield handleServerAppError(res.data);
         }
     } catch (error: any) {
         handleServerNetworkError(error);
+    } finally {
+        yield put(setAppStatusAC('idle'))
     }
 }
 
