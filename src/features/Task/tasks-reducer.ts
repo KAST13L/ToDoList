@@ -91,11 +91,18 @@ export function* fetchTasksWorkerSaga(action: ReturnType<typeof fetchTasksWorker
 }
 
 export function* removeTaskWorkerSaga(action: ReturnType<typeof removeTaskWorkerSagaAC>) {
+    yield put(setAppStatusAC('loading'))
     // @ts-ignore
     const res = yield call(todolistsAPI.deleteTask, action.todolistId, action.taskId)
-    if (res) {
+    try {
+        if (res) {}
+        yield put(removeTaskAC(action.taskId, action.todolistId))
+        yield put(setAppSuccessAC('task was deleted'))
+    } catch (e: any) {
+        handleServerNetworkError(e)
+    } finally {
+        yield put(setAppStatusAC('idle'))
     }
-    yield put(removeTaskAC(action.taskId, action.todolistId))
 }
 
 export function* addTaskWorkerSaga(action: ReturnType<typeof addTaskWorkerSagaAC>) {

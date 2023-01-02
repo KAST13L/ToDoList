@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
 import {Navigate, Route, Routes} from "react-router-dom";
 import {CircularProgress} from "@mui/material";
-import {initializeAppWSAC, setAppErrorAC, setAppSuccessAC} from "./app-reducer";
+import {initializeAppWSAC} from "./app-reducer";
 import {AppRootStateType} from "./store";
 import {Login} from "@app/features/Auth/login.component";
 import {TodolistsList} from "@app/features/TodolistsList/todolistsList.component";
@@ -20,6 +20,8 @@ export const App: FC<AppPropsType> = ({demo = false}) => {
     const isInitialized = useSelector(selectIsInitialized)
     const dispatch = useDispatch()
 
+    if (demo) {}
+
     useEffect(() => {
         dispatch(initializeAppWSAC())
     }, [])
@@ -30,8 +32,6 @@ export const App: FC<AppPropsType> = ({demo = false}) => {
 
     return (
         <span>
-            <button onClick={()=>{dispatch(setAppErrorAC('error'))}}>error--|</button>
-            <button onClick={()=>{dispatch(setAppSuccessAC('success'))}}>--success</button>
             <ErrorSnackbar/>
             <Header/>
             <div className="mx-4 mt-6">

@@ -27,10 +27,10 @@ export const setIsLoggedInAC = (value: boolean) =>
 
 // sagas
 export function* loginWorkerSaga(action: ReturnType<typeof loginWorkerSagaAC>){
+    yield put(setAppStatusAC("loading"))
     // @ts-ignore
     const res = yield call(authAPI.login, action.data)
     try {
-        yield put(setAppStatusAC('loading'))
         if (res.data.resultCode === 0){
             yield put(setIsLoggedInAC(true))
             yield put(setAppStatusAC('succeeded'))
