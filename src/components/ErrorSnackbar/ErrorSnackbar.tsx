@@ -22,7 +22,7 @@ export function ErrorSnackbar() {
     const isOpen: boolean = !!error || !!success
 
     return (<Snackbar open={isOpen} autoHideDuration={6000} onClose={handleClose}>
-            <Alert variant='filled' severity={severity} sx={{width: '100%'}}>
+            <Alert variant='filled' severity={severity} sx={{width: '600px'}}>
                 {message}
             </Alert>
         </Snackbar>

@@ -91,11 +91,11 @@ export function* addTodolistWorkerSaga(action: ReturnType<typeof addTodolistWork
         if (res.data.resultCode === 0) {
             yield put(addTodolistAC(res.data.data.item))
         } else {
-            handleServerAppError(res.data, put)
+            handleServerAppError(res.data)
         }
     } catch (e) {
         if (axios.isAxiosError(e)) {
-            handleServerNetworkError(e, put)
+            handleServerNetworkError(e)
         }
     } finally {
         yield put(setAppStatusAC('succeeded'))

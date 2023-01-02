@@ -11,7 +11,7 @@ import {
     UpdateTaskModelType
 } from '@app/api/todolists-api'
 import {AppRootStateType} from '@app/app/store'
-import {setAppStatusAC} from '@app/app/app-reducer'
+import {setAppStatusAC, setAppSuccessAC} from '@app/app/app-reducer'
 import {handleServerAppError, handleServerNetworkError} from '@app/utils/error-utils'
 import {call, put, takeEvery} from 'redux-saga/effects';
 
@@ -20,9 +20,15 @@ const initialState: TasksStateType = {}
 export const tasksReducer = (state: TasksStateType = initialState, action: ActionsType): TasksStateType => {
     switch (action.type) {
         case 'REMOVE-TASK':
-            return {...state, [action.todolistId]: state[action.todolistId].filter(t => t.id !== action.taskId)}
+            return {
+                ...state,
+                [action.todolistId]: state[action.todolistId].filter(t => t.id !== action.taskId)
+            }
         case 'ADD-TASK':
-            return {...state, [action.task.todoListId]: [action.task, ...state[action.task.todoListId]]}
+            return {
+                ...state,
+                [action.task.todoListId]: [action.task, ...state[action.task.todoListId]]
+            }
         case 'UPDATE-TASK':
             return {
                 ...state,
@@ -50,7 +56,11 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
 }
 
 // actions
-export const removeTaskAC = (taskId: string, todolistId: string) => ({type: 'REMOVE-TASK', taskId, todolistId} as const)
+export const removeTaskAC = (taskId: string, todolistId: string) => ({
+    type: 'REMOVE-TASK',
+    taskId,
+    todolistId
+} as const)
 export const addTaskAC = (task: TaskType) => ({type: 'ADD-TASK', task} as const)
 export const updateTaskAC = (taskId: string, model: UpdateDomainTaskModelType, todolistId: string) => ({
     type: 'UPDATE-TASK',
@@ -87,11 +97,11 @@ export function* addTaskWorkerSaga(action: ReturnType<typeof addTaskWorkerSagaAC
     // @ts-ignore
     const res = yield call(todolistsAPI.createTask, action.todolistId, action.title)
     if (res.data.resultCode === 0) {
-        const task = res.data.data.item
-        yield put(addTaskAC(task))
+        yield put(addTaskAC(res.data.data.item))
         yield put(setAppStatusAC('succeeded'))
+        yield put(setAppSuccessAC('Ok'))
     } else {
-        handleServerAppError(res.data);
+        yield handleServerAppError(res.data);
     }
 }
 
@@ -128,13 +138,20 @@ export function* updateTaskWorkerSaga(action: ReturnType<typeof updateTaskWorker
 }
 
 // sagas ACs
-export const fetchTasksWorkerSagaAC = (todolistId: string) => ({type: 'TASKS/FETCH-TASKS', todolistId})
+export const fetchTasksWorkerSagaAC = (todolistId: string) => ({
+    type: 'TASKS/FETCH-TASKS',
+    todolistId
+})
 export const removeTaskWorkerSagaAC = (taskId: string, todolistId: string) => ({
     type: 'TASKS/REMOVE-TASK',
     todolistId,
     taskId
 })
-export const addTaskWorkerSagaAC = (title: string, todolistId: string) => ({type: 'TASKS/ADD-TASK', todolistId, title})
+export const addTaskWorkerSagaAC = (title: string, todolistId: string) => ({
+    type: 'TASKS/ADD-TASK',
+    todolistId,
+    title
+})
 export const updateTaskWorkerSagaAC = (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string, getState: () => AppRootStateType) => ({
     type: 'TASKS/UPDATE-TASK',
     taskId,
@@ -167,7 +184,7 @@ type ActionsType =
 
 // tasksWatcher
 
-export function* tasksWatcher(){
+export function* tasksWatcher() {
     yield takeEvery('TASKS/FETCH-TASKS', fetchTasksWorkerSaga)
     yield takeEvery('TASKS/REMOVE-TASK', removeTaskWorkerSaga)
     yield takeEvery('TASKS/ADD-TASK', addTaskWorkerSaga)
