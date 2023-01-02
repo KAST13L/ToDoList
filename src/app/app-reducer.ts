@@ -7,6 +7,7 @@ import {call, put, takeEvery} from 'redux-saga/effects';
 const initialState: InitialStateType = {
     status: 'idle',
     error: null,
+    success: null,
     isInitialized: false
 }
 
@@ -16,6 +17,8 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
             return {...state, status: action.status}
         case 'APP/SET-ERROR':
             return {...state, error: action.error}
+        case 'APP/SET-SUCCESS':
+            return {...state, error: action.success}
         case 'APP/SET-IS-INITIALIZED':
             return {...state, isInitialized: action.isInitialized}
         default:
@@ -24,6 +27,7 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 }
 // AC's
 export const setAppErrorAC = (error: string | null) => ({type: 'APP/SET-ERROR', error} as const)
+export const setAppSuccessAC = (success: string | null) => ({type: 'APP/SET-SUCCESS', success} as const)
 export const setAppStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATUS', status} as const)
 export const setIsInitialized = (isInitialized: boolean) => ({type: 'APP/SET-IS-INITIALIZED', isInitialized} as const)
 
@@ -31,6 +35,7 @@ export const setIsInitialized = (isInitialized: boolean) => ({type: 'APP/SET-IS-
 export type SetAppErrorACType = ReturnType<typeof setAppErrorAC>
 export type SetAppStatusACType = ReturnType<typeof setAppStatusAC>
 export type SetIsInitializedACType = ReturnType<typeof setIsInitialized>
+export type SetAppSuccessACType = ReturnType<typeof setAppSuccessAC>
 
 // sagas
 export function* initializeAppWS() {
@@ -40,11 +45,11 @@ export function* initializeAppWS() {
         if (data.resultCode === 0) {
             yield put(setIsLoggedInAC(true))
         } else {
-            handleServerAppError(data, put)
+            yield handleServerAppError(data)
         }
     } catch (e) {
         if (axios.isAxiosError(e)) {
-            handleServerNetworkError(e, put)
+            yield handleServerNetworkError(e)
         }
     } finally {
         yield put(setAppStatusAC("idle"))
@@ -58,13 +63,12 @@ export const initializeAppWSAC = () => ({type: 'APP/INITIALIZE'})
 // common types
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type InitialStateType = {
-    // происходит ли сейчас взаимодействие с сервером
     status: RequestStatusType
-    // если ошибка какая-то глобальная произойдёт - мы запишем текст ошибки сюда
     error: string | null
+    success: string | null
     isInitialized: boolean
 }
-type ActionsType = SetAppErrorACType | SetAppStatusACType | SetIsInitializedACType
+type ActionsType = SetAppErrorACType | SetAppStatusACType | SetIsInitializedACType | SetAppSuccessACType
 
 // appWatcher
 
