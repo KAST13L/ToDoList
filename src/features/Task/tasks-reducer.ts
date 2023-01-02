@@ -1,8 +1,18 @@
-import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType} from '../Todolist/todolists-reducer'
-import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from '../../api/todolists-api'
-import {AppRootStateType} from '../../app/store'
-import {setAppStatusAC} from '../../app/app-reducer'
-import {handleServerAppError, handleServerNetworkError} from '../../utils/error-utils'
+import {
+    AddTodolistActionType,
+    RemoveTodolistActionType,
+    SetTodolistsActionType
+} from '../Todolist/todolists-reducer'
+import {
+    TaskPriorities,
+    TaskStatuses,
+    TaskType,
+    todolistsAPI,
+    UpdateTaskModelType
+} from '@app/api/todolists-api'
+import {AppRootStateType} from '@app/app/store'
+import {setAppStatusAC} from '@app/app/app-reducer'
+import {handleServerAppError, handleServerNetworkError} from '@app/utils/error-utils'
 import {call, put, takeEvery} from 'redux-saga/effects';
 
 const initialState: TasksStateType = {}
@@ -81,7 +91,7 @@ export function* addTaskWorkerSaga(action: ReturnType<typeof addTaskWorkerSagaAC
         yield put(addTaskAC(task))
         yield put(setAppStatusAC('succeeded'))
     } else {
-        handleServerAppError(res.data, put);
+        handleServerAppError(res.data);
     }
 }
 
@@ -110,10 +120,10 @@ export function* updateTaskWorkerSaga(action: ReturnType<typeof updateTaskWorker
         if (res.data.resultCode === 0) {
             yield put(updateTaskAC(action.taskId, action.domainModel, action.todolistId))
         } else {
-            handleServerAppError(res.data, put);
+            handleServerAppError(res.data);
         }
     } catch (error: any) {
-        handleServerNetworkError(error, put);
+        handleServerNetworkError(error);
     }
 }
 

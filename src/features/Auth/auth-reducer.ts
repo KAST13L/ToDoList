@@ -1,8 +1,12 @@
-import {SetAppErrorACType, setAppStatusAC, SetAppStatusACType} from "@app/app/app-reducer";
 import {authAPI, LoginParamsType} from "@app/api/auth-api";
 import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
 import axios from "axios";
 import {call, put, takeEvery} from 'redux-saga/effects';
+import {
+    SetAppErrorACType,
+    setAppStatusAC,
+    SetAppStatusACType
+} from "@app/app/app-reducer";
 
 const initialState = {
     isLoggedIn: false
@@ -32,11 +36,11 @@ export function* loginWorkerSaga(action: ReturnType<typeof loginWorkerSagaAC>){
             yield put(setAppStatusAC('succeeded'))
 
         } else {
-            handleServerAppError(res.data, put)
+            handleServerAppError(res.data)
         }
     } catch (e) {
         if(axios.isAxiosError(e)){
-            handleServerNetworkError(e, put)
+            handleServerNetworkError(e)
         }
     } finally {
         yield put(setAppStatusAC("idle"))
@@ -51,10 +55,10 @@ export function* logoutWorkerSaga(){
             yield put(setIsLoggedInAC(false))
             yield put(setAppStatusAC('succeeded'))
         } else {
-            handleServerAppError(res.data, put)
+            handleServerAppError(res.data)
         }
     } catch (e: any){
-        handleServerNetworkError(e, put)
+        handleServerNetworkError(e)
     }
 }
 
