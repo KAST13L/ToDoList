@@ -28,11 +28,11 @@ export const Header = () => {
 
     return (
         <AppBar position={'static'} color='default'>
-            <div className='flex justify-between items-center p-3 text-center smw:flex-col'>
+            <div className='flex h-[90px] justify-between items-center p-3 text-center smw:flex-col'>
                 {!isLoggedIn && <div></div>}
                 <span className='flex justify-between smd:flex-col smw:mb-2'>
                     <span className='text-5xl smd:mb-3'>TODOLIST</span>
-                    <span className='px-3'>{isLoggedIn && <AddItemForm addItem={addTodolist}/>}</span>
+                    <span className='px-3 h-[10px]'>{isLoggedIn && <AddItemForm addItem={addTodolist}/>}</span>
                 </span>
                 <span>
                     {isLoggedIn && <Button onClick={logoutClick} color={'error'} variant={'contained'}>Log out</Button>}
