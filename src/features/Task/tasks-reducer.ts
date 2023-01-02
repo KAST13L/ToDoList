@@ -78,10 +78,16 @@ export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) => ({
 export function* fetchTasksWorkerSaga(action: ReturnType<typeof fetchTasksWorkerSagaAC>) {
     yield put(setAppStatusAC('loading'))
     // @ts-ignore
-    const data: GetTasksResponse = yield call(todolistsAPI.getTasks, action.todolistId)
-    const tasks = data.items
-    yield put(setTasksAC(tasks, action.todolistId))
-    yield put(setAppStatusAC('succeeded'))
+    const data = yield call(todolistsAPI.getTasks, action.todolistId)
+    try {
+        yield put(setTasksAC(data.items, action.todolistId))
+        yield put(setAppStatusAC('succeeded'))
+    } catch (e: any) {
+        handleServerNetworkError(e)
+    } finally {
+        yield put(setAppStatusAC('idle'))
+    }
+
 }
 
 export function* removeTaskWorkerSaga(action: ReturnType<typeof removeTaskWorkerSagaAC>) {
