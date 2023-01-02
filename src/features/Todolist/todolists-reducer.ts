@@ -1,8 +1,8 @@
-import {todolistsAPI, TodolistType} from '../../api/todolists-api'
-import {RequestStatusType, setAppStatusAC} from '../../app/app-reducer'
 import {call, put, takeEvery} from 'redux-saga/effects'
 import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
 import axios from "axios";
+import {TodolistType} from "@app/api/todolists-api";
+import {RequestStatusType, setAppStatusAC} from "@app/app/app-reducer";
 
 const initialState: Array<TodolistDomainType> = []
 
@@ -13,13 +13,26 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
         case 'ADD-TODOLIST':
             return [{...action.todolist, filter: 'all', entityStatus: 'idle'}, ...state]
         case 'CHANGE-TODOLIST-TITLE':
-            return state.map(tl => tl.id === action.id ? {...tl, title: action.title} : tl)
+            return state.map(tl => tl.id === action.id ? {
+                ...tl,
+                title: action.title
+            } : tl)
         case 'CHANGE-TODOLIST-FILTER':
-            return state.map(tl => tl.id === action.id ? {...tl, filter: action.filter} : tl)
+            return state.map(tl => tl.id === action.id ? {
+                ...tl,
+                filter: action.filter
+            } : tl)
         case 'CHANGE-TODOLIST-ENTITY-STATUS':
-            return state.map(tl => tl.id === action.id ? {...tl, entityStatus: action.status} : tl)
+            return state.map(tl => tl.id === action.id ? {
+                ...tl,
+                entityStatus: action.status
+            } : tl)
         case 'SET-TODOLISTS':
-            return action.todolists.map(tl => ({...tl, filter: 'all', entityStatus: 'idle'}))
+            return action.todolists.map(tl => ({
+                ...tl,
+                filter: 'all',
+                entityStatus: 'idle'
+            }))
         default:
             return state
     }
@@ -27,7 +40,10 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
 
 // actions
 export const removeTodolistAC = (id: string) => ({type: 'REMOVE-TODOLIST', id} as const)
-export const addTodolistAC = (todolist: TodolistType) => ({type: 'ADD-TODOLIST', todolist} as const)
+export const addTodolistAC = (todolist: TodolistType) => ({
+    type: 'ADD-TODOLIST',
+    todolist
+} as const)
 export const changeTodolistTitleAC = (id: string, title: string) => ({
     type: 'CHANGE-TODOLIST-TITLE',
     id,
@@ -39,8 +55,12 @@ export const changeTodolistFilterAC = (id: string, filter: FilterValuesType) => 
     filter
 } as const)
 export const changeTodolistEntityStatusAC = (id: string, status: RequestStatusType) => ({
-    type: 'CHANGE-TODOLIST-ENTITY-STATUS', id, status } as const)
-export const setTodolistsAC = (todolists: Array<TodolistType>) => ({type: 'SET-TODOLISTS', todolists} as const)
+    type: 'CHANGE-TODOLIST-ENTITY-STATUS', id, status
+} as const)
+export const setTodolistsAC = (todolists: Array<TodolistType>) => ({
+    type: 'SET-TODOLISTS',
+    todolists
+} as const)
 
 // sagas
 export function* fetchTodolistsWorkerSaga() {
@@ -50,26 +70,29 @@ export function* fetchTodolistsWorkerSaga() {
     yield put(setTodolistsAC(res.data))
     yield put(setAppStatusAC('succeeded'))
 }
-export function* removeTodolistWorkerSaga(action: ReturnType<typeof removeTodolistWorkerSagaAC>){
+
+export function* removeTodolistWorkerSaga(action: ReturnType<typeof removeTodolistWorkerSagaAC>) {
     yield put(setAppStatusAC('loading'))
     yield put(changeTodolistEntityStatusAC(action.todolistId, 'loading'))
     // @ts-ignore
     const res = yield call(todolistsAPI.deleteTodolist, action.todolistId)
-    if (res) {}
+    if (res) {
+    }
     yield put(removeTodolistAC(action.todolistId))
     yield put(setAppStatusAC('succeeded'))
 }
-export function* addTodolistWorkerSaga(action: ReturnType<typeof addTodolistWorkerSagaAC>){
+
+export function* addTodolistWorkerSaga(action: ReturnType<typeof addTodolistWorkerSagaAC>) {
     yield put(setAppStatusAC('loading'))
     // @ts-ignore
     const res = yield call(todolistsAPI.createTodolist, action.title)
     console.dir(res)
     try {
-         if (res.data.resultCode === 0) {
-             yield put(addTodolistAC(res.data.data.item))
-         } else {
-             handleServerAppError(res.data, put)
-         }
+        if (res.data.resultCode === 0) {
+            yield put(addTodolistAC(res.data.data.item))
+        } else {
+            handleServerAppError(res.data, put)
+        }
     } catch (e) {
         if (axios.isAxiosError(e)) {
             handleServerNetworkError(e, put)
@@ -78,18 +101,30 @@ export function* addTodolistWorkerSaga(action: ReturnType<typeof addTodolistWork
         yield put(setAppStatusAC('succeeded'))
     }
 }
-export function* changeTodolistTitleWorkerSaga(action: ReturnType<typeof changeTodolistTitleWorkerSagaAC>){
+
+export function* changeTodolistTitleWorkerSaga(action: ReturnType<typeof changeTodolistTitleWorkerSagaAC>) {
     // @ts-ignore
     const res = yield call(todolistsAPI.updateTodolist, action.id, action.title)
-    if (res) {}
+    if (res) {
+    }
     yield put(changeTodolistTitleAC(action.id, action.title))
 }
 
 // sagas ACs
-export const fetchTodolistsWorkerSagaAC = () => ({type:'TODO/FETCH-TODOLISTS'})
-export const removeTodolistWorkerSagaAC = (todolistId: string) => ({type:'TODO/REMOVE-TODOLIST', todolistId})
-export const addTodolistWorkerSagaAC = (title: string) => ({type:'TODO/ADD-TODOLIST', title})
-export const changeTodolistTitleWorkerSagaAC = (id: string, title: string) => ({type:'TODO/CHANGE-TODOLIST-TITLE', id, title})
+export const fetchTodolistsWorkerSagaAC = () => ({type: 'TODO/FETCH-TODOLISTS'})
+export const removeTodolistWorkerSagaAC = (todolistId: string) => ({
+    type: 'TODO/REMOVE-TODOLIST',
+    todolistId
+})
+export const addTodolistWorkerSagaAC = (title: string) => ({
+    type: 'TODO/ADD-TODOLIST',
+    title
+})
+export const changeTodolistTitleWorkerSagaAC = (id: string, title: string) => ({
+    type: 'TODO/CHANGE-TODOLIST-TITLE',
+    id,
+    title
+})
 
 // types
 export type AddTodolistActionType = ReturnType<typeof addTodolistAC>;
@@ -110,7 +145,7 @@ export type TodolistDomainType = TodolistType & {
 
 // todolistsWatcher
 
-export function* todolistsWatcher(){
+export function* todolistsWatcher() {
     yield takeEvery('TODO/FETCH-TODOLISTS', fetchTodolistsWorkerSaga)
     yield takeEvery('TODO/REMOVE-TODOLIST', removeTodolistWorkerSaga)
     yield takeEvery('TODO/ADD-TODOLIST', addTodolistWorkerSaga)
