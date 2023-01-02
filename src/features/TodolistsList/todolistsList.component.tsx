@@ -73,7 +73,6 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
         {
             todolists.map(tl => {
                 let allTodolistTasks = tasks[tl.id]
-
                 return <Todolist
                     key={tl.id}
                     todolist={tl}
