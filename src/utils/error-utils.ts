@@ -2,7 +2,7 @@ import {setAppErrorAC, SetAppErrorACType, setAppStatusAC, SetAppStatusACType} fr
 import {ResponseType} from '../api/todolists-api'
 import {Dispatch} from 'redux'
 
-export function* handleServerAppError <D>(data: ResponseType<D>, dispatch: Dispatch<SetAppErrorACType | SetAppStatusACType>) {
+export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: Dispatch<SetAppErrorACType | SetAppStatusACType>) => {
     if (data.messages.length) {
         dispatch(setAppErrorAC(data.messages[0]))
     } else {

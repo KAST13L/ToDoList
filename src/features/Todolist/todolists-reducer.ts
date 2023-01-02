@@ -1,8 +1,8 @@
 import {call, put, takeEvery} from 'redux-saga/effects'
 import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
 import axios from "axios";
-import {TodolistType} from "@app/api/todolists-api";
 import {RequestStatusType, setAppStatusAC} from "@app/app/app-reducer";
+import {TodolistType, todolistsAPI} from "@app/api/todolists-api";
 
 const initialState: Array<TodolistDomainType> = []
 
