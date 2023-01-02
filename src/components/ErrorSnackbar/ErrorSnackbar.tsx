@@ -15,8 +15,8 @@ export function ErrorSnackbar() {
     const message = success ? success : error
 
     const handleClose = async () => {
-        error && dispatch(setAppErrorAC(null))
         success && dispatch(setAppSuccessAC(null))
+        error && dispatch(setAppErrorAC(null))
     }
 
     const isOpen: boolean = !!error || !!success

@@ -36,10 +36,9 @@ export const Header = () => {
                 </span>
                 <span>
                     {isLoggedIn && <Button onClick={logoutClick} color={'error'} variant={'contained'}>Log out</Button>}
-                    {status === 'loading' && <LinearProgress/>}
                 </span>
-
             </div>
+            <span className='h-[3px]'>{status === 'loading' && <LinearProgress/>}</span>
         </AppBar>
 
     );
