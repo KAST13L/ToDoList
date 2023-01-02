@@ -67,8 +67,7 @@ export function* fetchTodolistsWorkerSaga() {
     // @ts-ignore
     const res = yield call(todolistsAPI.getTodolists)
     try {
-        if (res) {
-        }
+        if (res) {}
         yield put(setTodolistsAC(res.data))
         yield put(setAppStatusAC('succeeded'))
     } catch (e: any) {
@@ -124,7 +123,7 @@ export function* changeTodolistTitleWorkerSaga(action: ReturnType<typeof changeT
             yield put(setAppStatusAC('succeeded'))
             yield put(setAppSuccessAC('Todolist title changed!'))
         } else {
-            handleServerAppError(res.data)
+            yield handleServerAppError(res.data)
         }
     } catch (e: any) {
         handleServerNetworkError(e)
