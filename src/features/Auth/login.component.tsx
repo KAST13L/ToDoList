@@ -1,98 +1,88 @@
-import React from 'react'
-import Grid from '@mui/material/Grid';
-import Checkbox from '@mui/material/Checkbox';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import FormLabel from '@mui/material/FormLabel';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import {useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
-import {Navigate} from "react-router-dom";
-import {loginWorkerSagaAC} from "./auth-reducer";
+import {useFormik} from "formik";
 import {AppRootStateType} from "@app/app/store";
+import Paper from "@mui/material/Paper";
+import {FormControl, FormControlLabel, FormGroup, FormLabel} from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Checkbox from "@mui/material/Checkbox";
+import Button from "@mui/material/Button";
+import {Navigate} from "react-router-dom";
+import {loginWorkerSagaAC} from "@app/features/Auth/auth-reducer";
+
+
+type FormValuesType = {
+    email: string
+    password: string
+    rememberMe: boolean
+}
 
 export const Login = () => {
 
-    const dispatch = useDispatch()
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
-
-    type FormikErrorType = {
-        email?: string
-        password?: string
-        rememberMe?: boolean
-    }
+    const dispatch = useDispatch()
 
     const formik = useFormik({
-        initialValues: {
-            email: '',
-            password: '',
-            rememberMe: false
-        },
         validate: (values) => {
-            const errors: FormikErrorType = {}
             if (!values.email) {
-                errors.email = 'Required'
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = 'Invalid email address'
+                return {
+                    email: 'Email is required'
+                }
             }
             if (!values.password) {
-                errors.password = 'Required'
-            } else if (values.password.length < 3) {
-                errors.password = 'Invalid password'
+                return {
+                    password: 'Password is required'
+                }
             }
-            return errors
+
         },
-        onSubmit: values => {
-            dispatch(loginWorkerSagaAC(values))
-            formik.resetForm()
+        initialValues: {
+            email: 'free@samuraijs.com',
+            password: 'free',
+            rememberMe: false
+        },
+        onSubmit: (values: FormValuesType) => {
+            dispatch(loginWorkerSagaAC(values));
         },
     })
 
-    if (isLoggedIn){
+    if (isLoggedIn) {
         return <Navigate to={'/'}/>
     }
 
-    return <Grid container justifyContent={'center'}>
-        <Grid item justifyContent={'center'}>
-            <form onSubmit={formik.handleSubmit}>
-                <FormControl>
-                    <FormLabel>
-                        <h1 style={{textAlign: 'center'}}>
-                            -- Login --
-                        </h1>
-                    </FormLabel>
-                    <FormGroup>
-                        <TextField
-                            label="Email"
-                            margin="normal"
-                            {...formik.getFieldProps('email')}
-                        />
-                        {formik.touched.email && formik.errors.email ?
-                            <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
-                        <TextField
-                            type="password"
-                            label="Password"
-                            margin="normal"
-                            {...formik.getFieldProps('password')}
-                        />
-                        {formik.touched.password && formik.errors.password ?
-                            <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
-                        <FormControlLabel
-                            label={'Remember me'}
-                            control={<Checkbox
-                                checked={formik.values.rememberMe}
-                                {...formik.getFieldProps('rememberMe')}
-                            />}
-                        />
-                        <Button
-                            type={'submit'} variant={'contained'} color={'primary'}>
-                            Login
-                        </Button>
-                    </FormGroup>
-                </FormControl>
-            </form>
-        </Grid>
-    </Grid>
+    return <span className='flex justify-center'>
+        <form onSubmit={formik.handleSubmit}>
+            <FormControl>
+                <h2 className='font-semibold text-3xl'>Login</h2>
+                <FormGroup>
+                    <TextField
+                        label="Email"
+                        margin="normal"
+                        {...formik.getFieldProps("email")}
+                    />
+                    <TextField
+                        type="password"
+                        label="Password"
+                        margin="normal"
+                        {...formik.getFieldProps("password")}
+                    />
+                    <FormControlLabel
+                        label={'Remember me'}
+                        control={<Checkbox
+                            {...formik.getFieldProps("rememberMe")}
+                            checked={formik.values.rememberMe}
+                        />}
+                    />
+                    <Button type={'submit'} variant={'contained'} color={'primary'}
+                            style={{marginBottom: '10px'}}>Login</Button>
+                </FormGroup>
+                <FormLabel>
+                    <p>To log in get registered <a
+                        href={'https://social-network.samuraijs.com/'}
+                        target={'_blank'}>here</a></p>
+                    <p>or use common test account credentials:</p>
+                    <p> Email: free@samuraijs.com</p>
+                    <p>Password: free</p>
+                </FormLabel></FormControl></form>
+    </span>
 }
+
