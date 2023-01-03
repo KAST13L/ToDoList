@@ -1,22 +1,13 @@
 {
   "files": {
-    "main.css": "/todolist/static/css/main.c625b8eb.chunk.css",
-    "main.js": "/todolist/static/js/main.30a3842d.chunk.js",
-    "main.js.map": "/todolist/static/js/main.30a3842d.chunk.js.map",
-    "runtime-main.js": "/todolist/static/js/runtime-main.e7725399.js",
-    "runtime-main.js.map": "/todolist/static/js/runtime-main.e7725399.js.map",
-    "static/js/2.1d775dab.chunk.js": "/todolist/static/js/2.1d775dab.chunk.js",
-    "static/js/2.1d775dab.chunk.js.map": "/todolist/static/js/2.1d775dab.chunk.js.map",
-    "index.html": "/todolist/index.html",
-    "precache-manifest.6a96b8ec62cadc54922fb1d3b2da0415.js": "/todolist/precache-manifest.6a96b8ec62cadc54922fb1d3b2da0415.js",
-    "service-worker.js": "/todolist/service-worker.js",
-    "static/css/main.c625b8eb.chunk.css.map": "/todolist/static/css/main.c625b8eb.chunk.css.map",
-    "static/js/2.1d775dab.chunk.js.LICENSE.txt": "/todolist/static/js/2.1d775dab.chunk.js.LICENSE.txt"
+    "main.css": "/saga-with-rtk/static/css/main.124ecf4b.css",
+    "main.js": "/saga-with-rtk/static/js/main.53c8d769.js",
+    "index.html": "/saga-with-rtk/index.html",
+    "main.124ecf4b.css.map": "/saga-with-rtk/static/css/main.124ecf4b.css.map",
+    "main.53c8d769.js.map": "/saga-with-rtk/static/js/main.53c8d769.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.e7725399.js",
-    "static/js/2.1d775dab.chunk.js",
-    "static/css/main.c625b8eb.chunk.css",
-    "static/js/main.30a3842d.chunk.js"
+    "static/css/main.124ecf4b.css",
+    "static/js/main.53c8d769.js"
   ]
 }
