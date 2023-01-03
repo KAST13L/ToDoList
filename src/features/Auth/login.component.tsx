@@ -36,8 +36,8 @@ export const Login = () => {
 
         },
         initialValues: {
-            email: 'free@samuraijs.com',
-            password: 'free',
+            email: 'smykdav@gmail.com',
+            password: 'asdasdasd',
             rememberMe: false
         },
         onSubmit: (values: FormValuesType) => {
@@ -80,12 +80,15 @@ export const Login = () => {
                             style={{marginBottom: '10px'}}>Login</Button>
                 </FormGroup>
                 <FormLabel>
+                    <span className='text-center m-2 '>
                     <p>To log in get registered <a
                         href={'https://social-network.samuraijs.com/'}
                         target={'_blank'}>here</a></p>
-                    <p>or use common test account credentials:</p>
-                    <p> Email: free@samuraijs.com</p>
-                    <p>Password: free</p>
+                        <p>or use common test account credentials:</p><hr className='m-2'/>
+                        <p>Email: smykdav@gmail.com</p>
+                        <p>Password: asdasdasd</p>
+                    </span>
+
                 </FormLabel></FormControl></form></Paper>
     </span>
 }
