@@ -7,10 +7,10 @@ import {store} from './app/store';
 import {HashRouter} from "react-router-dom";
 
 ReactDOM.render(
-    <Provider store={store}>
         <HashRouter>
-            <App/>
-        </HashRouter>
-    </Provider>,
+            <Provider store={store}>
+                <App/>
+            </Provider>
+        </HashRouter>,
     document.getElementById('root')
 );
