@@ -1,5 +1,4 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useFormik} from "formik";
 import {AppRootStateType} from "@app/app/store";
 import Paper from "@mui/material/Paper";
 import {FormControl, FormControlLabel, FormGroup, FormLabel} from "@mui/material";
@@ -8,6 +7,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import {Navigate} from "react-router-dom";
 import {loginWorkerSagaAC} from "@app/features/Auth/auth-reducer";
+import {useFormik} from "formik";
 
 
 type FormValuesType = {
