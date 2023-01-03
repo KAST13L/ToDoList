@@ -1,7 +1,7 @@
 {
-  "name": "saga-with-rtk",
+  "name": "saga-without-rtk",
   "version": "0.1.0",
-  "homepage": "https://kast13l.github.io/saga-with-rtk",
+  "homepage": "https://kast13l.github.io/saga-without-rtk",
   "private": true,
   "dependencies": {
     "@craco/craco": "^7.0.0",
@@ -19,6 +19,7 @@
     "@types/react-redux": "^7.1.18",
     "add": "^2.0.6",
     "axios": "^0.22.0",
+    "caniuse-lite": "^1.0.30001441",
     "craco": "^0.0.3",
     "formik": "^2.2.9",
     "gh-pages": "^4.0.0",
