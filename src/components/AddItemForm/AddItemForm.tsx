@@ -1,25 +1,24 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
-import {IconButton, TextField} from '@material-ui/core'
-import AddBox from '@material-ui/icons/AddBox'
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import { AddBox } from '@mui/icons-material';
 
-export type AddItemFormSubmitHelperType = { setError: (error: string) => void, setTitle: (title: string) => void }
 type AddItemFormPropsType = {
-    addItem: (title: string, helper: AddItemFormSubmitHelperType) => void
+    addItem: (title: string) => void
     disabled?: boolean
 }
 
 export const AddItemForm = React.memo(function ({addItem, disabled = false}: AddItemFormPropsType) {
+
     let [title, setTitle] = useState('')
     let [error, setError] = useState<string | null>(null)
 
-    const addItemHandler = async () => {
+    const addItemHandler = () => {
         if (title.trim() !== '') {
-            addItem(title, {setError, setTitle})
+            addItem(title);
+            setTitle('');
         } else {
-            setError('Title is required')
-            setTimeout(() => {
-                setError(null)
-            }, 5000)
+            setError('Title is required');
         }
     }
 
@@ -29,14 +28,14 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (error !== null) {
-            setError(null)
+            setError(null);
         }
         if (e.charCode === 13) {
-            addItemHandler()
+            addItemHandler();
         }
     }
 
-    return <div style={{padding: '0 5px 0 20px'}}>
+    return <div>
         <TextField variant="outlined"
                    disabled={disabled}
                    error={!!error}
@@ -44,11 +43,10 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
                    onChange={onChangeHandler}
                    onKeyPress={onKeyPressHandler}
                    label="Title"
-                   style={{width:'220px'}}
+                   helperText={error}
         />
-        <IconButton color="primary" onClick={addItemHandler} disabled={disabled} style={{marginLeft: '5px'}}>
-            <div style={{position:'absolute', right:"40px", top:'14px'}}><AddBox/></div>
+        <IconButton color="primary" onClick={addItemHandler} disabled={disabled}>
+            <AddBox/>
         </IconButton>
-        <div style={{height: '1px', fontSize: '13px', color: 'red', padding: '0 0 10px 10px'}}>{error}</div>
     </div>
 })

@@ -1,28 +1,34 @@
-import {combineReducers} from 'redux'
+import {tasksReducer, tasksWatcher} from '../features/Task/tasks-reducer';
+import {todolistsReducer, todolistsWatcher} from '../features/Todolist/todolists-reducer';
+import {applyMiddleware, combineReducers, createStore} from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import {appReducer} from '../features/Application'
-import {authReducer} from '../features/Auth'
-import {tasksReducer, todolistsReducer} from '../features/TodolistsList'
-import {configureStore} from '@reduxjs/toolkit'
+import {authReducer, authWatcher} from "../features/Auth/auth-reducer";
+import createSagaMiddleware from 'redux-saga';
+import {all} from 'redux-saga/effects';
+import {appReducer, appWatcher} from './app-reducer'
 
-// обєднуємо редюсери за допомогою combineReducers,
-export const rootReducer = combineReducers({
+const sagaMiddleware = createSagaMiddleware()
+
+const rootReducer = combineReducers({
     app: appReducer,
     auth: authReducer,
-    todolists: todolistsReducer,
-    tasks: tasksReducer
-})
-// створюємо store
-//export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
-
-// особливості створення стору з використанням redux-toolkit
-export const store = configureStore({
-    reducer: rootReducer,
-    middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware)
+    tasks: tasksReducer,
+    todolists: todolistsReducer
 })
 
+export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, sagaMiddleware));
+export type AppRootStateType = ReturnType<typeof rootReducer>
 
-// а це для того щоб можна було в консолі звернутися до store
+sagaMiddleware.run(rootWatcher)
+
+function* rootWatcher() {
+    yield all([
+        appWatcher(),
+        tasksWatcher(),
+        authWatcher(),
+        todolistsWatcher()
+    ])
+  }
+
 // @ts-ignore
-window.store = store
-
+window.store = store;

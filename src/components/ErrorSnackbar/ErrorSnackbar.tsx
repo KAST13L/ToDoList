@@ -1,35 +1,31 @@
-import React from 'react'
-import Snackbar from '@material-ui/core/Snackbar'
-import MuiAlert, {AlertProps} from '@material-ui/lab/Alert'
-import {useSelector} from 'react-redux'
-import {appActions} from '../../features/CommonActions/App'
-import {AppRootStateType} from '../../utils/types'
-import {useActions} from '../../utils/redux-utils'
-
-function Alert(props: AlertProps) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />
-}
+import React from 'react';
+import Snackbar from '@mui/material/Snackbar';
+import Alert, {AlertColor} from '@mui/material/Alert';
+import {useDispatch, useSelector} from 'react-redux';
+import {setAppErrorAC, setAppSuccessAC} from "@app/app/app-reducer";
+import {AppRootStateType} from "@app/app/store";
 
 export function ErrorSnackbar() {
-    //const [open, setOpen] = React.useState(true)
-    const error = useSelector<AppRootStateType, string | null>(state => state.app.error);
-    const {setAppError} = useActions(appActions)
+    const error = useSelector<AppRootStateType, string | null>(state => state.app.error)
+    const success = useSelector<AppRootStateType, string | null>(state => state.app.success)
 
-    const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
-        if (reason === 'clickaway') {
-            return
-        }
-        setAppError({error: null});
+    const dispatch = useDispatch();
+
+    const severity: AlertColor = error ? 'error' : 'success'
+    const message = error ? error : success
+    const visualTime = error ? 6000 : 2000
+
+    const handleClose = async () => {
+        success && dispatch(setAppSuccessAC(null))
+        error && dispatch(setAppErrorAC(null))
     }
 
+    const isOpen: boolean = !!error || !!success
 
-    const isOpen = error !== null;
-
-    return (
-        <Snackbar open={isOpen} autoHideDuration={6000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="error">
-                {error}
+    return (<Snackbar open={isOpen} autoHideDuration={visualTime} onClose={handleClose}>
+            <Alert variant='filled' severity={severity} sx={{width: '600px'}}>
+                {message}
             </Alert>
         </Snackbar>
-    )
+    );
 }
