@@ -11,8 +11,9 @@ export function ErrorSnackbar() {
 
     const dispatch = useDispatch();
 
-    const severity: AlertColor = success ? 'success' : 'error'
-    const message = success ? success : error
+    const severity: AlertColor = error ? 'error' : 'success'
+    const message = error ? error : success
+    const visualTime = error ? 6000 : 2000
 
     const handleClose = async () => {
         success && dispatch(setAppSuccessAC(null))
@@ -21,7 +22,7 @@ export function ErrorSnackbar() {
 
     const isOpen: boolean = !!error || !!success
 
-    return (<Snackbar open={isOpen} autoHideDuration={6000} onClose={handleClose}>
+    return (<Snackbar open={isOpen} autoHideDuration={visualTime} onClose={handleClose}>
             <Alert variant='filled' severity={severity} sx={{width: '600px'}}>
                 {message}
             </Alert>

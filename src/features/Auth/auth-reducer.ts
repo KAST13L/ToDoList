@@ -4,7 +4,7 @@ import {call, put, takeEvery} from 'redux-saga/effects';
 import {
     SetAppErrorACType,
     setAppStatusAC,
-    SetAppStatusACType
+    SetAppStatusACType, setAppSuccessAC
 } from "@app/app/app-reducer";
 
 const initialState = {
@@ -34,6 +34,7 @@ export function* loginWorkerSaga(action: ReturnType<typeof loginWorkerSagaAC>){
         if (res.data.resultCode === 0){
             yield put(setIsLoggedInAC(true))
             yield put(setAppStatusAC('succeeded'))
+            yield put(setAppSuccessAC('You are authorized!'))
         } else {
             yield handleServerAppError(res.data)
         }
@@ -51,6 +52,7 @@ export function* logoutWorkerSaga(){
         if (res.data.resultCode === 0) {
             yield put(setIsLoggedInAC(false))
             yield put(setAppStatusAC('succeeded'))
+            yield put(setAppSuccessAC('You are signed out!'))
         } else {
             yield handleServerAppError(res.data)
         }
