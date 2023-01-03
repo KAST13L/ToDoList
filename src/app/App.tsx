@@ -27,7 +27,7 @@ export const App: FC<AppPropsType> = ({demo = false}) => {
     }, [])
 
     if (!isInitialized) {
-        return <CircularProgress className=" fixed w-[100%] text-center top-[30%]"/>
+        return <CircularProgress className="fixed w-[100%] text-center top-[30%]"/>
     }
 
     return (

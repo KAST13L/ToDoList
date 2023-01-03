@@ -1,6 +1,7 @@
 {
-  "name": "todo16v2",
+  "name": "saga-with-rtk",
   "version": "0.1.0",
+  "homepage": "https://kast13l.github.io/saga-with-rtk",
   "private": true,
   "dependencies": {
     "@craco/craco": "^7.0.0",
