@@ -3,12 +3,12 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import { AddBox } from '@mui/icons-material';
 
-type AddItemFormPropsType = {
+interface AddItemFormPropsType {
     addItem: (title: string) => void
     disabled?: boolean
 }
 
-export const AddItemForm = React.memo(function ({addItem, disabled = false}: AddItemFormPropsType) {
+export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo(function ({addItem, disabled = false}) {
 
     let [title, setTitle] = useState('')
     let [error, setError] = useState<string | null>(null)
@@ -20,6 +20,10 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
         } else {
             setError('Title is required');
         }
+        setTimeout(()=>{
+            setError(null)
+        },4000)
+
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,18 +39,22 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
         }
     }
 
-    return <div>
+    return <div className="relative w-[240px]" >
         <TextField variant="outlined"
+                   fullWidth
                    disabled={disabled}
                    error={!!error}
                    value={title}
                    onChange={onChangeHandler}
                    onKeyPress={onKeyPressHandler}
                    label="Title"
-                   helperText={error}
         />
-        <IconButton color="primary" onClick={addItemHandler} disabled={disabled}>
-            <AddBox/>
-        </IconButton>
+        <div className='absolute left-[12.5rem] top-[8px]'>
+            <IconButton color="primary"
+                        onClick={addItemHandler}
+                        disabled={disabled}>
+                <AddBox/>
+            </IconButton>
+        </div>
     </div>
 })
