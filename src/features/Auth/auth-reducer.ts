@@ -35,10 +35,10 @@ export function* loginWorkerSaga(action: ReturnType<typeof loginWorkerSagaAC>){
             yield put(setIsLoggedInAC(true))
             yield put(setAppStatusAC('succeeded'))
         } else {
-            handleServerAppError(res.data)
+            yield handleServerAppError(res.data)
         }
     } catch (e: any) {
-        handleServerNetworkError(e)
+        yield handleServerNetworkError(e)
     } finally {
         yield put(setAppStatusAC("idle"))
     }

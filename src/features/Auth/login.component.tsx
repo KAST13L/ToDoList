@@ -50,9 +50,13 @@ export const Login = () => {
     }
 
     return <span className='flex justify-center'>
-        <form onSubmit={formik.handleSubmit}>
+        <Paper elevation={6}
+               className=' flex justify-center items-center w-[400px] h-[500px]'><form
+            onSubmit={formik.handleSubmit}>
             <FormControl>
-                <h2 className='font-semibold text-3xl'>Login</h2>
+                <span className='flex justify-center '>
+                    <h2 className='font-serif text-4xl mb-4'>Login</h2>
+                </span>
                 <FormGroup>
                     <TextField
                         label="Email"
@@ -82,7 +86,7 @@ export const Login = () => {
                     <p>or use common test account credentials:</p>
                     <p> Email: free@samuraijs.com</p>
                     <p>Password: free</p>
-                </FormLabel></FormControl></form>
+                </FormLabel></FormControl></form></Paper>
     </span>
 }
 

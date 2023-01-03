@@ -45,7 +45,7 @@ export function* initializeAppWS() {
         if (data.resultCode === 0) {
             yield put(setIsLoggedInAC(true))
         } else {
-            yield handleServerAppError(data)
+            /*yield handleServerAppError(data)*/
         }
     } catch (e) {
         if (axios.isAxiosError(e)) {
