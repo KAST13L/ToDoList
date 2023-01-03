@@ -38,5 +38,5 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
             onKeyPress={onKeyPressHandler}
             onBlur={activateViewMode}
         />
-        : <span onDoubleClick={activateEditMode}>{props.value}</span>
+        : <div  onDoubleClick={activateEditMode}>{props.value}</div>
 });

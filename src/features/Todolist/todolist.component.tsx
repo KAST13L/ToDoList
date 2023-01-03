@@ -62,17 +62,17 @@ export const Todolist: FC<PropsType> = React.memo(function ({demo = false, ...pr
     }
 
     return <Paper elevation={8} className='w-[290px] m-4 p-4'>
-            <div className='relative w-[250px] text-2xl font-extrabold'>
-                    <EditableSpan value={props.todolist.title}
-                                  onChange={changeTodolistTitle}/>
-                <span className='absolute left-[235px] top-[-17px]'>
+        <div className='relative w-[250px] text-2xl font-extrabold'>
+            <EditableSpan value={props.todolist.title}
+                          onChange={changeTodolistTitle}/>
+            <span className='absolute left-[235px] top-[-17px]'>
                     <IconButton onClick={removeTodolist}
                                 disabled={props.todolist.entityStatus === 'loading'}>
                         <Delete/>
                     </IconButton>
                 </span>
-            </div>
-        <div className='ml-[5px] my-2'>
+        </div>
+        <div className='ml-[6px] my-2'>
             <AddItemForm addItem={addTask}
                          disabled={props.todolist.entityStatus === 'loading'}/>
             {
@@ -84,7 +84,6 @@ export const Todolist: FC<PropsType> = React.memo(function ({demo = false, ...pr
                 />)
             }
         </div>
-
         <span>
             <Button variant={props.todolist.filter === 'all' ? 'outlined' : 'text'}
                     onClick={onAllClickHandler}
