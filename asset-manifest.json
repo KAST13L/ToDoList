@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/saga-with-rtk/static/css/main.124ecf4b.css",
-    "main.js": "/saga-with-rtk/static/js/main.53c8d769.js",
-    "index.html": "/saga-with-rtk/index.html",
-    "main.124ecf4b.css.map": "/saga-with-rtk/static/css/main.124ecf4b.css.map",
-    "main.53c8d769.js.map": "/saga-with-rtk/static/js/main.53c8d769.js.map"
+    "main.css": "/saga-without-rtk/static/css/main.124ecf4b.css",
+    "main.js": "/saga-without-rtk/static/js/main.53c8d769.js",
+    "index.html": "/saga-without-rtk/index.html",
+    "main.124ecf4b.css.map": "/saga-without-rtk/static/css/main.124ecf4b.css.map",
+    "main.53c8d769.js.map": "/saga-without-rtk/static/js/main.53c8d769.js.map"
   },
   "entrypoints": [
     "static/css/main.124ecf4b.css",
