@@ -35,14 +35,14 @@ export const App: FC<AppPropsType> = ({demo = false}) => {
         <span>
             <ErrorSnackbar/>
             <Header/>
-            <span>
+            <div className='mx-8'>
                 <Routes>
                     <Route path='/todolist' element={<TodolistsList/>}/>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/404' element={<h1>404: PAGE NOT FOUND</h1>}/>
                     <Route path='*' element={<Navigate to={'/404'}/>}/>
                 </Routes>
-            </span>
+            </div>
         </span>
     )
 }
