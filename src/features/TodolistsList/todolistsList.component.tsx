@@ -69,7 +69,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
         return <Navigate to={'/login'}/>
     }
 
-    return <Grid container className='flex justify-around items-start' >
+    return <Grid container className='flex justify-evenly items-start' >
         {
             todolists.map(tl => {
                 let allTodolistTasks = tasks[tl.id]

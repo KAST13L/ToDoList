@@ -24,22 +24,25 @@ export const Task = React.memo((props: TaskPropsType) => {
         props.changeTaskTitle(props.task.id, newValue, props.todolistId)
     }, [props.task.id, props.todolistId]);
 
+    const disabledTask = props.task.status === TaskStatuses.Completed ? 'line-through text-zinc-600' : ''
+
     return <div key={props.task.id}
                 className='flex items-start'
-                /*className={props.task.status === TaskStatuses.Completed ? 'is-done' : ''}*/>
+        /*className={props.task.status === TaskStatuses.Completed ? 'is-done' : ''}*/>
         <Checkbox
             checked={props.task.status === TaskStatuses.Completed}
             color="primary"
             onChange={onChangeHandler}
         />
         <span className='relative mt-[9px]'>
-            <EditableSpan value={props.task.title} onChange={onTitleChangeHandler}/>
+            <span className={disabledTask}>
+                <EditableSpan value={props.task.title} onChange={onTitleChangeHandler}/>
+            </span>
             <span className='absolute left-[240px] top-[-6px]'>
                 <IconButton onClick={onClickHandler}>
                     <Delete/>
                 </IconButton>
             </span>
         </span>
-
     </div>
 })

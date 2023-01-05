@@ -61,7 +61,7 @@ export const Todolist: FC<PropsType> = React.memo(function ({demo = false, ...pr
         tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
-    return <Paper elevation={8} className='flex-row w-[350px] m-4 p-4'>
+    return <Paper elevation={8} className='flex-row w-[350px] mx-4 my-8 p-4'>
         <div className='relative w-[310px] text-2xl font-extrabold'>
             <EditableSpan value={props.todolist.title}
                           onChange={changeTodolistTitle}/>
@@ -77,6 +77,12 @@ export const Todolist: FC<PropsType> = React.memo(function ({demo = false, ...pr
                          disabled={props.todolist.entityStatus === 'loading'}/>
         </div>
         <span>
+            <div className='my-3 text-center font-thin text-zinc-500'>
+                {!props.tasks.length
+                    ? 'Todolist is empty. Create your first task!'
+                    : !tasksForTodolist.length && 'The list of tasks of the selected type is empty!'
+                }
+            </div>
             {
                 tasksForTodolist.map(t => <Task key={t.id} task={t}
                                                 todolistId={props.todolist.id}
@@ -86,7 +92,7 @@ export const Todolist: FC<PropsType> = React.memo(function ({demo = false, ...pr
                 />)
             }
         </span>
-        <span>
+        <div className='mt-2 flex justify-evenly'>
             <Button variant={props.todolist.filter === 'all' ? 'outlined' : 'text'}
                     onClick={onAllClickHandler}
                     color={'inherit'}>All
@@ -99,7 +105,7 @@ export const Todolist: FC<PropsType> = React.memo(function ({demo = false, ...pr
                     onClick={onCompletedClickHandler}
                     color={'secondary'}>Completed
             </Button>
-        </span>
+        </div>
     </Paper>
 })
 
