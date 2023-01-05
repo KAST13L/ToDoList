@@ -97,7 +97,7 @@ export function* removeTaskWorkerSaga(action: ReturnType<typeof removeTaskWorker
         if (res) {}
         yield put(removeTaskAC(action.taskId, action.todolistId))
         yield put(setAppStatusAC('succeeded'))
-        yield put(setAppSuccessAC('task was deleted'))
+        yield put(setAppSuccessAC('Task deleted'))
     } catch (e: any) {
         handleServerNetworkError(e)
     } finally {
@@ -113,7 +113,7 @@ export function* addTaskWorkerSaga(action: ReturnType<typeof addTaskWorkerSagaAC
         if (res.data.resultCode === 0) {
             yield put(addTaskAC(res.data.data.item))
             yield put(setAppStatusAC('succeeded'))
-            yield put(setAppSuccessAC('Task is added'))
+            yield put(setAppSuccessAC('Task added'))
         } else {
             yield handleServerAppError(res.data);
         }
@@ -122,14 +122,12 @@ export function* addTaskWorkerSaga(action: ReturnType<typeof addTaskWorkerSagaAC
     } finally {
         yield put(setAppStatusAC('idle'))
     }
-
 }
 
 export function* updateTaskWorkerSaga(action: ReturnType<typeof updateTaskWorkerSagaAC>) {
     const state = action.getState()
     const task = state.tasks[action.todolistId].find(t => t.id === action.taskId)
     if (!task) {
-        //throw new Error("task not found in the state");
         console.warn('task not found in the state')
         return
     }
@@ -150,7 +148,7 @@ export function* updateTaskWorkerSaga(action: ReturnType<typeof updateTaskWorker
         if (res.data.resultCode === 0) {
             yield put(updateTaskAC(action.taskId, action.domainModel, action.todolistId))
             yield put(setAppStatusAC('succeeded'))
-            yield put(setAppSuccessAC('Task changed!'))
+            yield put(setAppSuccessAC('Task changed'))
         } else {
             yield handleServerAppError(res.data);
         }
