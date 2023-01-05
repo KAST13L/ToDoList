@@ -166,7 +166,6 @@ export type TodolistDomainType = TodolistType & {
 }
 
 // todolistsWatcher
-
 export function* todolistsWatcher() {
     yield takeEvery('TODO/FETCH-TODOLISTS', fetchTodolistsWorkerSaga)
     yield takeEvery('TODO/REMOVE-TODOLIST', removeTodolistWorkerSaga)
