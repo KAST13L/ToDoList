@@ -51,7 +51,7 @@ export const Login = () => {
     }
 
     return (
-        <span className='flex justify-center'>
+        <span className='flex justify-center my-8'>
             <Paper elevation={6}
                    className=' flex justify-center items-center w-[400px] h-[500px]'>
                 <form onSubmit={formik.handleSubmit}>
