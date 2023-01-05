@@ -27,8 +27,7 @@ export const Task = React.memo((props: TaskPropsType) => {
     const disabledTask = props.task.status === TaskStatuses.Completed ? 'line-through text-zinc-600' : ''
 
     return <div key={props.task.id}
-                className='flex items-start'
-        /*className={props.task.status === TaskStatuses.Completed ? 'is-done' : ''}*/>
+                className='flex items-start'>
         <Checkbox
             checked={props.task.status === TaskStatuses.Completed}
             color="primary"
