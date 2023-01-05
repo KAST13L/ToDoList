@@ -25,7 +25,7 @@ export const App: FC<AppPropsType> = ({demo = false}) => {
 
     useEffect(() => {
         dispatch(initializeAppWSAC())
-    }, [])
+    }, [dispatch])
 
     if (!isInitialized) {
         return <CircularProgress className="fixed w-[100%] text-center top-[30%]"/>

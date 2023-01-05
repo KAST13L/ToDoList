@@ -83,9 +83,9 @@ export const Login = () => {
                     </FormGroup>
                     <FormLabel>
                         <span className='text-center m-2 '>
-                        <p>To log in get registered <a
+                        <p>To log in get registered<a
                             href={'https://social-network.samuraijs.com/'}
-                            target={'_blank'}>here</a></p>
+                            target={'_blank'} rel="noreferrer">here</a></p>
                             <p>or use common test account credentials:</p><hr
                             className='m-2'/>
                             <p>Email: smykdav@gmail.com</p>
