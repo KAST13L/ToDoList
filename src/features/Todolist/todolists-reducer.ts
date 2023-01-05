@@ -86,7 +86,7 @@ export function* removeTodolistWorkerSaga(action: ReturnType<typeof removeTodoli
         if (res) {}
         yield put(removeTodolistAC(action.todolistId))
         yield put(setAppStatusAC('succeeded'))
-        yield put(setAppSuccessAC('Todolist removed!'))
+        yield put(setAppSuccessAC('Todolist removed'))
     } catch (e: any) {
         handleServerNetworkError(e)
     } finally {
@@ -102,7 +102,7 @@ export function* addTodolistWorkerSaga(action: ReturnType<typeof addTodolistWork
         if (res.data.resultCode === 0) {
             yield put(addTodolistAC(res.data.data.item))
             yield put(setAppStatusAC('succeeded'))
-            yield put(setAppSuccessAC('Todolist added!'))
+            yield put(setAppSuccessAC('Todolist added'))
         } else {
             yield handleServerAppError(res.data)
         }
@@ -121,7 +121,7 @@ export function* changeTodolistTitleWorkerSaga(action: ReturnType<typeof changeT
         if (res.data.resultCode === 0) {
             yield put(changeTodolistTitleAC(action.id, action.title))
             yield put(setAppStatusAC('succeeded'))
-            yield put(setAppSuccessAC('Todolist title changed!'))
+            yield put(setAppSuccessAC('Todolist title changed'))
         } else {
             yield handleServerAppError(res.data)
         }
