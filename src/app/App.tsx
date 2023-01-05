@@ -20,7 +20,8 @@ export const App: FC<AppPropsType> = ({demo = false}) => {
     const isInitialized = useSelector(selectIsInitialized)
     const dispatch = useDispatch()
 
-    if (demo) {}
+    if (demo) {
+    }
 
     useEffect(() => {
         dispatch(initializeAppWSAC())
@@ -34,7 +35,7 @@ export const App: FC<AppPropsType> = ({demo = false}) => {
         <span>
             <ErrorSnackbar/>
             <Header/>
-            <span className="mx-4 mt-6">
+            <span>
                 <Routes>
                     <Route path='/todolist' element={<TodolistsList/>}/>
                     <Route path='/login' element={<Login/>}/>

@@ -39,7 +39,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo(function (
         }
     }
 
-    return <div className="relative w-[240px]" >
+    return <div className="relative" >
         <TextField variant="outlined"
                    fullWidth
                    disabled={disabled}
@@ -49,7 +49,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo(function (
                    onKeyPress={onKeyPressHandler}
                    label="Title"
         />
-        <div className='absolute left-[12.5rem] top-[8px]'>
+        <div className='absolute right-[-1px] top-[8px]'>
             <IconButton color="primary"
                         onClick={addItemHandler}
                         disabled={disabled}>

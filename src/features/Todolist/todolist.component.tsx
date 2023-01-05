@@ -61,20 +61,22 @@ export const Todolist: FC<PropsType> = React.memo(function ({demo = false, ...pr
         tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
-    return <Paper elevation={8} className='w-[290px] m-4 p-4'>
-        <div className='relative w-[250px] text-2xl font-extrabold'>
+    return <Paper elevation={8} className='flex-row w-[350px] m-4 p-4'>
+        <div className='relative w-[310px] text-2xl font-extrabold'>
             <EditableSpan value={props.todolist.title}
                           onChange={changeTodolistTitle}/>
-            <span className='absolute left-[235px] top-[-17px]'>
+            <span className='absolute left-[295px] top-[-17px]'>
                     <IconButton onClick={removeTodolist}
                                 disabled={props.todolist.entityStatus === 'loading'}>
                         <Delete/>
                     </IconButton>
                 </span>
         </div>
-        <div className='ml-[6px] my-2'>
+        <div className='my-2'>
             <AddItemForm addItem={addTask}
                          disabled={props.todolist.entityStatus === 'loading'}/>
+        </div>
+        <span>
             {
                 tasksForTodolist.map(t => <Task key={t.id} task={t}
                                                 todolistId={props.todolist.id}
@@ -83,7 +85,7 @@ export const Todolist: FC<PropsType> = React.memo(function ({demo = false, ...pr
                                                 changeTaskStatus={props.changeTaskStatus}
                 />)
             }
-        </div>
+        </span>
         <span>
             <Button variant={props.todolist.filter === 'all' ? 'outlined' : 'text'}
                     onClick={onAllClickHandler}
