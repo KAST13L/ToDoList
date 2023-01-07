@@ -3,7 +3,7 @@ import {action} from '@storybook/addon-actions'
 import {EditableSpan} from './EditableSpan'
 
 export default {
-    title: 'EditableSpan Stories',
+    title: 'Universal Components/EditableSpan Stories',
     component: EditableSpan
 }
 
