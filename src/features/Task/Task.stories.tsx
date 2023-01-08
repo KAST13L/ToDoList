@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import {action} from '@storybook/addon-actions'
 import {ComponentMeta, ComponentStory} from "@storybook/react";
 import {Task} from "@app/features/Task/task.component";
 import {TaskPriorities, TaskStatuses, TaskType} from "@app/api/todolists-api";
@@ -41,9 +40,6 @@ export default {
     ]
 } as ComponentMeta<typeof Task>;
 
-const changeTaskStatus = async (...params: any) => {
-    action('Status Change')(...params);
-}
 const Template: ComponentStory<typeof Task> = (args) => <Task {...args}/>;
 export const View = Template.bind({});
 
