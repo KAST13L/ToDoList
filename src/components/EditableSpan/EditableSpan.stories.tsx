@@ -7,7 +7,11 @@ export default {
     component: EditableSpan,
     decorators: [
         (StoryFn) => {
-            const [value, setValue] = useState<string>('string');
+            const [value, setValue] = useState<string>('Click and change this value!');
+
+            if (!value) {
+                setValue('null')
+            }
 
             return (
                 <EditableSpan
