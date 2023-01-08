@@ -16,16 +16,17 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
     }
     const activateViewMode = () => {
         setEditMode(false);
-        props.onChange(title);
+        props.onChange(title ? title : props.value);
+
     }
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.charCode === 13) {
+        if (e.charCode === 13 ) {
             setEditMode(false)
-            props.onChange(title)
+            props.onChange(title ? title : props.value)
         }
     }
 
@@ -38,5 +39,5 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
             onKeyPress={onKeyPressHandler}
             onBlur={activateViewMode}
         />
-        : <div className='w-[250px]' onDoubleClick={activateEditMode} >{props.value}</div>
+        : <div className='w-[250px]' onDoubleClick={activateEditMode}>{props.value}</div>
 });
