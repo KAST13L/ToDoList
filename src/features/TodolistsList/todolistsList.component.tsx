@@ -19,6 +19,7 @@ import {TaskStatuses} from "@app/api/todolists-api";
 import {AppRootStateType, store} from "@app/app/store";
 import {Todolist} from "@app/features/Todolist/todolist.component";
 import Grid from "@mui/material/Grid";
+import {JackInTheBox} from "react-awesome-reveal";
 
 type PropsType = {
     demo?: boolean
@@ -69,23 +70,29 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
 
     const onClickLinkHandler = (e: any) => {
         e.preventDefault()
-        setIsShow(()=>!isShow)
+        setIsShow(() => !isShow)
     }
 
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
     }
 
-    return <Grid container className='flex justify-evenly items-start' >
+    return <Grid container className='flex justify-evenly items-start'>
         {
             !todolists.length && <div>
-                <div className='my-5 text-3xl text-center font-thin text-zinc-500' >
-                    Your todo list is empty. Just add them. And feel like a <a href='' className='underline' onClick={onClickLinkHandler}>queen</a> over your tasks.
+                <div className='my-5 text-3xl text-center font-thin text-zinc-500'>
+                    Your todo list is empty. Just add them. And feel like a <a href=''
+                                                                               className='underline'
+                                                                               onClick={onClickLinkHandler}>queen</a> over
+                    your tasks.
                 </div>
-                {isShow && <div className='max-w-[1000px]'>
-                    <img src="https://n1s2.hsmedia.ru/38/13/b4/3813b44d1eb77ade0112f3b528729aa1/1920x1080_0xac120003_11848801501662642079.jpeg"
-                         alt="king"/>
-                </div>}
+                {isShow && <JackInTheBox>
+                    <div className='max-w-[1000px]'>
+                        <img
+                            src="https://n1s2.hsmedia.ru/38/13/b4/3813b44d1eb77ade0112f3b528729aa1/1920x1080_0xac120003_11848801501662642079.jpeg"
+                            alt="king"/>
+                    </div>
+                </JackInTheBox>}
             </div>
         }
         {
