@@ -32,8 +32,7 @@ export const Todolist: FC<PropsType> = React.memo(function ({demo = false, ...pr
         if (demo) {
             return
         }
-        const saga = fetchTasksWorkerSagaAC(props.todolist.id)
-        dispatch(saga)
+        dispatch(fetchTasksWorkerSagaAC(props.todolist.id))
     }, [])
 
     const addTask = useCallback((title: string) => {

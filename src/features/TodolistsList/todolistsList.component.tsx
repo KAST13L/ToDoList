@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {
     changeTodolistFilterAC,
@@ -29,6 +29,8 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
     const dispatch = useDispatch()
+
+    const [isShow, setIsShow] = useState<boolean>(false)
 
     useEffect(() => {
         if (demo || !isLoggedIn) {
@@ -65,6 +67,11 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
         dispatch(changeTodolistTitleWorkerSagaAC(id, title))
     }, [])
 
+    const onClickLinkHandler = (e: any) => {
+        e.preventDefault()
+        setIsShow(()=>!isShow)
+    }
+
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
     }
@@ -73,12 +80,12 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
         {
             !todolists.length && <div>
                 <div className='my-5 text-3xl text-center font-thin text-zinc-500' >
-                    Your list of todolists are empty. Just add them. And feel like a king over your tasks.
+                    Your todo list is empty. Just add them. And feel like a <a href='' className='underline' onClick={onClickLinkHandler}>queen</a> over your tasks.
                 </div>
-                <div className='max-w-[1100px]'>
+                {isShow && <div className='max-w-[1000px]'>
                     <img src="https://n1s2.hsmedia.ru/38/13/b4/3813b44d1eb77ade0112f3b528729aa1/1920x1080_0xac120003_11848801501662642079.jpeg"
                          alt="king"/>
-                </div>
+                </div>}
             </div>
         }
         {
