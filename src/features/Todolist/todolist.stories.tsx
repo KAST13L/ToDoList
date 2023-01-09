@@ -4,7 +4,6 @@ import {Provider} from "react-redux";
 import {store} from "@app/app/store";
 import {Todolist} from "@app/features/Todolist/todolist.component";
 import {TaskPriorities, TaskStatuses} from "@app/api/todolists-api";
-import {action} from "@storybook/addon-actions";
 
 export default {
     title: 'Element TODO/Todolist',
@@ -22,8 +21,8 @@ export default {
 
 const Template: ComponentStory<typeof Todolist> = (args) => <Provider
     store={store}><Todolist {...args}/></Provider>;
-export const View = Template.bind({});
-View.args = {
+export const TodoWithTask = Template.bind({});
+TodoWithTask.args = {
     todolist: {
         title: 'Що купити?',
         addedDate: '1',
@@ -35,7 +34,7 @@ View.args = {
     tasks: [
         {
             id: 'taskId',
-            status: TaskStatuses.Draft,
+            status: TaskStatuses.Completed,
             todoListId: 'todolistId',
             startDate: '1',
             priority: TaskPriorities.Middle,
@@ -68,6 +67,18 @@ View.args = {
             addedDate: "2"
         },
     ]
+}
+export const TodoWithoutTask = Template.bind({});
+TodoWithoutTask.args = {
+    todolist: {
+        title: 'Що купити?',
+        addedDate: '1',
+        order: 1,
+        id: 'todoWhatBuy',
+        filter: "all",
+        entityStatus: "idle"
+    },
+    tasks: []
 }
 
 
