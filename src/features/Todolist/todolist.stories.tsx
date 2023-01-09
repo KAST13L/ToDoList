@@ -26,9 +26,9 @@ export const View = Template.bind({});
 View.args = {
     todolist: {
         title: 'Що купити?',
-        addedDate: '2',
-        order: 23,
-        id: 'sas',
+        addedDate: '1',
+        order: 1,
+        id: 'todoWhatBuy',
         filter: "all",
         entityStatus: "idle"
     },
