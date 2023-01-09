@@ -94,7 +94,8 @@ export function* removeTaskWorkerSaga(action: ReturnType<typeof removeTaskWorker
     // @ts-ignore
     const res = yield call(todolistsAPI.deleteTask, action.todolistId, action.taskId)
     try {
-        if (res) {}
+        if (res) {
+        }
         yield put(removeTaskAC(action.taskId, action.todolistId))
         yield put(setAppStatusAC('succeeded'))
         yield put(setAppSuccessAC('Task deleted'))
@@ -182,6 +183,13 @@ export const updateTaskWorkerSagaAC = (taskId: string, domainModel: UpdateDomain
     getState
 })
 
+// tasksWatcher
+export function* tasksWatcher() {
+    yield takeEvery('TASKS/FETCH-TASKS', fetchTasksWorkerSaga)
+    yield takeEvery('TASKS/REMOVE-TASK', removeTaskWorkerSaga)
+    yield takeEvery('TASKS/ADD-TASK', addTaskWorkerSaga)
+    yield takeEvery('TASKS/UPDATE-TASK', updateTaskWorkerSaga)
+}
 
 // types
 export type UpdateDomainTaskModelType = {
@@ -204,11 +212,4 @@ type ActionsType =
     | SetTodolistsActionType
     | ReturnType<typeof setTasksAC>
 
-// tasksWatcher
 
-export function* tasksWatcher() {
-    yield takeEvery('TASKS/FETCH-TASKS', fetchTasksWorkerSaga)
-    yield takeEvery('TASKS/REMOVE-TASK', removeTaskWorkerSaga)
-    yield takeEvery('TASKS/ADD-TASK', addTaskWorkerSaga)
-    yield takeEvery('TASKS/UPDATE-TASK', updateTaskWorkerSaga)
-}
