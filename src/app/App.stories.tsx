@@ -11,7 +11,7 @@ export default {
 
 const Template: ComponentStory<typeof App> = (args) => <Provider
     store={store}>
-    <App {...args} />
+    <App demo={true} {...args} />
 </Provider>;
 
 export const View = Template.bind({});

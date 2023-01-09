@@ -20,17 +20,13 @@ export const App: FC<AppPropsType> = ({demo = false}) => {
     const isInitialized = useSelector(selectIsInitialized)
     const dispatch = useDispatch()
 
-    if (demo) {
-    }
-
     useEffect(() => {
         dispatch(initializeAppWSAC())
     }, [dispatch])
 
-    if (!isInitialized) {
+    if (demo || !isInitialized) {
         return <div className="fixed w-[100%] text-center top-[30%]" ><CircularProgress/></div>
     }
-
     return (
         <span>
             <ErrorSnackbar/>

@@ -68,6 +68,7 @@ TodoWithTask.args = {
         },
     ]
 }
+
 export const TodoWithoutTask = Template.bind({});
 TodoWithoutTask.args = {
     todolist: {
