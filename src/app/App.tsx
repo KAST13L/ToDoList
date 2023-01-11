@@ -36,7 +36,7 @@ export const App: FC<AppPropsType> = ({demo = false}) => {
             <Header/>
             <div className='mx-8'>
                 <Routes>
-                    <Route path='/todolist' element={<TodolistsList/>}/>
+                    <Route path='/todolist' element={<TodolistsList demo={demo}/>}/>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/404' element={<h1>404: PAGE NOT FOUND</h1>}/>
                     <Route path='*' element={<Navigate to={'/404'}/>}/>
