@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {FC, useCallback} from 'react';
 import {logoutWorkerSagaAC} from "@app/features/Auth/auth-reducer";
 import LinearProgress from "@mui/material/LinearProgress";
 import {useDispatch, useSelector} from "react-redux";
@@ -12,7 +12,11 @@ import {AppBar} from "@mui/material";
 const selectIsLoggedIn = (state: AppRootStateType): boolean => state.auth.isLoggedIn
 const selectStatus = (state: AppRootStateType): RequestStatusType => state.app.status
 
-export const Header = () => {
+interface HeaderPropsType {
+    demo?: boolean
+}
+
+export const Header: FC<HeaderPropsType> = ({demo = false}) => {
     const dispatch = useDispatch()
 
     const status = useSelector(selectStatus)
@@ -26,21 +30,26 @@ export const Header = () => {
         dispatch(addTodolistWorkerSagaAC(title))
     }, [dispatch])
 
+    const isAuthorizedAndIsDemo = demo || isLoggedIn
+
     return (
         <AppBar position={'static'} color='default'>
-            <div className='flex justify-between items-center p-3 text-center smw:flex-col'>
-                {!isLoggedIn && <div></div>}
+            <div
+                className='flex justify-between items-center p-3 text-center smw:flex-col'>
+                {!isAuthorizedAndIsDemo && <div></div>}
                 <span className='flex justify-between smd:flex-col smw:mb-2'>
                     <span className='text-5xl smd:mb-3'>TODOLIST</span>
-                    <span className='px-3'>{isLoggedIn && <AddItemForm addItem={addTodolist}/>}</span>
+                    <span className='px-3'>{isAuthorizedAndIsDemo &&
+                        <AddItemForm addItem={addTodolist}/>}</span>
                 </span>
                 <span>
-                    {isLoggedIn && <Button onClick={logoutClick} color={'error'} variant={'contained'}>Log out</Button>}
+                    {isAuthorizedAndIsDemo &&
+                        <Button onClick={logoutClick} color={'error'}
+                                variant={'contained'}>Log out</Button>}
                 </span>
             </div>
             <span className='h-[3px]'>{status === 'loading' && <LinearProgress/>}</span>
         </AppBar>
-
     );
 };
 
