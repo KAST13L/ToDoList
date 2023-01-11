@@ -21,6 +21,7 @@ export default {
 
 const Template: ComponentStory<typeof Todolist> = (args) => <Provider
     store={store}><Todolist {...args}/></Provider>;
+
 export const TodoWithTask = Template.bind({});
 TodoWithTask.args = {
     todolist: {
@@ -80,6 +81,31 @@ TodoWithoutTask.args = {
         entityStatus: "idle"
     },
     tasks: []
+}
+
+export const TodoWithoutTasksOfOneType = Template.bind({});
+TodoWithoutTasksOfOneType.args = {
+    todolist: {
+        title: 'Що купити?',
+        addedDate: '1',
+        order: 1,
+        id: 'todoWhatBuy',
+        filter: "active",
+        entityStatus: "idle"
+    },
+    tasks: [
+        {
+            id: 'taskId',
+            status: TaskStatuses.Completed,
+            todoListId: 'todolistId',
+            startDate: '1',
+            priority: TaskPriorities.Middle,
+            order: 1,
+            deadline: '1',
+            title: 'молоко',
+            description: 'yo yo yo',
+            addedDate: "2"
+        }]
 }
 
 
