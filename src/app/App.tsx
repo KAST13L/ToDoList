@@ -21,11 +21,14 @@ export const App: FC<AppPropsType> = ({demo = false}) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(initializeAppWSAC())
+        if (!demo) {
+            dispatch(initializeAppWSAC())
+        }
     }, [dispatch])
 
-    if (demo || !isInitialized) {
-        return <div className="fixed w-[100%] text-center top-[30%]" ><CircularProgress/></div>
+    if (!demo && !isInitialized) {
+        return <div className="fixed w-[100%] text-center top-[30%]"><CircularProgress/>
+        </div>
     }
     return (
         <span>
