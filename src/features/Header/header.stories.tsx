@@ -12,8 +12,14 @@ export default {
 
 const Template: ComponentStory<typeof Header> = (args) => <BrowserRouter><Provider
     store={store}><Header {...args}/></Provider></BrowserRouter>;
-export const View = Template.bind({});
-
+export const UserIsAuthorized = Template.bind({});
+UserIsAuthorized.args = {
+    demo: true
+}
+export const UserIsNotAuthorized = Template.bind({});
+UserIsNotAuthorized.args = {
+    demo: false
+}
 
 
 

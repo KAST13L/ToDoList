@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import {AddItemForm} from "@app/components/AddItemForm/AddItemForm";
 import {addTodolistWorkerSagaAC} from "@app/features/Todolist/todolists-reducer";
 import {AppBar} from "@mui/material";
+import {action} from "@storybook/addon-actions";
 
 const selectIsLoggedIn = (state: AppRootStateType): boolean => state.auth.isLoggedIn
 const selectStatus = (state: AppRootStateType): RequestStatusType => state.app.status
@@ -40,7 +41,7 @@ export const Header: FC<HeaderPropsType> = ({demo = false}) => {
                 <span className='flex justify-between smd:flex-col smw:mb-2'>
                     <span className='text-5xl smd:mb-3'>TODOLIST</span>
                     <span className='px-3'>{isAuthorizedAndIsDemo &&
-                        <AddItemForm addItem={addTodolist}/>}</span>
+                        <AddItemForm addItem={demo ? action('add todolist') : addTodolist}/>}</span>
                 </span>
                 <span>
                     {isAuthorizedAndIsDemo &&
