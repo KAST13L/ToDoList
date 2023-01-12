@@ -56,10 +56,10 @@ export const Login = () => {
                    className=' flex justify-center items-center w-[400px] h-[500px]'>
                 <form onSubmit={formik.handleSubmit}>
                     <FormControl>
-                        <span className='flex justify-center '>
+                        <span className='flex justify-center'>
                             <h2 className='font-serif text-4xl mb-4'>Login</h2>
                         </span>
-                    <FormGroup>
+                    <FormGroup className='mx-2 px-2'>
                             <TextField
                                 label="Email"
                                 margin="normal"

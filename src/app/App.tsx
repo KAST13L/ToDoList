@@ -15,15 +15,13 @@ type AppPropsType = {
     demo?: boolean
 }
 
-export const App: FC<AppPropsType> = ({demo = false}) => {
+export const App: FC<AppPropsType> = ({demo}) => {
 
     const isInitialized = useSelector(selectIsInitialized)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (!demo) {
-            dispatch(initializeAppWSAC())
-        }
+        dispatch(initializeAppWSAC())
     }, [dispatch])
 
     if (!demo && !isInitialized) {
@@ -36,7 +34,7 @@ export const App: FC<AppPropsType> = ({demo = false}) => {
             <Header/>
             <div className='mx-8'>
                 <Routes>
-                    <Route path='/todolist' element={<TodolistsList demo={demo}/>}/>
+                    <Route path='/' element={<TodolistsList demo={demo}/>}/>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/404' element={<h1>404: PAGE NOT FOUND</h1>}/>
                     <Route path='*' element={<Navigate to={'/404'}/>}/>
