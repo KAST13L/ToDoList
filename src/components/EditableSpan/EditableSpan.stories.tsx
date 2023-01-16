@@ -5,7 +5,10 @@ import {action} from "@storybook/addon-actions";
 
 export default {
     title: 'Universal Components/EditableSpan Stories',
-    component: EditableSpan
+    component: EditableSpan,
+    argTypes: {
+        onChange: {action: 'change span title'}
+    }
 } as ComponentMeta<typeof EditableSpan>;
 
 
@@ -13,5 +16,4 @@ const Template: ComponentStory<typeof EditableSpan> = (args) => <EditableSpan {.
 export const View = Template.bind({});
 View.args = {
     value: 'click and change this text',
-    onChange: action('change span title')
 }

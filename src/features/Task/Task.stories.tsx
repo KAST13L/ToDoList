@@ -2,15 +2,14 @@ import React from 'react'
 import {ComponentMeta, ComponentStory} from "@storybook/react";
 import {Task} from "@app/features/Task/task.component";
 import {TaskPriorities, TaskStatuses} from "@app/api/todolists-api";
-import {action} from "@storybook/addon-actions";
 
 export default {
     title: 'Element TODO/Task',
     component: Task,
     argTypes: {
-        removeTask: action('remove task'),
-        changeTaskTitle: action('change task title'),
-        changeTaskStatus: action('change task status')
+        removeTask: {action: 'remove task'},
+        changeTaskTitle: {action: 'change task title'},
+        changeTaskStatus: {action: 'change task status'}
     }
 } as ComponentMeta<typeof Task>;
 
