@@ -31,7 +31,7 @@ export const App: FC<AppPropsType> = ({demo}) => {
     return (
         <span>
             <ErrorSnackbar/>
-            <Header/>
+            <Header demo={demo}/>
             <div className='mx-8'>
                 <Routes>
                     <Route path='/todolist' element={<TodolistsList demo={demo}/>}/>

@@ -1,28 +1,17 @@
 import React, {useState} from 'react'
 import {EditableSpan} from './EditableSpan'
 import {ComponentMeta, ComponentStory} from "@storybook/react";
+import {action} from "@storybook/addon-actions";
 
 export default {
     title: 'Universal Components/EditableSpan Stories',
-    component: EditableSpan,
-    decorators: [
-        (StoryFn) => {
-            const [value, setValue] = useState<string>('Click and change this value!');
-
-            if (!value) {
-                setValue('null')
-            }
-
-            return (
-                <EditableSpan
-                    onChange={setValue}
-                    value={value}
-                />
-            );
-        }
-    ]
+    component: EditableSpan
 } as ComponentMeta<typeof EditableSpan>;
 
 
 const Template: ComponentStory<typeof EditableSpan> = (args) => <EditableSpan {...args}/>;
 export const View = Template.bind({});
+View.args = {
+    value: 'click and change this text',
+    onChange: action('change span title')
+}
