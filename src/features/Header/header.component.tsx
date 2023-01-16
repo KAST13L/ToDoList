@@ -45,7 +45,7 @@ export const Header: FC<HeaderPropsType> = ({demo = false}) => {
                 </span>
                 <span>
                     {isAuthorizedAndIsDemo &&
-                        <Button onClick={logoutClick} color={'error'}
+                        <Button onClick={demo ? action('logout') : logoutClick} color={'error'}
                                 variant={'contained'}>Log out</Button>}
                 </span>
             </div>
