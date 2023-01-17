@@ -27,11 +27,12 @@ type PropsType = {
 
 const selectTodolists = (state: AppRootStateType): TodolistDomainType[] => state.todolists
 const selectTasks = (state: AppRootStateType): TasksStateType => state.tasks
+const selectIsLoggedIn = (state: AppRootStateType): boolean => state.auth.isLoggedIn
 
 export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     const todolists = useSelector(selectTodolists)
     const tasks = useSelector(selectTasks)
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+    const isLoggedIn = useSelector(selectIsLoggedIn)
     const dispatch = useDispatch()
 
     const [isShow, setIsShow] = useState<boolean>(false)
