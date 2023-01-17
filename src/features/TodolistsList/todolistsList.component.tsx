@@ -42,35 +42,35 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
             return;
         }
         dispatch(fetchTodolistsWorkerSagaAC())
-    }, [])
+    }, [dispatch])
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
         dispatch(removeTaskWorkerSagaAC(id, todolistId))
-    }, [])
+    }, [dispatch])
 
     const addTask = useCallback(function (title: string, todolistId: string) {
         dispatch(addTaskWorkerSagaAC(title, todolistId))
-    }, [])
+    }, [dispatch])
 
     const changeStatus = useCallback(function (id: string, status: TaskStatuses, todolistId: string) {
         dispatch(updateTaskWorkerSagaAC(id, {status}, todolistId, store.getState))
-    }, [])
+    }, [dispatch])
 
     const changeTaskTitle = useCallback(function (id: string, newTitle: string, todolistId: string) {
         dispatch(updateTaskWorkerSagaAC(id, {title: newTitle}, todolistId, store.getState))
-    }, [])
+    }, [dispatch])
 
     const changeFilter = useCallback(function (value: FilterValuesType, todolistId: string) {
         dispatch(changeTodolistFilterAC(todolistId, value))
-    }, [])
+    }, [dispatch])
 
     const removeTodolist = useCallback(function (id: string) {
         dispatch(removeTodolistWorkerSagaAC(id))
-    }, [])
+    }, [dispatch])
 
     const changeTodolistTitle = useCallback(function (id: string, title: string) {
         dispatch(changeTodolistTitleWorkerSagaAC(id, title))
-    }, [])
+    }, [dispatch])
 
     const onClickLinkHandler = (e: any) => {
         e.preventDefault()
