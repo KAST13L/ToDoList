@@ -31,6 +31,7 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
 
     return editMode
         ? <TextField
+            multiline
             variant='standard'
             value={title}
             onChange={changeTitle}
@@ -38,5 +39,5 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
             onKeyPress={onKeyPressHandler}
             onBlur={activateViewMode}
         />
-        : <div className='w-[250px]' onDoubleClick={activateEditMode}>{props.value}</div>
+        : <div className='w-[250px] overflow-x-auto ' onDoubleClick={activateEditMode}>{props.value}</div>
 });
