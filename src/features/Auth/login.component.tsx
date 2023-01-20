@@ -1,5 +1,4 @@
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "@app/app/store";
 import Paper from "@mui/material/Paper";
 import {FormControl, FormControlLabel, FormGroup, FormLabel} from "@mui/material";
 import TextField from "@mui/material/TextField";
@@ -9,6 +8,7 @@ import {Navigate} from "react-router-dom";
 import {loginWorkerSagaAC} from "@app/features/Auth/auth-reducer";
 import {useFormik} from "formik";
 import React from "react";
+import {selectIsLoggedIn} from "@app/app/selectors";
 
 
 type FormValuesType = {
@@ -19,7 +19,7 @@ type FormValuesType = {
 
 export const Login = () => {
 
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+    const isLoggedIn = useSelector(selectIsLoggedIn)
     const dispatch = useDispatch()
 
     const formik = useFormik({
