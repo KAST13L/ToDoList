@@ -5,29 +5,24 @@ import {
     changeTodolistTitleWorkerSagaAC,
     fetchTodolistsWorkerSagaAC,
     FilterValuesType,
-    removeTodolistWorkerSagaAC,
-    TodolistDomainType
+    removeTodolistWorkerSagaAC
 } from '../Todolist/todolists-reducer'
 import {
     addTaskWorkerSagaAC,
     removeTaskWorkerSagaAC,
-    TasksStateType,
     updateTaskWorkerSagaAC
 } from '../Task/tasks-reducer'
 import {Navigate} from "react-router-dom";
 import {TaskStatuses} from "@app/api/todolists-api";
-import {AppRootStateType, store} from "@app/app/store";
+import {store} from "@app/app/store";
 import {Todolist} from "@app/features/Todolist/todolist.component";
 import Grid from "@mui/material/Grid";
 import {JackInTheBox} from "react-awesome-reveal";
+import {selectIsLoggedIn, selectTasks, selectTodolists} from "@app/app/selectors";
 
 type PropsType = {
     demo?: boolean
 }
-
-const selectTodolists = (state: AppRootStateType): TodolistDomainType[] => state.todolists
-const selectTasks = (state: AppRootStateType): TasksStateType => state.tasks
-const selectIsLoggedIn = (state: AppRootStateType): boolean => state.auth.isLoggedIn
 
 export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     const todolists = useSelector(selectTodolists)
