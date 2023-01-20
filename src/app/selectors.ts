@@ -5,3 +5,4 @@ import {TasksStateType} from "@app/features/Task/tasks-reducer";
 export const selectTodolists = (state: AppRootStateType): TodolistDomainType[] => state.todolists
 export const selectTasks = (state: AppRootStateType): TasksStateType => state.tasks
 export const selectIsLoggedIn = (state: AppRootStateType): boolean => state.auth.isLoggedIn
+export const selectIsInitialized = (state: AppRootStateType): boolean => state.app.isInitialized

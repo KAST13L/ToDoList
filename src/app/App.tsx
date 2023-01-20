@@ -4,12 +4,11 @@ import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
 import {Navigate, Route, Routes} from "react-router-dom";
 import {CircularProgress} from "@mui/material";
 import {initializeAppWSAC} from "./app-reducer";
-import {AppRootStateType} from "./store";
 import {Login} from "@app/features/Auth/login.component";
 import {TodolistsList} from "@app/features/TodolistsList/todolistsList.component";
 import {Header} from "@app/features/Header/header.component";
+import {selectIsInitialized} from "@app/app/selectors";
 
-const selectIsInitialized = (state: AppRootStateType): boolean => state.app.isInitialized
 
 type AppPropsType = {
     demo?: boolean
