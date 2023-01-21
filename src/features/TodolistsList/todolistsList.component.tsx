@@ -25,19 +25,13 @@ type PropsType = {
 }
 
 export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
+    const dispatch = useDispatch()
+
     const todolists = useSelector(selectTodolists)
     const tasks = useSelector(selectTasks)
     const isLoggedIn = useSelector(selectIsLoggedIn)
-    const dispatch = useDispatch()
 
     const [isShow, setIsShow] = useState<boolean>(false)
-
-    useEffect(() => {
-        if (demo || !isLoggedIn) {
-            return;
-        }
-        dispatch(fetchTodolistsWorkerSagaAC())
-    }, [dispatch])
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
         dispatch(removeTaskWorkerSagaAC(id, todolistId))
@@ -71,6 +65,14 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
         e.preventDefault()
         setIsShow(() => !isShow)
     }
+
+    useEffect(() => {
+        if (demo || !isLoggedIn) {
+            return;
+        }
+        dispatch(fetchTodolistsWorkerSagaAC())
+    }, [dispatch])
+
 
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
