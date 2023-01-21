@@ -2,16 +2,12 @@ import React, {FC, useCallback} from 'react';
 import {logoutWorkerSagaAC} from "@app/features/Auth/auth-reducer";
 import LinearProgress from "@mui/material/LinearProgress";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "@app/app/store";
-import {RequestStatusType} from "@app/app/app-reducer";
 import Button from "@mui/material/Button";
 import {AddItemForm} from "@app/components/AddItemForm/AddItemForm";
 import {addTodolistWorkerSagaAC} from "@app/features/Todolist/todolists-reducer";
 import {AppBar} from "@mui/material";
 import {action} from "@storybook/addon-actions";
-
-const selectIsLoggedIn = (state: AppRootStateType): boolean => state.auth.isLoggedIn
-const selectStatus = (state: AppRootStateType): RequestStatusType => state.app.status
+import {selectIsLoggedIn, selectStatus} from "@app/app/selectors";
 
 interface HeaderPropsType {
     demo?: boolean
