@@ -78,41 +78,44 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
         return <Navigate to={'/login'}/>
     }
 
-    return <Grid container className='flex justify-evenly items-start'>
-        {
-            !todolists.length && <div>
-                <div className='my-5 text-3xl text-center font-thin text-zinc-500'>
-                    Your todo list is empty. Just add them. And feel like a <a href=''
-                                                                               className='underline'
-                                                                               onClick={onClickLinkHandler}>queen</a> over
-                    your tasks.
-                </div>
-                {isShow && <JackInTheBox>
-                    <div className='max-w-[1000px]'>
-                        <img
-                            src="https://n1s2.hsmedia.ru/38/13/b4/3813b44d1eb77ade0112f3b528729aa1/1920x1080_0xac120003_11848801501662642079.jpeg"
-                            alt="king"/>
+    return (
+        <Grid container className='flex justify-evenly items-start'>
+            {
+                !todolists.length && <div>
+                    <div className='my-5 text-3xl text-center font-thin text-zinc-500'>
+                        Your todo list is empty. Just add them. And feel like a
+                        <a href=''
+                           className='underline'
+                           onClick={onClickLinkHandler}>queen</a>
+                        over your tasks.
                     </div>
-                </JackInTheBox>}
-            </div>
-        }
-        {
-            todolists.map(tl => {
-                let allTodolistTasks = tasks[tl.id]
-                return <Todolist
-                    key={tl.id}
-                    todolist={tl}
-                    tasks={allTodolistTasks}
-                    removeTask={removeTask}
-                    changeFilter={changeFilter}
-                    addTask={addTask}
-                    changeTaskStatus={changeStatus}
-                    removeTodolist={removeTodolist}
-                    changeTaskTitle={changeTaskTitle}
-                    changeTodolistTitle={changeTodolistTitle}
-                    demo={demo}
-                />
-            })
-        }
-    </Grid>
+                    {isShow && <JackInTheBox>
+                        <div className='max-w-[1000px]'>
+                            <img
+                                src="https://n1s2.hsmedia.ru/38/13/b4/3813b44d1eb77ade0112f3b528729aa1/1920x1080_0xac120003_11848801501662642079.jpeg"
+                                alt="king"/>
+                        </div>
+                    </JackInTheBox>}
+                </div>
+            }
+            {
+                todolists.map(tl => {
+                    let allTodolistTasks = tasks[tl.id]
+                    return <Todolist
+                        key={tl.id}
+                        todolist={tl}
+                        tasks={allTodolistTasks}
+                        removeTask={removeTask}
+                        changeFilter={changeFilter}
+                        addTask={addTask}
+                        changeTaskStatus={changeStatus}
+                        removeTodolist={removeTodolist}
+                        changeTaskTitle={changeTaskTitle}
+                        changeTodolistTitle={changeTodolistTitle}
+                        demo={demo}
+                    />
+                })
+            }
+        </Grid>
+    )
 }
