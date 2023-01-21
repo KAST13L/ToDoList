@@ -37,11 +37,13 @@ export const Header: FC<HeaderPropsType> = ({demo = false}) => {
                 <span className='flex justify-between smd:flex-col smw:mb-2'>
                     <span className='text-5xl smd:mb-3'>TODOLIST</span>
                     <span className='px-3'>{isAuthorizedAndIsDemo &&
-                        <AddItemForm addItem={demo ? action('add todolist') : addTodolist}/>}</span>
+                        <AddItemForm
+                            addItem={demo ? action('add todolist') : addTodolist}/>}</span>
                 </span>
                 <span>
                     {isAuthorizedAndIsDemo &&
-                        <Button onClick={demo ? action('logout') : logoutClick} color={'error'}
+                        <Button onClick={demo ? action('logout') : logoutClick}
+                                color={'error'}
                                 variant={'contained'}>Log out</Button>}
                 </span>
             </div>
