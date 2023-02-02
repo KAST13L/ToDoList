@@ -20,7 +20,6 @@ type FormValuesType = {
 export const Login = () => {
 
     const dispatch = useDispatch()
-
     const isLoggedIn = useSelector(selectIsLoggedIn)
 
     const formik = useFormik({
@@ -35,7 +34,6 @@ export const Login = () => {
                     password: 'Password is required'
                 }
             }
-
         },
         initialValues: {
             email: 'smykdav@gmail.com',
