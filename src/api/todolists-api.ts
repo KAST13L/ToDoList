@@ -51,7 +51,6 @@ export type ResponseType<D = {}> = {
     data: D
 }
 
-
 export enum TaskStatuses {
     New = 0,
     InProgress = 1,
@@ -79,6 +78,7 @@ export type TaskType = {
     order: number
     addedDate: string
 }
+
 export type UpdateTaskModelType = {
     title: string
     description: string
@@ -87,6 +87,7 @@ export type UpdateTaskModelType = {
     startDate: string
     deadline: string
 }
+
 export type GetTasksResponse = {
     error: string | null
     totalCount: number
