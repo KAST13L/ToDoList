@@ -4,14 +4,14 @@ import {put} from "redux-saga/effects";
 
 export function* handleServerAppError<D>(data: ResponseType<D>) {
     if (data.messages.length) {
-        yield put(setAppErrorAC(data.messages[0]))
+        yield put(setAppErrorAC({error: data.messages[0]}))
     } else {
-        yield put(setAppErrorAC('Some error occurred'))
+        yield put(setAppErrorAC({error: 'Some error occurred'}))
     }
-    yield put(setAppStatusAC('failed'))
+    yield put(setAppStatusAC({status: 'failed'}))
 }
 
 export function* handleServerNetworkError(error: { message: string }) {
-    yield put(setAppErrorAC(error.message ? error.message : 'Some error occurred'))
-    yield put(setAppStatusAC('failed'))
+    yield put(setAppErrorAC({error: error.message ? error.message : 'Some error occurred'}))
+    yield put(setAppStatusAC({status: 'failed'}))
 }
