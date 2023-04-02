@@ -40,7 +40,6 @@ export function* loginWorkerSaga(action: ReturnType<typeof loginWorkerSagaAC>) {
         yield put(setAppStatusAC({status: "idle"}))
     }
 }
-
 export function* logoutWorkerSaga() {
     yield put(setAppStatusAC({status: 'loading'}))
     // @ts-ignore
