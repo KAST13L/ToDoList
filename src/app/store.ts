@@ -1,12 +1,13 @@
 import {tasksReducer, tasksWatcher} from '../features/Task/tasks-reducer';
 import {todolistsReducer, todolistsWatcher} from '../features/Todolist/todolists-reducer';
-import {applyMiddleware, combineReducers, createStore} from 'redux'
+import {combineReducers} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import {authReducer, authWatcher} from "../features/Auth/auth-reducer";
 import createSagaMiddleware from 'redux-saga';
 import {all} from 'redux-saga/effects';
 import {appReducer, appWatcher} from './app-reducer'
 import {configureStore} from "@reduxjs/toolkit";
+
 const sagaMiddleware = createSagaMiddleware()
 
 const rootReducer = combineReducers({
@@ -16,13 +17,10 @@ const rootReducer = combineReducers({
     todolists: todolistsReducer
 })
 
-// export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, sagaMiddleware));
-
 export const store = configureStore({
     reducer: rootReducer,
     middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware, sagaMiddleware)
 })
-
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
@@ -35,7 +33,7 @@ function* rootWatcher() {
         authWatcher(),
         todolistsWatcher()
     ])
-  }
+}
 
 // @ts-ignore
 window.store = store;
