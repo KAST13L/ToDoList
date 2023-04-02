@@ -43,7 +43,7 @@ export function* initializeAppWS() {
     const data: ResponseMeType = yield call(authAPI.me)
     try {
         if (data.resultCode === 0) {
-            yield put(setIsLoggedInAC(true))
+            yield put(setIsLoggedInAC({value: true}))
         } else {
             /*yield handleServerAppError(data)*/
         }
