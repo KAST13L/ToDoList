@@ -1,4 +1,3 @@
-// @ts-ignore
 import {initializeAppWS, setAppStatusAC, setIsInitialized} from "./app-reducer";
 import {call, put} from "redux-saga/effects";
 import {authAPI, ResponseMeType} from "../api/auth-api";
@@ -24,7 +23,7 @@ test('correct using initialWorkerSaga when login success', () => {
 
     expect(generator.next().value).toEqual(call(authAPI.me))
 
-    expect(generator.next(meResponse).value).toEqual(put(setIsLoggedInAC(true)))
+    expect(generator.next(meResponse).value).toEqual(put(setIsLoggedInAC({value: true})))
 
     expect(generator.next().value).toEqual(put(setAppStatusAC("idle")))
 
