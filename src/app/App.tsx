@@ -9,7 +9,6 @@ import {TodolistsList} from "@app/features/TodolistsList/todolistsList.component
 import {Header} from "@app/features/Header/header.component";
 import {selectIsInitialized} from "@app/app/selectors";
 
-
 type AppPropsType = {
     demo?: boolean
 }
@@ -32,7 +31,6 @@ export const App: FC<AppPropsType> = ({demo}) => {
             <ErrorSnackbar/>
             <Header demo={demo}/>
             <div className='mx-8'>
-
                 <Routes>
                     <Route path='/todolist' element={<TodolistsList demo={demo}/>}/>
                     <Route path='/' element={<TodolistsList demo={demo}/>}/>

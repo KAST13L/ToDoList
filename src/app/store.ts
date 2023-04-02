@@ -6,7 +6,6 @@ import {authReducer, authWatcher} from "../features/Auth/auth-reducer";
 import createSagaMiddleware from 'redux-saga';
 import {all} from 'redux-saga/effects';
 import {appReducer, appWatcher} from './app-reducer'
-
 const sagaMiddleware = createSagaMiddleware()
 
 const rootReducer = combineReducers({
