@@ -50,7 +50,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     }, [dispatch])
 
     const changeFilter = useCallback(function (value: FilterValuesType, todolistId: string) {
-        dispatch(changeTodolistFilterAC(todolistId, value))
+        dispatch(changeTodolistFilterAC({id: todolistId, filter: value}))
     }, [dispatch])
 
     const removeTodolist = useCallback(function (id: string) {
@@ -83,16 +83,16 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
             {
                 !todolists.length && <div>
                     <div className='my-5 text-3xl text-center font-thin text-zinc-500'>
-                        Your todo list is empty. Just add them. And feel like a
+                        Your todo list is empty. Just add them. And feel like a<span> </span>
                         <a href=''
                            className='underline'
-                           onClick={onClickLinkHandler}>queen</a>
-                        over your tasks.
+                           onClick={onClickLinkHandler}>queen</a><span> </span>
+                         over your tasks.
                     </div>
                     {isShow && <JackInTheBox>
                         <div className='max-w-[1000px]'>
                             <img
-                                src="https://n1s2.hsmedia.ru/38/13/b4/3813b44d1eb77ade0112f3b528729aa1/1920x1080_0xac120003_11848801501662642079.jpeg"
+                                src="https://media1.popsugar-assets.com/files/thumbor/BhFVdQXsyqCFQma1yI6arGCfR4c/489x0:2474x1985/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2022/09/13/694/n/1922398/e5f2c3646320a46be09002.39507938_/i/Queen-Elizabeth-II-Little-Known-Facts.jpg"
                                 alt="king"/>
                         </div>
                     </JackInTheBox>}

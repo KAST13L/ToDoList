@@ -1,78 +1,72 @@
 import {
-    AddTodolistActionType,
-    RemoveTodolistActionType,
-    SetTodolistsActionType
-} from '../Todolist/todolists-reducer'
-import {
     TaskPriorities,
     TaskStatuses,
     TaskType,
     todolistsAPI,
+    TodolistType,
     UpdateTaskModelType
 } from '@app/api/todolists-api'
 import {AppRootStateType} from '@app/app/store'
 import {setAppStatusAC, setAppSuccessAC} from '@app/app/app-reducer'
 import {handleServerAppError, handleServerNetworkError} from '@app/utils/error-utils'
 import {call, put, takeEvery} from 'redux-saga/effects';
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {
+    addTodolistAC,
+    removeTodolistAC,
+    setTodolistsAC
+} from "@app/features/Todolist/todolists-reducer";
 
 const initialState: TasksStateType = {}
 
-export const tasksReducer = (state: TasksStateType = initialState, action: ActionsType): TasksStateType => {
-    switch (action.type) {
-        case 'REMOVE-TASK':
+export const slice = createSlice({
+    name: 'tasks',
+    initialState: initialState,
+    reducers: {
+        removeTaskAC(state, action: PayloadAction<{ taskId: string, todolistId: string }>) {
             return {
                 ...state,
-                [action.todolistId]: state[action.todolistId].filter(t => t.id !== action.taskId)
+                [action.payload.todolistId]: state[action.payload.todolistId].filter(t => t.id !== action.payload.taskId)
             }
-        case 'ADD-TASK':
+        },
+        addTaskAC(state, action: PayloadAction<{ task: TaskType }>) {
             return {
                 ...state,
-                [action.task.todoListId]: [action.task, ...state[action.task.todoListId]]
+                [action.payload.task.todoListId]: [action.payload.task, ...state[action.payload.task.todoListId]]
             }
-        case 'UPDATE-TASK':
+        },
+        updateTaskAC(state, action: PayloadAction<{ taskId: string, model: UpdateDomainTaskModelType, todolistId: string }>) {
             return {
                 ...state,
-                [action.todolistId]: state[action.todolistId]
-                    .map(t => t.id === action.taskId ? {...t, ...action.model} : t)
+                [action.payload.todolistId]: state[action.payload.todolistId]
+                    .map(t => t.id === action.payload.taskId ? {...t, ...action.payload.model} : t)
             }
-        case 'ADD-TODOLIST':
-            return {...state, [action.todolist.id]: []}
-        case 'REMOVE-TODOLIST':
-            const copyState = {...state}
-            delete copyState[action.id]
-            return copyState
-        case 'SET-TODOLISTS': {
-            const copyState = {...state}
-            action.todolists.forEach(tl => {
-                copyState[tl.id] = []
+        },
+        setTasksAC(state, action: PayloadAction<{ tasks: Array<TaskType>, todolistId: string }>) {
+            return {...state, [action.payload.todolistId]: action.payload.tasks}
+        },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(addTodolistAC, (state, action: PayloadAction<{ todolist: TodolistType }>) => {
+                return {...state, [action.payload.todolist.id]: []}
             })
-            return copyState
-        }
-        case 'SET-TASKS':
-            return {...state, [action.todolistId]: action.tasks}
-        default:
-            return state
+        builder.addCase(removeTodolistAC, (state, action: PayloadAction<{ id: string }>) => {
+                const copyState = {...state}
+                delete copyState[action.payload.id]
+                return copyState
+            })
+        builder.addCase(setTodolistsAC, (state, action: PayloadAction<{ todolists: Array<TodolistType> }>) => {
+                const copyState = {...state}
+                action.payload.todolists.forEach(tl => {
+                    copyState[tl.id] = []
+                })
+                return copyState
+            })
     }
-}
+})
 
-// actions
-export const removeTaskAC = (taskId: string, todolistId: string) => ({
-    type: 'REMOVE-TASK',
-    taskId,
-    todolistId
-} as const)
-export const addTaskAC = (task: TaskType) => ({type: 'ADD-TASK', task} as const)
-export const updateTaskAC = (taskId: string, model: UpdateDomainTaskModelType, todolistId: string) => ({
-    type: 'UPDATE-TASK',
-    model,
-    todolistId,
-    taskId
-} as const)
-export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) => ({
-    type: 'SET-TASKS',
-    tasks,
-    todolistId
-} as const)
+export const {addTaskAC, setTasksAC, updateTaskAC, removeTaskAC} = slice.actions
+export const tasksReducer = slice.reducer
 
 // sagas
 export function* fetchTasksWorkerSaga(action: ReturnType<typeof fetchTasksWorkerSagaAC>) {
@@ -80,7 +74,7 @@ export function* fetchTasksWorkerSaga(action: ReturnType<typeof fetchTasksWorker
     // @ts-ignore
     const data = yield call(todolistsAPI.getTasks, action.todolistId)
     try {
-        yield put(setTasksAC(data.items, action.todolistId))
+        yield put(setTasksAC({tasks: data.items, todolistId: action.todolistId}))
         yield put(setAppStatusAC({status: 'succeeded'}))
     } catch (e: any) {
         handleServerNetworkError(e)
@@ -96,7 +90,7 @@ export function* removeTaskWorkerSaga(action: ReturnType<typeof removeTaskWorker
     try {
         if (res) {
         }
-        yield put(removeTaskAC(action.taskId, action.todolistId))
+        yield put(removeTaskAC({taskId: action.taskId, todolistId: action.todolistId}))
         yield put(setAppStatusAC({status: 'succeeded'}))
         yield put(setAppSuccessAC({success: 'Task deleted'}))
     } catch (e: any) {
@@ -147,7 +141,11 @@ export function* updateTaskWorkerSaga(action: ReturnType<typeof updateTaskWorker
     const res = yield call(todolistsAPI.updateTask, action.todolistId, action.taskId, apiModel)
     try {
         if (res.data.resultCode === 0) {
-            yield put(updateTaskAC(action.taskId, action.domainModel, action.todolistId))
+            yield put(updateTaskAC({
+                taskId: action.taskId,
+                model: action.domainModel,
+                todolistId: action.todolistId
+            }))
             yield put(setAppStatusAC({status: 'succeeded'}))
             yield put(setAppSuccessAC({success: 'Task changed'}))
         } else {
@@ -203,13 +201,5 @@ export type UpdateDomainTaskModelType = {
 export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
-type ActionsType =
-    | ReturnType<typeof removeTaskAC>
-    | ReturnType<typeof addTaskAC>
-    | ReturnType<typeof updateTaskAC>
-    | AddTodolistActionType
-    | RemoveTodolistActionType
-    | SetTodolistsActionType
-    | ReturnType<typeof setTasksAC>
 
 
