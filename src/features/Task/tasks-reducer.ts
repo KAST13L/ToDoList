@@ -76,52 +76,52 @@ export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) => ({
 
 // sagas
 export function* fetchTasksWorkerSaga(action: ReturnType<typeof fetchTasksWorkerSagaAC>) {
-    yield put(setAppStatusAC('loading'))
+    yield put(setAppStatusAC({status: 'loading'}))
     // @ts-ignore
     const data = yield call(todolistsAPI.getTasks, action.todolistId)
     try {
         yield put(setTasksAC(data.items, action.todolistId))
-        yield put(setAppStatusAC('succeeded'))
+        yield put(setAppStatusAC({status: 'succeeded'}))
     } catch (e: any) {
         handleServerNetworkError(e)
     } finally {
-        yield put(setAppStatusAC('idle'))
+        yield put(setAppStatusAC({status: 'idle'}))
     }
 }
 
 export function* removeTaskWorkerSaga(action: ReturnType<typeof removeTaskWorkerSagaAC>) {
-    yield put(setAppStatusAC('loading'))
+    yield put(setAppStatusAC({status: 'loading'}))
     // @ts-ignore
     const res = yield call(todolistsAPI.deleteTask, action.todolistId, action.taskId)
     try {
         if (res) {
         }
         yield put(removeTaskAC(action.taskId, action.todolistId))
-        yield put(setAppStatusAC('succeeded'))
-        yield put(setAppSuccessAC('Task deleted'))
+        yield put(setAppStatusAC({status: 'succeeded'}))
+        yield put(setAppSuccessAC({success: 'Task deleted'}))
     } catch (e: any) {
         handleServerNetworkError(e)
     } finally {
-        yield put(setAppStatusAC('idle'))
+        yield put(setAppStatusAC({status: 'idle'}))
     }
 }
 
 export function* addTaskWorkerSaga(action: ReturnType<typeof addTaskWorkerSagaAC>) {
-    yield put(setAppStatusAC('loading'))
+    yield put(setAppStatusAC({status: 'loading'}))
     // @ts-ignore
     const res = yield call(todolistsAPI.createTask, action.todolistId, action.title)
     try {
         if (res.data.resultCode === 0) {
             yield put(addTaskAC(res.data.data.item))
-            yield put(setAppStatusAC('succeeded'))
-            yield put(setAppSuccessAC('Task added'))
+            yield put(setAppStatusAC({status: 'succeeded'}))
+            yield put(setAppSuccessAC({success: 'Task added'}))
         } else {
             yield handleServerAppError(res.data);
         }
     } catch (e: any) {
         handleServerNetworkError(e)
     } finally {
-        yield put(setAppStatusAC('idle'))
+        yield put(setAppStatusAC({status: 'idle'}))
     }
 }
 
@@ -142,21 +142,21 @@ export function* updateTaskWorkerSaga(action: ReturnType<typeof updateTaskWorker
         ...action.domainModel
     }
 
-    yield put(setAppStatusAC('loading'))
+    yield put(setAppStatusAC({status: 'loading'}))
     // @ts-ignore
     const res = yield call(todolistsAPI.updateTask, action.todolistId, action.taskId, apiModel)
     try {
         if (res.data.resultCode === 0) {
             yield put(updateTaskAC(action.taskId, action.domainModel, action.todolistId))
-            yield put(setAppStatusAC('succeeded'))
-            yield put(setAppSuccessAC('Task changed'))
+            yield put(setAppStatusAC({status: 'succeeded'}))
+            yield put(setAppSuccessAC({success: 'Task changed'}))
         } else {
             yield handleServerAppError(res.data);
         }
     } catch (error: any) {
         handleServerNetworkError(error);
     } finally {
-        yield put(setAppStatusAC('idle'))
+        yield put(setAppStatusAC({status: 'idle'}))
     }
 }
 

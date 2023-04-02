@@ -16,8 +16,8 @@ export function ErrorSnackbar() {
     const visualTime = error ? 6000 : 2000
 
     const handleClose = async () => {
-        success && dispatch(setAppSuccessAC(null))
-        error && dispatch(setAppErrorAC(null))
+        success && dispatch(setAppSuccessAC({success: null}))
+        error && dispatch(setAppErrorAC({error: null}))
     }
 
     const isOpen: boolean = !!error || !!success

@@ -25,9 +25,9 @@ test('correct using initialWorkerSaga when login success', () => {
 
     expect(generator.next(meResponse).value).toEqual(put(setIsLoggedInAC({value: true})))
 
-    expect(generator.next().value).toEqual(put(setAppStatusAC("idle")))
+    expect(generator.next().value).toEqual(put(setAppStatusAC({status: "idle"})))
 
-    expect(generator.next().value).toEqual(put(setIsInitialized(true)))
+    expect(generator.next().value).toEqual(put(setIsInitialized({isInitialized: true})))
 })
 
 test('correct using initialWorkerSaga when login unsuccess', () => {
@@ -36,7 +36,7 @@ test('correct using initialWorkerSaga when login unsuccess', () => {
     expect(generator.next().value).toEqual(call(authAPI.me))
 
     meResponse.resultCode = 1;
-    expect(generator.next(meResponse).value).toEqual(put(setAppStatusAC("idle")))
+    expect(generator.next(meResponse).value).toEqual(put(setAppStatusAC({status: "idle"})))
 
-    expect(generator.next().value).toEqual(put(setIsInitialized(true)))
+    expect(generator.next().value).toEqual(put(setIsInitialized({isInitialized: true})))
 })

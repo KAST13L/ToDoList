@@ -23,39 +23,40 @@ export const {setIsLoggedInAC} = slice.actions
 
 // sagas
 export function* loginWorkerSaga(action: ReturnType<typeof loginWorkerSagaAC>) {
-    yield put(setAppStatusAC("loading"))
+    yield put(setAppStatusAC({status: "loading"}))
     // @ts-ignore
     const res = yield call(authAPI.login, action.data)
     try {
         if (res.data.resultCode === 0) {
             yield put(setIsLoggedInAC({value: true}))
-            yield put(setAppStatusAC('succeeded'))
-            yield put(setAppSuccessAC('You are authorized!'))
+            yield put(setAppStatusAC({status: 'succeeded'}))
+            yield put(setAppSuccessAC({success: 'You are authorized!'}))
         } else {
             yield handleServerAppError(res.data)
         }
     } catch (e: any) {
         yield handleServerNetworkError(e)
     } finally {
-        yield put(setAppStatusAC("idle"))
+        yield put(setAppStatusAC({status: "idle"}))
     }
 }
+
 export function* logoutWorkerSaga() {
-    yield put(setAppStatusAC('loading'))
+    yield put(setAppStatusAC({status: 'loading'}))
     // @ts-ignore
     const res = yield call(authAPI.logout)
     try {
         if (res.data.resultCode === 0) {
             yield put(setIsLoggedInAC({value: false}))
-            yield put(setAppStatusAC('succeeded'))
-            yield put(setAppSuccessAC('You are signed out!'))
+            yield put(setAppStatusAC({status: 'succeeded'}))
+            yield put(setAppSuccessAC({success: 'You are signed out!'}))
         } else {
             yield handleServerAppError(res.data)
         }
     } catch (e: any) {
         yield handleServerNetworkError(e)
     } finally {
-        yield put(setAppStatusAC('idle'))
+        yield put(setAppStatusAC({status: 'idle'}))
     }
 }
 

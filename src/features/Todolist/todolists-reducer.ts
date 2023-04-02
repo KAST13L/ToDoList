@@ -63,72 +63,74 @@ export const setTodolistsAC = (todolists: Array<TodolistType>) => ({
 
 // sagas
 export function* fetchTodolistsWorkerSaga() {
-    yield put(setAppStatusAC('loading'))
+    yield put(setAppStatusAC({status: 'loading'}))
     // @ts-ignore
     const res = yield call(todolistsAPI.getTodolists)
     try {
-        if (res) {}
+        if (res) {
+        }
         yield put(setTodolistsAC(res.data))
-        yield put(setAppStatusAC('succeeded'))
+        yield put(setAppStatusAC({status: 'succeeded'}))
     } catch (e: any) {
         handleServerNetworkError(e)
     } finally {
-        yield put(setAppStatusAC('idle'))
+        yield put(setAppStatusAC({status: 'idle'}))
     }
 }
 
 export function* removeTodolistWorkerSaga(action: ReturnType<typeof removeTodolistWorkerSagaAC>) {
-    yield put(setAppStatusAC('loading'))
+    yield put(setAppStatusAC({status: 'loading'}))
     yield put(changeTodolistEntityStatusAC(action.todolistId, 'loading'))
     // @ts-ignore
     const res = yield call(todolistsAPI.deleteTodolist, action.todolistId)
     try {
-        if (res) {}
+        if (res) {
+        }
         yield put(removeTodolistAC(action.todolistId))
-        yield put(setAppStatusAC('succeeded'))
-        yield put(setAppSuccessAC('Todolist removed'))
+        yield put(setAppStatusAC({status: 'succeeded'}))
+        yield put(setAppSuccessAC({success: 'Todolist removed'}))
     } catch (e: any) {
         handleServerNetworkError(e)
     } finally {
-        yield put(setAppStatusAC('idle'))
+        yield put(setAppStatusAC({status: 'idle'}))
     }
 }
 
 export function* addTodolistWorkerSaga(action: ReturnType<typeof addTodolistWorkerSagaAC>) {
-    yield put(setAppStatusAC('loading'))
+    yield put(setAppStatusAC({status: 'loading'}))
     // @ts-ignore
     const res = yield call(todolistsAPI.createTodolist, action.title)
     try {
         if (res.data.resultCode === 0) {
             yield put(addTodolistAC(res.data.data.item))
-            yield put(setAppStatusAC('succeeded'))
-            yield put(setAppSuccessAC('Todolist added'))
+            yield put(setAppStatusAC({status: 'succeeded'}))
+            yield put(setAppSuccessAC({success: 'Todolist added'}))
         } else {
             yield handleServerAppError(res.data)
         }
     } catch (e: any) {
         handleServerNetworkError(e)
     } finally {
-        yield put(setAppStatusAC('idle'))
+        yield put(setAppStatusAC({status: 'idle'}))
     }
 }
 
 export function* changeTodolistTitleWorkerSaga(action: ReturnType<typeof changeTodolistTitleWorkerSagaAC>) {
-    yield put(setAppStatusAC('loading'))
+    yield put(setAppStatusAC({status: 'loading'}))
     // @ts-ignore
     const res = yield call(todolistsAPI.updateTodolist, action.id, action.title)
     try {
         if (res.data.resultCode === 0) {
             yield put(changeTodolistTitleAC(action.id, action.title))
-            yield put(setAppStatusAC('succeeded'))
-            yield put(setAppSuccessAC('Todolist title changed'))
+            yield put(setAppStatusAC({status: 'succeeded'}))
+            yield put(setAppSuccessAC({success: 'Todolist title changed'}))
         } else {
             yield handleServerAppError(res.data)
         }
     } catch (e: any) {
         handleServerNetworkError(e)
     } finally {
-        yield put(setAppStatusAC('idle'))
+        yield put(setAppStatusAC({status: 'idle'}))
     }
 }
 
