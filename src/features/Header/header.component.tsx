@@ -4,7 +4,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import {useDispatch, useSelector} from "react-redux";
 import Button from "@mui/material/Button";
 import {AddItemForm} from "@app/components/AddItemForm/AddItemForm";
-import {addTodolistWorkerSagaAC} from "@app/features/Todolist/todolists-reducer";
+import {addTodolistT} from "@app/features/Todolist/todolists-reducer";
 import {AppBar} from "@mui/material";
 import {action} from "@storybook/addon-actions";
 import {selectIsLoggedIn, selectStatus} from "@app/app/selectors";
@@ -24,7 +24,7 @@ export const Header: FC<HeaderPropsType> = ({demo = false}) => {
     }
 
     const addTodolist = useCallback((title: string) => {
-        dispatch(addTodolistWorkerSagaAC(title))
+        dispatch(addTodolistT(title))
     }, [dispatch])
 
     const isAuthorizedAndIsDemo = demo || isLoggedIn

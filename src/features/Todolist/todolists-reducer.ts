@@ -1,10 +1,80 @@
-import {call, put, takeEvery} from 'redux-saga/effects'
-import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
 import {RequestStatusType, setAppStatusAC, setAppSuccessAC} from "@app/app/app-reducer";
 import {todolistsAPI, TodolistType} from "@app/api/todolists-api";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
+// types
+export type FilterValuesType = 'all' | 'active' | 'completed';
+export type TodolistDomainType = TodolistType & {
+    filter: FilterValuesType
+    entityStatus: RequestStatusType
+}
 const initialState: Array<TodolistDomainType> = []
+
+// asyncThunk
+export const fetchTodolistsT = createAsyncThunk('todolist/fetchTodolists', async (arg, {dispatch}) => {
+    dispatch(setAppStatusAC({status: 'loading'}))
+    const res = await todolistsAPI.getTodolists()
+    try {
+        if (res) {
+        }
+        dispatch(setTodolistsAC({todolists: res.data}))
+        dispatch(setAppStatusAC({status: 'succeeded'}))
+    } catch (e: any) {
+        // handleServerNetworkError(e)
+    } finally {
+        dispatch(setAppStatusAC({status: 'idle'}))
+    }
+})
+export const removeTodolistT = createAsyncThunk('todolist/removeTodolist', async (todolistId: string, {dispatch}) => {
+    dispatch(setAppStatusAC({status: 'loading'}))
+    dispatch(changeTodolistEntityStatusAC({id: todolistId, status: 'loading'}))
+    const res = await todolistsAPI.deleteTodolist(todolistId)
+    try {
+        if (res) {
+        }
+        dispatch(removeTodolistAC({id: todolistId}))
+        dispatch(setAppStatusAC({status: 'succeeded'}))
+        dispatch(setAppSuccessAC({success: 'Todolist removed'}))
+    } catch (e: any) {
+        //handleServerNetworkError(e)
+    } finally {
+        dispatch(setAppStatusAC({status: 'idle'}))
+    }
+})
+export const addTodolistT = createAsyncThunk('todolist/addTodolist', async (title: string, {dispatch}) => {
+    dispatch(setAppStatusAC({status: 'loading'}))
+    const res = await todolistsAPI.createTodolist(title)
+    try {
+        if (res.data.resultCode === 0) {
+            dispatch(addTodolistAC({todolist: res.data.data.item}))
+            dispatch(setAppStatusAC({status: 'succeeded'}))
+            dispatch(setAppSuccessAC({success: 'Todolist added'}))
+        } else {
+            // handleServerAppError(res.data)
+        }
+    } catch (e: any) {
+        // handleServerNetworkError(e)
+    } finally {
+        dispatch(setAppStatusAC({status: 'idle'}))
+    }
+})
+export const changeTodolistTitleT = createAsyncThunk('todolist/changeTodolistTitle', async ({id,title}: {id: string, title: string}, {dispatch}) => {
+    dispatch(setAppStatusAC({status: 'loading'}))
+    const res = await todolistsAPI.updateTodolist(id, title)
+    try {
+        if (res.data.resultCode === 0) {
+            dispatch(changeTodolistTitleAC({id: id, title:title}))
+            dispatch(setAppStatusAC({status: 'succeeded'}))
+            dispatch(setAppSuccessAC({success: 'Todolist title changed'}))
+        } else {
+            // handleServerAppError(res.data)
+        }
+    } catch (e: any) {
+        // handleServerNetworkError(e)
+    } finally {
+        dispatch(setAppStatusAC({status: 'idle'}))
+    }
+})
 
 export const slice = createSlice({
     name: 'todolist',
@@ -46,6 +116,7 @@ export const {
 } = slice.actions
 export const todolistsReducer = slice.reducer
 
+/*
 // sagas
 export function* fetchTodolistsWorkerSaga() {
     yield put(setAppStatusAC({status: 'loading'}))
@@ -62,7 +133,6 @@ export function* fetchTodolistsWorkerSaga() {
         yield put(setAppStatusAC({status: 'idle'}))
     }
 }
-
 export function* removeTodolistWorkerSaga(action: ReturnType<typeof removeTodolistWorkerSagaAC>) {
     yield put(setAppStatusAC({status: 'loading'}))
     yield put(changeTodolistEntityStatusAC({id: action.todolistId, status: 'loading'}))
@@ -80,7 +150,6 @@ export function* removeTodolistWorkerSaga(action: ReturnType<typeof removeTodoli
         yield put(setAppStatusAC({status: 'idle'}))
     }
 }
-
 export function* addTodolistWorkerSaga(action: ReturnType<typeof addTodolistWorkerSagaAC>) {
     yield put(setAppStatusAC({status: 'loading'}))
     // @ts-ignore
@@ -99,7 +168,6 @@ export function* addTodolistWorkerSaga(action: ReturnType<typeof addTodolistWork
         yield put(setAppStatusAC({status: 'idle'}))
     }
 }
-
 export function* changeTodolistTitleWorkerSaga(action: ReturnType<typeof changeTodolistTitleWorkerSagaAC>) {
     yield put(setAppStatusAC({status: 'loading'}))
     // @ts-ignore
@@ -135,17 +203,10 @@ export const changeTodolistTitleWorkerSagaAC = (id: string, title: string) => ({
     title
 })
 
-// types
-export type FilterValuesType = 'all' | 'active' | 'completed';
-export type TodolistDomainType = TodolistType & {
-    filter: FilterValuesType
-    entityStatus: RequestStatusType
-}
-
 // todolistsWatcher
 export function* todolistsWatcher() {
     yield takeEvery('TODO/FETCH-TODOLISTS', fetchTodolistsWorkerSaga)
     yield takeEvery('TODO/REMOVE-TODOLIST', removeTodolistWorkerSaga)
     yield takeEvery('TODO/ADD-TODOLIST', addTodolistWorkerSaga)
     yield takeEvery('TODO/CHANGE-TODOLIST-TITLE', changeTodolistTitleWorkerSaga)
-}
+}*/

@@ -2,10 +2,10 @@ import React, {useCallback, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {
     changeTodolistFilterAC,
-    changeTodolistTitleWorkerSagaAC,
-    fetchTodolistsWorkerSagaAC,
+    changeTodolistTitleT,
+    fetchTodolistsT,
     FilterValuesType,
-    removeTodolistWorkerSagaAC
+    removeTodolistT
 } from '../Todolist/todolists-reducer'
 import {addTaskT, removeTaskT, updateTaskT} from '../Task/tasks-reducer'
 import {Navigate} from "react-router-dom";
@@ -49,11 +49,11 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     }, [dispatch])
 
     const removeTodolist = useCallback(function (id: string) {
-        dispatch(removeTodolistWorkerSagaAC(id))
+        dispatch(removeTodolistT(id))
     }, [dispatch])
 
     const changeTodolistTitle = useCallback(function (id: string, title: string) {
-        dispatch(changeTodolistTitleWorkerSagaAC(id, title))
+        dispatch(changeTodolistTitleT({title, id}))
     }, [dispatch])
 
     const onClickLinkHandler = (e: any) => {
@@ -65,7 +65,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
         if (demo || !isLoggedIn) {
             return;
         }
-        dispatch(fetchTodolistsWorkerSagaAC())
+        dispatch(fetchTodolistsT())
     }, [dispatch])
 
 
