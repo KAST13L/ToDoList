@@ -1,4 +1,4 @@
-import {tasksReducer, tasksWatcher} from '../features/Task/tasks-reducer';
+import {tasksReducer} from '../features/Task/tasks-reducer';
 import {todolistsReducer, todolistsWatcher} from '../features/Todolist/todolists-reducer';
 import {combineReducers} from 'redux'
 import thunkMiddleware from 'redux-thunk'
@@ -29,7 +29,7 @@ sagaMiddleware.run(rootWatcher)
 function* rootWatcher() {
     yield all([
         appWatcher(),
-        tasksWatcher(),
+        // tasksWatcher(),
         authWatcher(),
         todolistsWatcher()
     ])

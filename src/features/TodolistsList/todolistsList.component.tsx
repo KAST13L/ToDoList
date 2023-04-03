@@ -7,14 +7,9 @@ import {
     FilterValuesType,
     removeTodolistWorkerSagaAC
 } from '../Todolist/todolists-reducer'
-import {
-    addTaskWorkerSagaAC,
-    removeTaskWorkerSagaAC,
-    updateTaskWorkerSagaAC
-} from '../Task/tasks-reducer'
+import {addTaskT, removeTaskT, updateTaskT} from '../Task/tasks-reducer'
 import {Navigate} from "react-router-dom";
 import {TaskStatuses} from "@app/api/todolists-api";
-import {store} from "@app/app/store";
 import {Todolist} from "@app/features/Todolist/todolist.component";
 import Grid from "@mui/material/Grid";
 import {JackInTheBox} from "react-awesome-reveal";
@@ -33,20 +28,20 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
 
     const [isShow, setIsShow] = useState<boolean>(false)
 
-    const removeTask = useCallback(function (id: string, todolistId: string) {
-        dispatch(removeTaskWorkerSagaAC(id, todolistId))
+    const removeTask = useCallback(function (taskId: string, todolistId: string) {
+        dispatch(removeTaskT({taskId, todolistId}))
     }, [dispatch])
 
     const addTask = useCallback(function (title: string, todolistId: string) {
-        dispatch(addTaskWorkerSagaAC(title, todolistId))
+        dispatch(addTaskT({title, todolistId}))
     }, [dispatch])
 
-    const changeStatus = useCallback(function (id: string, status: TaskStatuses, todolistId: string) {
-        dispatch(updateTaskWorkerSagaAC(id, {status}, todolistId, store.getState))
+    const changeStatus = useCallback(function (taskId: string, status: TaskStatuses, todolistId: string) {
+        dispatch(updateTaskT({taskId, domainModel: {status}, todolistId}))
     }, [dispatch])
 
-    const changeTaskTitle = useCallback(function (id: string, newTitle: string, todolistId: string) {
-        dispatch(updateTaskWorkerSagaAC(id, {title: newTitle}, todolistId, store.getState))
+    const changeTaskTitle = useCallback(function (taskId: string, newTitle: string, todolistId: string) {
+        dispatch(updateTaskT({taskId, domainModel: {title: newTitle}, todolistId}))
     }, [dispatch])
 
     const changeFilter = useCallback(function (value: FilterValuesType, todolistId: string) {
@@ -87,7 +82,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
                         <a href=''
                            className='underline'
                            onClick={onClickLinkHandler}>queen</a><span> </span>
-                         over your tasks.
+                        over your tasks.
                     </div>
                     {isShow && <JackInTheBox>
                         <div className='max-w-[1000px]'>

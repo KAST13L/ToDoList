@@ -5,7 +5,7 @@ import {Delete} from '@mui/icons-material';
 import {Task} from '../Task/task.component'
 import {FilterValuesType, TodolistDomainType} from './todolists-reducer'
 import {useDispatch} from 'react-redux'
-import {fetchTasksWorkerSagaAC} from '../Task/tasks-reducer'
+import {fetchTasksT} from '../Task/tasks-reducer'
 import {TaskStatuses, TaskType} from "@app/api/todolists-api";
 import {EditableSpan} from "@app/components/EditableSpan/EditableSpan";
 import {AddItemForm} from "@app/components/AddItemForm/AddItemForm";
@@ -32,7 +32,7 @@ export const Todolist: FC<PropsType> = React.memo(function ({demo = false, ...pr
         if (demo) {
             return
         }
-        dispatch(fetchTasksWorkerSagaAC(props.todolist.id))
+        dispatch(fetchTasksT(props.todolist.id))
     }, [])
 
     const addTask = useCallback((title: string) => {
