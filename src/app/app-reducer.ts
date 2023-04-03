@@ -1,9 +1,6 @@
-import {authAPI, ResponseMeType} from "../api/auth-api";
+import {authAPI} from "../api/auth-api";
 import {setIsLoggedInAC} from "../features/Auth/auth-reducer";
-import {handleServerNetworkError} from "../utils/error-utils";
-import axios from "axios";
-import {call, put, takeEvery} from 'redux-saga/effects';
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 // types
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -13,25 +10,20 @@ export type InitialStateType = {
     success: string | null
     isInitialized: boolean
 }
-/*
 // asyncThunk
-// export const initializeAppT = createAsyncThunk('app/initializeApp', async ({}, {dispatch}) => {
-//     dispatch(setAppStatusAC({status:'loading'}))
-//     dispatch(setIsInitialized({isInitialized: true}))
-//     const data = await authAPI.me()
-//     try {
-//         if (data.resultCode === 0) {
-//             dispatch(setIsLoggedInAC({isLoggedIn: true}))
-//         } else {
-//             // handleServerAppError(data)
-//         }
-//     } catch (e) {
-//         // handleServerNetworkError(e)
-//     } finally {
-//         dispatch(setAppStatusAC({status: "idle"}))
-//         dispatch(setIsInitialized({isInitialized: true}))
-//     }
-// } )*/
+export const initializeAppT = createAsyncThunk('app/initializeApp', async (arg, {dispatch})=>{
+    const data = await authAPI.me()
+    try {
+        if (data.resultCode === 0) {
+            dispatch(setIsLoggedInAC({isLoggedIn: true}))
+        }
+    } catch (e) {
+        // handleServerNetworkError(e)
+    } finally {
+        dispatch(setAppStatusAC({status: "idle"}))
+        dispatch(setIsInitialized({isInitialized: true}))
+    }
+})
 
 const initialState: InitialStateType = {
     status: 'idle',
@@ -63,6 +55,7 @@ export const slice = createSlice({
 export const {setAppErrorAC,setAppStatusAC,setAppSuccessAC,setIsInitialized} = slice.actions
 export const appReducer = slice.reducer
 
+/*
 // sagas
 export function* initializeAppWS() {
     // @ts-ignore
@@ -71,7 +64,7 @@ export function* initializeAppWS() {
         if (data.resultCode === 0) {
             yield put(setIsLoggedInAC({isLoggedIn: true}))
         } else {
-            /*yield handleServerAppError(data)*/
+            /!*yield handleServerAppError(data)*!/
         }
     } catch (e) {
         if (axios.isAxiosError(e)) {
@@ -87,4 +80,4 @@ export const initializeAppWSAC = () => ({type: 'APP/INITIALIZE'})
 // appWatcher
 export function* appWatcher() {
     yield takeEvery('APP/INITIALIZE', initializeAppWS)
-}
+}*/

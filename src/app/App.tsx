@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
 import {Navigate, Route, Routes} from "react-router-dom";
 import {CircularProgress} from "@mui/material";
-import {initializeAppWSAC} from "./app-reducer";
+import {initializeAppT} from "./app-reducer";
 import {Login} from "@app/features/Auth/login.component";
 import {TodolistsList} from "@app/features/TodolistsList/todolistsList.component";
 import {Header} from "@app/features/Header/header.component";
@@ -19,7 +19,7 @@ export const App: FC<AppPropsType> = ({demo}) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(initializeAppWSAC())
+        dispatch(initializeAppT())
     }, [dispatch])
 
     if (!demo && !isInitialized) {

@@ -5,7 +5,7 @@ import thunkMiddleware from 'redux-thunk'
 import {authReducer} from "../features/Auth/auth-reducer";
 import createSagaMiddleware from 'redux-saga';
 import {all} from 'redux-saga/effects';
-import {appReducer, appWatcher} from './app-reducer'
+import {appReducer} from './app-reducer'
 import {configureStore} from "@reduxjs/toolkit";
 
 const sagaMiddleware = createSagaMiddleware()
@@ -28,7 +28,7 @@ sagaMiddleware.run(rootWatcher)
 
 function* rootWatcher() {
     yield all([
-        appWatcher(),
+        // appWatcher(),
         // tasksWatcher(),
         // authWatcher(),
         todolistsWatcher()
