@@ -1,6 +1,7 @@
 import {authAPI, LoginParamsType} from "@app/api/auth-api";
 import {setAppStatusAC, setAppSuccessAC} from "@app/app/app-reducer";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
 
 const initialState = {
     isLoggedIn: false
@@ -15,10 +16,10 @@ export const loginT = createAsyncThunk('auth/login',async (data: LoginParamsType
             dispatch(setAppStatusAC({status: 'succeeded'}))
             dispatch(setAppSuccessAC({success: 'You are authorized!'}))
         } else {
-            // handleServerAppError(res.data)
+            handleServerAppError(res.data, dispatch)
         }
     } catch (e: any) {
-        // handleServerNetworkError(e)
+        handleServerNetworkError(e, dispatch)
     } finally {
         dispatch(setAppStatusAC({status: "idle"}))
     }
@@ -32,10 +33,10 @@ export const logoutT = createAsyncThunk('auth/logout',async (arg, {dispatch}) =>
             dispatch(setAppStatusAC({status: 'succeeded'}))
             dispatch(setAppSuccessAC({success: 'You are signed out!'}))
         } else {
-            // handleServerAppError(res.data)
+            handleServerAppError(res.data, dispatch)
         }
     } catch (e: any) {
-        // handleServerNetworkError(e)
+        handleServerNetworkError(e, dispatch)
     } finally {
         dispatch(setAppStatusAC({status: 'idle'}))
     }
