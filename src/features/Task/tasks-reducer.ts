@@ -26,7 +26,6 @@ export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
-// state
 const initialState: TasksStateType = {}
 
 // asyncThunk

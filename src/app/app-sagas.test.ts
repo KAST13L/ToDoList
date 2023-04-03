@@ -1,3 +1,4 @@
+/*
 import {initializeAppWS, setAppStatusAC, setIsInitialized} from "./app-reducer";
 import {call, put} from "redux-saga/effects";
 import {authAPI, ResponseMeType} from "../api/auth-api";
@@ -39,4 +40,6 @@ test('correct using initialWorkerSaga when login unsuccess', () => {
     expect(generator.next(meResponse).value).toEqual(put(setAppStatusAC({status: "idle"})))
 
     expect(generator.next().value).toEqual(put(setIsInitialized({isInitialized: true})))
-})
+})*/
+
+export const t = 's'

@@ -5,6 +5,34 @@ import axios from "axios";
 import {call, put, takeEvery} from 'redux-saga/effects';
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
+// types
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type InitialStateType = {
+    status: RequestStatusType
+    error: string | null
+    success: string | null
+    isInitialized: boolean
+}
+/*
+// asyncThunk
+// export const initializeAppT = createAsyncThunk('app/initializeApp', async ({}, {dispatch}) => {
+//     dispatch(setAppStatusAC({status:'loading'}))
+//     dispatch(setIsInitialized({isInitialized: true}))
+//     const data = await authAPI.me()
+//     try {
+//         if (data.resultCode === 0) {
+//             dispatch(setIsLoggedInAC({isLoggedIn: true}))
+//         } else {
+//             // handleServerAppError(data)
+//         }
+//     } catch (e) {
+//         // handleServerNetworkError(e)
+//     } finally {
+//         dispatch(setAppStatusAC({status: "idle"}))
+//         dispatch(setIsInitialized({isInitialized: true}))
+//     }
+// } )*/
+
 const initialState: InitialStateType = {
     status: 'idle',
     error: null,
@@ -41,7 +69,7 @@ export function* initializeAppWS() {
     const data: ResponseMeType = yield call(authAPI.me)
     try {
         if (data.resultCode === 0) {
-            yield put(setIsLoggedInAC({value: true}))
+            yield put(setIsLoggedInAC({isLoggedIn: true}))
         } else {
             /*yield handleServerAppError(data)*/
         }
@@ -54,19 +82,8 @@ export function* initializeAppWS() {
         yield put(setIsInitialized({isInitialized: true}))
     }
 }
-
 // worker saga AC's
 export const initializeAppWSAC = () => ({type: 'APP/INITIALIZE'})
-
-// common types
-export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
-export type InitialStateType = {
-    status: RequestStatusType
-    error: string | null
-    success: string | null
-    isInitialized: boolean
-}
-
 // appWatcher
 export function* appWatcher() {
     yield takeEvery('APP/INITIALIZE', initializeAppWS)

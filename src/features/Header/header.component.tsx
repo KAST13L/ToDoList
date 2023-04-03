@@ -1,5 +1,5 @@
 import React, {FC, useCallback} from 'react';
-import {logoutWorkerSagaAC} from "@app/features/Auth/auth-reducer";
+import {logoutT} from "@app/features/Auth/auth-reducer";
 import LinearProgress from "@mui/material/LinearProgress";
 import {useDispatch, useSelector} from "react-redux";
 import Button from "@mui/material/Button";
@@ -20,7 +20,7 @@ export const Header: FC<HeaderPropsType> = ({demo = false}) => {
     const isLoggedIn = useSelector(selectIsLoggedIn)
 
     const logoutClick = () => {
-        dispatch(logoutWorkerSagaAC())
+        dispatch(logoutT())
     }
 
     const addTodolist = useCallback((title: string) => {

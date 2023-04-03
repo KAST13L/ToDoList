@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import {Navigate} from "react-router-dom";
-import {loginWorkerSagaAC} from "@app/features/Auth/auth-reducer";
+import {loginT} from "@app/features/Auth/auth-reducer";
 import {useFormik} from "formik";
 import React from "react";
 import {selectIsLoggedIn} from "@app/app/selectors";
@@ -41,7 +41,7 @@ export const Login = () => {
             rememberMe: false
         },
         onSubmit: (values: FormValuesType) => {
-            dispatch(loginWorkerSagaAC(values));
+            dispatch(loginT(values));
         },
     })
 

@@ -2,7 +2,7 @@ import {tasksReducer} from '../features/Task/tasks-reducer';
 import {todolistsReducer, todolistsWatcher} from '../features/Todolist/todolists-reducer';
 import {combineReducers} from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import {authReducer, authWatcher} from "../features/Auth/auth-reducer";
+import {authReducer} from "../features/Auth/auth-reducer";
 import createSagaMiddleware from 'redux-saga';
 import {all} from 'redux-saga/effects';
 import {appReducer, appWatcher} from './app-reducer'
@@ -30,7 +30,7 @@ function* rootWatcher() {
     yield all([
         appWatcher(),
         // tasksWatcher(),
-        authWatcher(),
+        // authWatcher(),
         todolistsWatcher()
     ])
 }

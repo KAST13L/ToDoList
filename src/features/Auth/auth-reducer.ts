@@ -1,19 +1,52 @@
 import {authAPI, LoginParamsType} from "@app/api/auth-api";
-import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
-import {call, put, takeEvery} from 'redux-saga/effects';
 import {setAppStatusAC, setAppSuccessAC} from "@app/app/app-reducer";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState = {
     isLoggedIn: false
 }
 
+export const loginT = createAsyncThunk('auth/login',async (data: LoginParamsType, {dispatch}) => {
+    dispatch(setAppStatusAC({status: "loading"}))
+    const res = await authAPI.login(data)
+    try {
+        if (res.data.resultCode === 0) {
+            dispatch(setIsLoggedInAC({isLoggedIn: true}))
+            dispatch(setAppStatusAC({status: 'succeeded'}))
+            dispatch(setAppSuccessAC({success: 'You are authorized!'}))
+        } else {
+            // handleServerAppError(res.data)
+        }
+    } catch (e: any) {
+        // handleServerNetworkError(e)
+    } finally {
+        dispatch(setAppStatusAC({status: "idle"}))
+    }
+})
+export const logoutT = createAsyncThunk('auth/logout',async (arg, {dispatch}) => {
+    dispatch(setAppStatusAC({status: 'loading'}))
+    const res = await authAPI.logout()
+    try {
+        if (res.data.resultCode === 0) {
+            dispatch(setIsLoggedInAC({isLoggedIn: false}))
+            dispatch(setAppStatusAC({status: 'succeeded'}))
+            dispatch(setAppSuccessAC({success: 'You are signed out!'}))
+        } else {
+            // handleServerAppError(res.data)
+        }
+    } catch (e: any) {
+        // handleServerNetworkError(e)
+    } finally {
+        dispatch(setAppStatusAC({status: 'idle'}))
+    }
+})
+
 export const slice = createSlice({
     name: 'auth',
     initialState: initialState,
     reducers: {
-        setIsLoggedInAC(state, action: PayloadAction<{ value: boolean }>) {
-            state.isLoggedIn = action.payload.value
+        setIsLoggedInAC(state, action: PayloadAction<{ isLoggedIn: boolean }>) {
+            state.isLoggedIn = action.payload.isLoggedIn
         }
     }
 })
@@ -21,6 +54,7 @@ export const slice = createSlice({
 export const authReducer = slice.reducer
 export const {setIsLoggedInAC} = slice.actions
 
+/*
 // sagas
 export function* loginWorkerSaga(action: ReturnType<typeof loginWorkerSagaAC>) {
     yield put(setAppStatusAC({status: "loading"}))
@@ -28,7 +62,7 @@ export function* loginWorkerSaga(action: ReturnType<typeof loginWorkerSagaAC>) {
     const res = yield call(authAPI.login, action.data)
     try {
         if (res.data.resultCode === 0) {
-            yield put(setIsLoggedInAC({value: true}))
+            yield put(setIsLoggedInAC({isLoggedIn: true}))
             yield put(setAppStatusAC({status: 'succeeded'}))
             yield put(setAppSuccessAC({success: 'You are authorized!'}))
         } else {
@@ -46,7 +80,7 @@ export function* logoutWorkerSaga() {
     const res = yield call(authAPI.logout)
     try {
         if (res.data.resultCode === 0) {
-            yield put(setIsLoggedInAC({value: false}))
+            yield put(setIsLoggedInAC({isLoggedIn: false}))
             yield put(setAppStatusAC({status: 'succeeded'}))
             yield put(setAppSuccessAC({success: 'You are signed out!'}))
         } else {
@@ -67,4 +101,4 @@ export const logoutWorkerSagaAC = () => ({type: 'AUTH/LOGOUT'})
 export function* authWatcher() {
     yield takeEvery('AUTH/LOGIN', loginWorkerSaga)
     yield takeEvery('AUTH/LOGOUT', logoutWorkerSaga)
-}
+}*/
