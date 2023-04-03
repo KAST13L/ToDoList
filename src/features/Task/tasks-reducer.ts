@@ -12,6 +12,7 @@ import {
     removeTodolistAC,
     setTodolistsAC
 } from "@app/features/Todolist/todolists-reducer";
+import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
 
 // types
 export type UpdateDomainTaskModelType = {
@@ -36,7 +37,7 @@ export const fetchTasksT = createAsyncThunk('tasks/fetchTasks', async (todolistI
         dispatch(setTasksAC({tasks: data.items, todolistId: todolistId}))
         dispatch(setAppStatusAC({status: 'succeeded'}))
     } catch (e: any) {
-        // handleServerNetworkError(e)
+        handleServerNetworkError(e, dispatch)
     } finally {
         dispatch(setAppStatusAC({status: 'idle'}))
     }
@@ -50,7 +51,7 @@ export const removeTaskT = createAsyncThunk('tasks/removeTask', async ({taskId, 
         dispatch(setAppStatusAC({status: 'succeeded'}))
         dispatch(setAppSuccessAC({success: 'Task deleted'}))
     } catch (e: any) {
-        //handleServerNetworkError(e)
+        handleServerNetworkError(e, dispatch)
     } finally {
         dispatch(setAppStatusAC({status: 'idle'}))
     }
@@ -64,10 +65,10 @@ export const addTaskT = createAsyncThunk('tasks/addTask', async ({title, todolis
             dispatch(setAppStatusAC({status: 'succeeded'}))
             dispatch(setAppSuccessAC({success: 'Task added'}))
         } else {
-            // handleServerAppError(res.data)
+            handleServerAppError(res.data, dispatch)
         }
     } catch (e: any) {
-        // handleServerNetworkError(e)
+        handleServerNetworkError(e, dispatch)
     } finally {
         dispatch(setAppStatusAC({status: 'idle'}))
     }
@@ -104,10 +105,10 @@ export const updateTaskT= createAsyncThunk('tasks/updateTask', async ({taskId,do
             dispatch(setAppStatusAC({status: 'succeeded'}))
             dispatch(setAppSuccessAC({success: 'Task changed'}))
         } else {
-            // handleServerAppError(res.data);
+            handleServerAppError(res.data, dispatch);
         }
-    } catch (error: any) {
-       // handleServerNetworkError(error);
+    } catch (e: any) {
+       handleServerNetworkError(e, dispatch);
     } finally {
         dispatch(setAppStatusAC({status: 'idle'}))
     }
