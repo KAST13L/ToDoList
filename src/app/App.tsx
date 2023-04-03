@@ -8,12 +8,14 @@ import {Login} from "@app/features/Auth/login.component";
 import {TodolistsList} from "@app/features/TodolistsList/todolistsList.component";
 import {Header} from "@app/features/Header/header.component";
 import {selectIsInitialized} from "@app/app/selectors";
+import {useTranslation} from "react-i18next";
 
 type AppPropsType = {
     demo?: boolean
 }
 
 export const App: FC<AppPropsType> = ({demo}) => {
+    const {t} = useTranslation();
 
     const isInitialized = useSelector(selectIsInitialized)
     const dispatch = useDispatch()
@@ -28,6 +30,7 @@ export const App: FC<AppPropsType> = ({demo}) => {
     }
     return (
         <span>
+            {t('title')}
             <ErrorSnackbar/>
             <Header demo={demo}/>
             <div className='mx-8'>
