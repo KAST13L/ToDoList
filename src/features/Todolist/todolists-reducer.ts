@@ -1,6 +1,7 @@
 import {RequestStatusType, setAppStatusAC, setAppSuccessAC} from "@app/app/app-reducer";
 import {todolistsAPI, TodolistType} from "@app/api/todolists-api";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
 
 // types
 export type FilterValuesType = 'all' | 'active' | 'completed';
@@ -20,7 +21,7 @@ export const fetchTodolistsT = createAsyncThunk('todolist/fetchTodolists', async
         dispatch(setTodolistsAC({todolists: res.data}))
         dispatch(setAppStatusAC({status: 'succeeded'}))
     } catch (e: any) {
-        // handleServerNetworkError(e)
+        handleServerNetworkError(e, dispatch)
     } finally {
         dispatch(setAppStatusAC({status: 'idle'}))
     }
@@ -36,7 +37,7 @@ export const removeTodolistT = createAsyncThunk('todolist/removeTodolist', async
         dispatch(setAppStatusAC({status: 'succeeded'}))
         dispatch(setAppSuccessAC({success: 'Todolist removed'}))
     } catch (e: any) {
-        //handleServerNetworkError(e)
+        handleServerNetworkError(e, dispatch)
     } finally {
         dispatch(setAppStatusAC({status: 'idle'}))
     }
@@ -50,10 +51,10 @@ export const addTodolistT = createAsyncThunk('todolist/addTodolist', async (titl
             dispatch(setAppStatusAC({status: 'succeeded'}))
             dispatch(setAppSuccessAC({success: 'Todolist added'}))
         } else {
-            // handleServerAppError(res.data)
+            handleServerAppError(res.data, dispatch)
         }
     } catch (e: any) {
-        // handleServerNetworkError(e)
+        handleServerNetworkError(e, dispatch)
     } finally {
         dispatch(setAppStatusAC({status: 'idle'}))
     }
@@ -67,10 +68,10 @@ export const changeTodolistTitleT = createAsyncThunk('todolist/changeTodolistTit
             dispatch(setAppStatusAC({status: 'succeeded'}))
             dispatch(setAppSuccessAC({success: 'Todolist title changed'}))
         } else {
-            // handleServerAppError(res.data)
+            handleServerAppError(res.data, dispatch)
         }
     } catch (e: any) {
-        // handleServerNetworkError(e)
+        handleServerNetworkError(e, dispatch)
     } finally {
         dispatch(setAppStatusAC({status: 'idle'}))
     }
