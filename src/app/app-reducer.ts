@@ -10,6 +10,7 @@ export type InitialStateType = {
     success: string | null
     isInitialized: boolean
 }
+
 // asyncThunk
 export const initializeAppT = createAsyncThunk('app/initializeApp', async (arg, {dispatch})=>{
     const data = await authAPI.me()
