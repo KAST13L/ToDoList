@@ -1,6 +1,7 @@
 import {authAPI} from "../api/auth-api";
 import {setIsLoggedInAC} from "../features/Auth/auth-reducer";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {handleServerNetworkError} from "@app/utils/error-utils";
 
 // types
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -18,8 +19,8 @@ export const initializeAppT = createAsyncThunk('app/initializeApp', async (arg, 
         if (data.resultCode === 0) {
             dispatch(setIsLoggedInAC({isLoggedIn: true}))
         }
-    } catch (e) {
-        // handleServerNetworkError(e)
+    } catch (e: any) {
+        handleServerNetworkError(e, dispatch)
     } finally {
         dispatch(setAppStatusAC({status: "idle"}))
         dispatch(setIsInitialized({isInitialized: true}))
