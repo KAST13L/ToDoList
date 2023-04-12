@@ -13,6 +13,7 @@ import {
     setTodolistsAC
 } from "@app/features/Todolist/todolists-reducer";
 import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
+import {AppRootStateType} from "@app/app/store";
 
 // types
 export type UpdateDomainTaskModelType = {
@@ -74,8 +75,7 @@ export const addTaskT = createAsyncThunk('tasks/addTask', async ({title, todolis
     }
 })
 export const updateTaskT= createAsyncThunk('tasks/updateTask', async ({taskId,domainModel,todolistId}: {taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string}, {dispatch, getState} ) => {
-    const state = getState()
-    // @ts-ignore
+    const state = getState() as AppRootStateType
     const task = state.tasks[todolistId].find(t => t.id === taskId)
     if (!task) {
         console.warn('task not found in the state')

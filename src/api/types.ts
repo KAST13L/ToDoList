@@ -4,7 +4,6 @@ export type LoginParamsType = {
     rememberMe: boolean
     captcha?: string
 }
-// types
 export type TodolistType = {
     id: string
     title: string
