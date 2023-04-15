@@ -9,12 +9,12 @@ const initialState = {
 
 export const loginT = createAsyncThunk('auth/login',async (data: LoginParamsType, {dispatch}) => {
     dispatch(setAppStatusAC({status: "loading"}))
-    const res = await authAPI.login(data)
     try {
+        const res = await authAPI.login(data)
         if (res.data.resultCode === 0) {
-            dispatch(setIsLoggedInAC({isLoggedIn: true}))
             dispatch(setAppStatusAC({status: 'succeeded'}))
             dispatch(setAppSuccessAC({success: 'You are authorized!'}))
+            return {isLoggedIn: true}
         } else {
             handleServerAppError(res.data, dispatch)
         }
@@ -26,12 +26,12 @@ export const loginT = createAsyncThunk('auth/login',async (data: LoginParamsType
 })
 export const logoutT = createAsyncThunk('auth/logout',async (arg, {dispatch}) => {
     dispatch(setAppStatusAC({status: 'loading'}))
-    const res = await authAPI.logout()
     try {
+        const res = await authAPI.logout()
         if (res.data.resultCode === 0) {
-            dispatch(setIsLoggedInAC({isLoggedIn: false}))
             dispatch(setAppStatusAC({status: 'succeeded'}))
             dispatch(setAppSuccessAC({success: 'You are signed out!'}))
+            return {isLoggedIn: false}
         } else {
             handleServerAppError(res.data, dispatch)
         }
@@ -49,6 +49,19 @@ export const slice = createSlice({
         setIsLoggedInAC(state, action: PayloadAction<{ isLoggedIn: boolean }>) {
             state.isLoggedIn = action.payload.isLoggedIn
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(loginT.fulfilled, (state, action) => {
+            if (action.payload) {
+                state.isLoggedIn = action.payload.isLoggedIn
+            }
+        });
+         builder.addCase(logoutT.fulfilled, (state, action) => {
+            if (action.payload) {
+                state.isLoggedIn = action.payload.isLoggedIn
+            }
+        });
+
     }
 })
 
