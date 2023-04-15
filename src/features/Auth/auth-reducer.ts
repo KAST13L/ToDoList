@@ -3,11 +3,10 @@ import {setAppStatusAC, setAppSuccessAC} from "@app/app/app-reducer";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
 
-const initialState = {
-    isLoggedIn: false
-}
-
-export const loginT = createAsyncThunk('auth/login', async (data: LoginParamsType, {dispatch, rejectWithValue}) => {
+export const loginT = createAsyncThunk<undefined, LoginParamsType, any>('auth/login', async (data, {
+    dispatch,
+    rejectWithValue
+}) => {
     dispatch(setAppStatusAC({status: "loading"}))
     try {
         const res = await authAPI.login(data)
@@ -27,7 +26,10 @@ export const loginT = createAsyncThunk('auth/login', async (data: LoginParamsTyp
     }
 })
 
-export const logoutT = createAsyncThunk('auth/logout', async (arg, {dispatch,rejectWithValue}) => {
+export const logoutT = createAsyncThunk<undefined, LoginParamsType, any>('auth/logout', async (arg, {
+    dispatch,
+    rejectWithValue
+}) => {
     dispatch(setAppStatusAC({status: 'loading'}))
     try {
         const res = await authAPI.logout()
@@ -49,7 +51,9 @@ export const logoutT = createAsyncThunk('auth/logout', async (arg, {dispatch,rej
 
 export const slice = createSlice({
     name: 'auth',
-    initialState: initialState,
+    initialState: {
+        isLoggedIn: false
+    },
     reducers: {
         setIsLoggedInAC(state, action: PayloadAction<{ isLoggedIn: boolean }>) {
             state.isLoggedIn = action.payload.isLoggedIn
