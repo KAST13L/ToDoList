@@ -13,7 +13,6 @@ export const loginT = createAsyncThunk<undefined, LoginParamsType, any>('auth/lo
         if (res.data.resultCode === 0) {
             dispatch(setAppStatusAC({status: 'succeeded'}))
             dispatch(setAppSuccessAC({success: 'You are authorized!'}))
-            return;
         } else {
             handleServerAppError(res.data, dispatch)
             return rejectWithValue({})
@@ -26,7 +25,7 @@ export const loginT = createAsyncThunk<undefined, LoginParamsType, any>('auth/lo
     }
 })
 
-export const logoutT = createAsyncThunk<undefined, LoginParamsType, any>('auth/logout', async (arg, {
+export const logoutT = createAsyncThunk('auth/logout', async (arg, {
     dispatch,
     rejectWithValue
 }) => {
@@ -36,7 +35,6 @@ export const logoutT = createAsyncThunk<undefined, LoginParamsType, any>('auth/l
         if (res.data.resultCode === 0) {
             dispatch(setAppStatusAC({status: 'succeeded'}))
             dispatch(setAppSuccessAC({success: 'You are signed out!'}))
-            return;
         } else {
             handleServerAppError(res.data, dispatch)
             return rejectWithValue({})
