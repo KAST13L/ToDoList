@@ -45,7 +45,7 @@ export const fetchTasksT = createAsyncThunk('tasks/fetchTasks', async (todolistI
 export const removeTaskT = createAsyncThunk('tasks/removeTask', async ({taskId, todolistId}: {taskId: string, todolistId: string}, {dispatch,rejectWithValue}) => {
     dispatch(setAppStatusAC({status: 'loading'}))
     try {
-        const res = await todolistsAPI.deleteTask(todolistId, taskId)
+        await todolistsAPI.deleteTask(todolistId, taskId);
         dispatch(setAppStatusAC({status: 'succeeded'}))
         dispatch(setAppSuccessAC({success: 'Task deleted'}))
         return {taskId: taskId, todolistId: todolistId}
@@ -79,10 +79,7 @@ export const updateTaskT= createAsyncThunk('tasks/updateTask', async ({taskId,do
     const state = getState() as AppRootStateType
     const task = state.tasks[todolistId].find(t => t.id === taskId)
     if (!task) {
-        console.warn('task not found in the state')
-        return
-    } else {
-
+        return rejectWithValue('task not found in the state')
     }
     const apiModel: UpdateTaskModelType = {
         deadline: task.deadline,
@@ -146,11 +143,9 @@ export const slice = createSlice({
             state[action.payload.todolistId] = action.payload.tasks
         })
         builder.addCase(updateTaskT.fulfilled, (state, action) => {
-            if (action.payload) {
-                const tasks = state[action.payload.todolistId]
-                const index = tasks.findIndex(t => t.id === action.payload?.taskId)
-                tasks[index] = {...tasks[index], ...action.payload.model}
-            }
+            const tasks = state[action.payload.todolistId]
+            const index = tasks.findIndex(t => t.id === action.payload.taskId)
+            tasks[index] = {...tasks[index], ...action.payload.model}
         })
     }
 })
