@@ -7,7 +7,7 @@ const initialState = {
     isLoggedIn: false
 }
 
-export const loginT = createAsyncThunk('auth/login', async (data: LoginParamsType, {dispatch}) => {
+export const loginT = createAsyncThunk('auth/login', async (data: LoginParamsType, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatusAC({status: "loading"}))
     try {
         const res = await authAPI.login(data)
@@ -17,15 +17,17 @@ export const loginT = createAsyncThunk('auth/login', async (data: LoginParamsTyp
             return;
         } else {
             handleServerAppError(res.data, dispatch)
+            return rejectWithValue({})
         }
     } catch (e: any) {
         handleServerNetworkError(e, dispatch)
+        return rejectWithValue({})
     } finally {
         dispatch(setAppStatusAC({status: "idle"}))
     }
 })
 
-export const logoutT = createAsyncThunk('auth/logout', async (arg, {dispatch}) => {
+export const logoutT = createAsyncThunk('auth/logout', async (arg, {dispatch,rejectWithValue}) => {
     dispatch(setAppStatusAC({status: 'loading'}))
     try {
         const res = await authAPI.logout()
@@ -35,9 +37,11 @@ export const logoutT = createAsyncThunk('auth/logout', async (arg, {dispatch}) =
             return;
         } else {
             handleServerAppError(res.data, dispatch)
+            return rejectWithValue({})
         }
     } catch (e: any) {
         handleServerNetworkError(e, dispatch)
+        return rejectWithValue({})
     } finally {
         dispatch(setAppStatusAC({status: 'idle'}))
     }
