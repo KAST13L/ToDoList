@@ -23,20 +23,18 @@ export const initializeAppT = createAsyncThunk('app/initializeApp', async (arg, 
         handleServerNetworkError(e, dispatch)
     } finally {
         dispatch(setAppStatusAC({status: "idle"}))
-        dispatch(setIsInitialized({isInitialized: true}))
     }
 })
 
-const initialState: InitialStateType = {
-    status: 'idle',
-    error: null,
-    success: null,
-    isInitialized: false
-}
 
 export const slice = createSlice({
     name: 'app',
-    initialState: initialState,
+    initialState: {
+        status: 'idle',
+        error: null,
+        success: null,
+        isInitialized: false
+    } as InitialStateType,
     reducers: {
         setAppErrorAC(state, action: PayloadAction<{ error: string | null }>) {
             state.error = action.payload.error
@@ -46,15 +44,16 @@ export const slice = createSlice({
         },
         setAppStatusAC(state, action: PayloadAction<{ status: RequestStatusType }>) {
             state.status = action.payload.status
-        },
-        setIsInitialized(state, action: PayloadAction<{ isInitialized: boolean }>) {
-            state.isInitialized = action.payload.isInitialized
-        },
-
+        }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(initializeAppT.fulfilled, (state) => {
+            state.isInitialized = true
+        })
     }
 })
 
-export const {setAppErrorAC,setAppStatusAC,setAppSuccessAC,setIsInitialized} = slice.actions
+export const {setAppErrorAC,setAppStatusAC,setAppSuccessAC} = slice.actions
 export const appReducer = slice.reducer
 
 /*
