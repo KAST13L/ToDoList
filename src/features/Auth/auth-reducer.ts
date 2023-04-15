@@ -14,7 +14,7 @@ export const loginT = createAsyncThunk('auth/login',async (data: LoginParamsType
         if (res.data.resultCode === 0) {
             dispatch(setAppStatusAC({status: 'succeeded'}))
             dispatch(setAppSuccessAC({success: 'You are authorized!'}))
-            return {isLoggedIn: true}
+            return;
         } else {
             handleServerAppError(res.data, dispatch)
         }
@@ -24,6 +24,7 @@ export const loginT = createAsyncThunk('auth/login',async (data: LoginParamsType
         dispatch(setAppStatusAC({status: "idle"}))
     }
 })
+
 export const logoutT = createAsyncThunk('auth/logout',async (arg, {dispatch}) => {
     dispatch(setAppStatusAC({status: 'loading'}))
     try {
@@ -31,7 +32,7 @@ export const logoutT = createAsyncThunk('auth/logout',async (arg, {dispatch}) =>
         if (res.data.resultCode === 0) {
             dispatch(setAppStatusAC({status: 'succeeded'}))
             dispatch(setAppSuccessAC({success: 'You are signed out!'}))
-            return {isLoggedIn: false}
+            return;
         } else {
             handleServerAppError(res.data, dispatch)
         }
@@ -51,17 +52,12 @@ export const slice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(loginT.fulfilled, (state, action) => {
-            if (action.payload) {
-                state.isLoggedIn = action.payload.isLoggedIn
-            }
+        builder.addCase(loginT.fulfilled, (state) => {
+            state.isLoggedIn = true
         });
-         builder.addCase(logoutT.fulfilled, (state, action) => {
-            if (action.payload) {
-                state.isLoggedIn = action.payload.isLoggedIn
-            }
+         builder.addCase(logoutT.fulfilled, (state) => {
+             state.isLoggedIn = false
         });
-
     }
 })
 
