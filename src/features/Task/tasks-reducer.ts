@@ -31,14 +31,15 @@ export type TasksStateType = {
 const initialState: TasksStateType = {}
 
 // asyncThunk
-export const fetchTasksT = createAsyncThunk('tasks/fetchTasks', async (todolistId: string, {dispatch}) => {
+export const fetchTasksT = createAsyncThunk('tasks/fetchTasks', async (todolistId: string, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatusAC({status:'loading'}))
-    const data = await todolistsAPI.getTasks(todolistId)
     try {
-        dispatch(setTasksAC({tasks: data.items, todolistId: todolistId}))
+        const data = await todolistsAPI.getTasks(todolistId)
         dispatch(setAppStatusAC({status: 'succeeded'}))
+        return {tasks: data.items, todolistId: todolistId}
     } catch (e: any) {
         handleServerNetworkError(e, dispatch)
+        return rejectWithValue({})
     } finally {
         dispatch(setAppStatusAC({status: 'idle'}))
     }
@@ -126,9 +127,6 @@ export const slice = createSlice({
             const index = tasks.findIndex(t => t.id === action.payload.taskId)
             tasks[index] = {...tasks[index], ...action.payload.model}
         },
-        setTasksAC(state, action: PayloadAction<{ tasks: Array<TaskType>, todolistId: string }>) {
-            state[action.payload.todolistId] = action.payload.tasks
-        },
     },
     extraReducers: (builder) => {
         builder.addCase(addTodolistAC, (state, action) => {
@@ -144,16 +142,19 @@ export const slice = createSlice({
         })
         builder.addCase(addTaskT.fulfilled, (state, action) => {
             state[action.payload.task.todoListId].unshift(action.payload.task)
-        });
+        })
         builder.addCase(removeTaskT.fulfilled, (state, action) => {
             const tasks = state[action.payload.todolistId]
             const index = tasks.findIndex(t => t.id === action.payload.taskId)
             tasks.splice(index, 1)
         })
+        builder.addCase(fetchTasksT.fulfilled, (state, action) => {
+            state[action.payload.todolistId] = action.payload.tasks
+        })
     }
 })
 
-export const {setTasksAC, updateTaskAC} = slice.actions
+export const {updateTaskAC} = slice.actions
 export const tasksReducer = slice.reducer
 
 /*// sagas
