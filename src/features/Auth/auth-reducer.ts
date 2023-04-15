@@ -7,7 +7,7 @@ const initialState = {
     isLoggedIn: false
 }
 
-export const loginT = createAsyncThunk('auth/login',async (data: LoginParamsType, {dispatch}) => {
+export const loginT = createAsyncThunk('auth/login', async (data: LoginParamsType, {dispatch}) => {
     dispatch(setAppStatusAC({status: "loading"}))
     try {
         const res = await authAPI.login(data)
@@ -25,7 +25,7 @@ export const loginT = createAsyncThunk('auth/login',async (data: LoginParamsType
     }
 })
 
-export const logoutT = createAsyncThunk('auth/logout',async (arg, {dispatch}) => {
+export const logoutT = createAsyncThunk('auth/logout', async (arg, {dispatch}) => {
     dispatch(setAppStatusAC({status: 'loading'}))
     try {
         const res = await authAPI.logout()
@@ -55,8 +55,8 @@ export const slice = createSlice({
         builder.addCase(loginT.fulfilled, (state) => {
             state.isLoggedIn = true
         });
-         builder.addCase(logoutT.fulfilled, (state) => {
-             state.isLoggedIn = false
+        builder.addCase(logoutT.fulfilled, (state) => {
+            state.isLoggedIn = false
         });
     }
 })
