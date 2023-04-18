@@ -11,43 +11,44 @@ type TaskPropsType = {
     task: TaskType
     todolistId: string
 }
-export const Task = React.memo((props: TaskPropsType) => {
+export const Task = React.memo(({todolistId,task}: TaskPropsType) => {
 
     const dispatch = useAppDispatch()
 
     const onClickHandler = useCallback(() => {
-        dispatch(removeTaskT({taskId: props.task.id, todolistId: props.todolistId}))
-    }, [props.task.id, props.todolistId]);
+        dispatch(removeTaskT({taskId: task.id, todolistId}))
+    }, [task.id, todolistId]);
 
     const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked
+        let currentStatus = newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New
         dispatch(updateTaskT({
-            taskId: props.task.id,
-            domainModel: {status: newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New},
-            todolistId: props.todolistId
+            taskId: task.id,
+            domainModel: {status: currentStatus},
+            todolistId
         }))
-    }, [props.task.id, props.todolistId]);
+    }, [task.id,todolistId]);
 
     const onTitleChangeHandler = useCallback((newValue: string) => {
         dispatch(updateTaskT({
-            taskId: props.task.id,
+            taskId: task.id,
             domainModel: {title: newValue},
-            todolistId: props.todolistId
+            todolistId
         }))
-    }, [props.task.id, props.todolistId]);
+    }, [task.id,todolistId]);
 
-    const disabledTask = props.task.status === TaskStatuses.Completed ? 'line-through text-zinc-600' : ''
+    const disabledTask = task.status === TaskStatuses.Completed ? 'line-through text-zinc-600' : ''
 
-    return <div key={props.task.id}
+    return <div key={task.id}
                 className='flex items-start'>
         <Checkbox
-            checked={props.task.status === TaskStatuses.Completed}
+            checked={task.status === TaskStatuses.Completed}
             color="primary"
             onChange={onChangeHandler}
         />
         <span className='relative mt-[9px]'>
             <span className={disabledTask}>
-                <EditableSpan value={props.task.title} onChange={onTitleChangeHandler}/>
+                <EditableSpan value={task.title} onChange={onTitleChangeHandler}/>
             </span>
             <span className='absolute left-[240px] top-[-6px]'>
                 <IconButton onClick={onClickHandler}>
