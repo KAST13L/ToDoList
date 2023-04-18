@@ -14,11 +14,9 @@ type TaskPropsType = {
 export const Task = React.memo(({todolistId,task}: TaskPropsType) => {
 
     const dispatch = useAppDispatch()
-
     const onClickHandler = useCallback(() => {
         dispatch(removeTaskT({taskId: task.id, todolistId}))
     }, [task.id, todolistId]);
-
     const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked
         let currentStatus = newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New
@@ -28,7 +26,6 @@ export const Task = React.memo(({todolistId,task}: TaskPropsType) => {
             todolistId
         }))
     }, [task.id,todolistId]);
-
     const onTitleChangeHandler = useCallback((newValue: string) => {
         dispatch(updateTaskT({
             taskId: task.id,
@@ -36,7 +33,6 @@ export const Task = React.memo(({todolistId,task}: TaskPropsType) => {
             todolistId
         }))
     }, [task.id,todolistId]);
-
     const disabledTask = task.status === TaskStatuses.Completed ? 'line-through text-zinc-600' : ''
 
     return <div key={task.id}
