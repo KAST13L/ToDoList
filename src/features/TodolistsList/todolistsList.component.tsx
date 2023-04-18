@@ -1,13 +1,6 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {
-    changeTodolistFilterAC,
-    changeTodolistTitleT,
-    fetchTodolistsT,
-    FilterValuesType,
-    removeTodolistT
-} from '../Todolist/todolists-reducer'
-import {addTaskT} from '../Task/tasks-reducer'
+import {fetchTodolistsT} from '../Todolist/todolists-reducer'
 import {Navigate} from "react-router-dom";
 import {Todolist} from "@app/features/Todolist/todolist.component";
 import Grid from "@mui/material/Grid";
@@ -27,22 +20,6 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
 
     const [isShow, setIsShow] = useState<boolean>(false)
 
-    const addTask = useCallback(function (title: string, todolistId: string) {
-        dispatch(addTaskT({title, todolistId}))
-    }, [dispatch])
-
-    const changeFilter = useCallback(function (value: FilterValuesType, todolistId: string) {
-        dispatch(changeTodolistFilterAC({id: todolistId, filter: value}))
-    }, [dispatch])
-
-    const removeTodolist = useCallback(function (id: string) {
-        dispatch(removeTodolistT(id))
-    }, [dispatch])
-
-    const changeTodolistTitle = useCallback(function (id: string, title: string) {
-        dispatch(changeTodolistTitleT({title, id}))
-    }, [dispatch])
-
     const onClickLinkHandler = (e: any) => {
         e.preventDefault()
         setIsShow(() => !isShow)
@@ -54,7 +31,6 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
         }
         dispatch(fetchTodolistsT())
     }, [dispatch])
-
 
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
@@ -87,10 +63,6 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
                         key={tl.id}
                         todolist={tl}
                         tasks={allTodolistTasks}
-                        changeFilter={changeFilter}
-                        addTask={addTask}
-                        removeTodolist={removeTodolist}
-                        changeTodolistTitle={changeTodolistTitle}
                         demo={demo}
                     />
                 })
