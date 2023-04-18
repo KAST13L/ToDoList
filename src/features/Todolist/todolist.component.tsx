@@ -19,91 +19,87 @@ import {useAppDispatch} from "@app/app/store";
 type PropsType = {
     todolist: TodolistDomainType
     tasks: Array<TaskType>
-    demo?: boolean
 }
 
-export const Todolist: FC<PropsType> = React.memo(function ({demo = false, ...props}) {
+export const Todolist: FC<PropsType> = React.memo(function ( {todolist, tasks} ) {
 
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        if (demo) {
-            return
-        }
-        dispatch(fetchTasksT(props.todolist.id))
+        dispatch(fetchTasksT(todolist.id))
     }, [])
 
     const addTask = useCallback((title: string) => {
-        dispatch(addTaskT({title, todolistId: props.todolist.id}))
-    }, [props.todolist.id])
+        dispatch(addTaskT({title, todolistId: todolist.id}))
+    }, [todolist.id])
 
     const removeTodolist = () => {
-        dispatch(removeTodolistT(props.todolist.id))
+        dispatch(removeTodolistT(todolist.id))
     }
     const changeTodolistTitle = useCallback((title: string) => {
-        dispatch(changeTodolistTitleT({title, id: props.todolist.id}))
-    }, [props.todolist.id])
+        dispatch(changeTodolistTitleT({title, id: todolist.id}))
+    }, [todolist.id])
 
     const onAllClickHandler = useCallback(() => {
-        dispatch(changeTodolistFilterAC({id: props.todolist.id, filter: 'all'}))
-    }, [props.todolist.id])
+        dispatch(changeTodolistFilterAC({id: todolist.id, filter: 'all'}))
+    }, [todolist.id])
 
     const onActiveClickHandler = useCallback(() => {
-        dispatch(changeTodolistFilterAC({id: props.todolist.id, filter: 'active'}))
-    }, [props.todolist.id])
+        dispatch(changeTodolistFilterAC({id: todolist.id, filter: 'active'}))
+    }, [todolist.id])
 
     const onCompletedClickHandler = useCallback(() => {
-        dispatch(changeTodolistFilterAC({id: props.todolist.id, filter: 'completed'}))
-    }, [props.todolist.id])
+        dispatch(changeTodolistFilterAC({id: todolist.id, filter: 'completed'}))
+    }, [todolist.id])
 
 
-    let tasksForTodolist = props.tasks
+    let tasksForTodolist = tasks
 
-    if (props.todolist.filter === 'active') {
-        tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.New)
+    if (todolist.filter === 'active') {
+        tasksForTodolist = tasks.filter(t => t.status === TaskStatuses.New)
     }
-    if (props.todolist.filter === 'completed') {
-        tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.Completed)
+    if (todolist.filter === 'completed') {
+        tasksForTodolist = tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
     return <Paper elevation={8} className='flex-row w-[350px] mx-4 my-8 p-4'>
         <div className='relative w-[310px] text-2xl font-extrabold'>
-            <EditableSpan value={props.todolist.title}
+            <EditableSpan value={todolist.title}
                           onChange={changeTodolistTitle}/>
             <span className='absolute left-[295px] top-[-17px]'>
                     <IconButton onClick={removeTodolist}
-                                disabled={props.todolist.entityStatus === 'loading'}>
+                                disabled={todolist.entityStatus === 'loading'}>
                         <Delete/>
                     </IconButton>
                 </span>
         </div>
         <div className='my-2'>
             <AddItemForm addItem={addTask}
-                         disabled={props.todolist.entityStatus === 'loading'}/>
+                         disabled={todolist.entityStatus === 'loading'}/>
         </div>
         <span>
             <div className='my-3 text-center font-thin text-zinc-500'>
-                {!props.tasks.length
+                {!tasks.length
                     ? 'Todolist is empty. Create your first task!'
                     : !tasksForTodolist.length && 'The list of tasks of the selected type is empty!'
                 }
             </div>
             {
                 tasksForTodolist.map(t => <Task key={t.id} task={t}
-                                                todolistId={props.todolist.id}
+                                                todolistId={todolist.id}
                 />)
             }
         </span>
         <div className='mt-2 flex justify-evenly'>
-            <Button variant={props.todolist.filter === 'all' ? 'outlined' : 'text'}
+            <Button variant={todolist.filter === 'all' ? 'outlined' : 'text'}
                     onClick={onAllClickHandler}
                     color={'inherit'}>All
             </Button>
-            <Button variant={props.todolist.filter === 'active' ? 'outlined' : 'text'}
+            <Button variant={todolist.filter === 'active' ? 'outlined' : 'text'}
                     onClick={onActiveClickHandler}
                     color={'primary'}>Active
             </Button>
-            <Button variant={props.todolist.filter === 'completed' ? 'outlined' : 'text'}
+            <Button variant={todolist.filter === 'completed' ? 'outlined' : 'text'}
                     onClick={onCompletedClickHandler}
                     color={'secondary'}>Completed
             </Button>

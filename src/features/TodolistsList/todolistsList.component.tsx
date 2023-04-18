@@ -63,7 +63,6 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
                         key={tl.id}
                         todolist={tl}
                         tasks={allTodolistTasks}
-                        demo={demo}
                     />
                 })
             }
