@@ -6,8 +6,6 @@ import {authReducer} from "../features/Auth/auth-reducer";
 import {appReducer} from './app-reducer'
 import {configureStore} from "@reduxjs/toolkit";
 
-// const sagaMiddleware = createSagaMiddleware()
-
 const rootReducer = combineReducers({
     app: appReducer,
     auth: authReducer,
@@ -17,7 +15,7 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
     reducer: rootReducer,
-    middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware) // +sagaMiddleware
+    middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware)
 })
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
@@ -25,13 +23,3 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 // @ts-ignore
 window.store = store;
 
-/*sagaMiddleware.run(rootWatcher)
-
-function* rootWatcher() {
-    yield all([
-        // appWatcher(),
-        // tasksWatcher(),
-        // authWatcher(),
-        // todolistsWatcher()
-    ])
-}*/
