@@ -7,11 +7,7 @@ import Grid from "@mui/material/Grid";
 import {JackInTheBox} from "react-awesome-reveal";
 import {selectIsLoggedIn, selectTasks, selectTodolists} from "@app/app/selectors";
 
-type PropsType = {
-    demo?: boolean
-}
-
-export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
+export const TodolistsList: React.FC = () => {
     const dispatch = useDispatch()
 
     const todolists = useSelector(selectTodolists)
@@ -26,7 +22,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     }
 
     useEffect(() => {
-        if (demo || !isLoggedIn) {
+        if (!isLoggedIn) {
             return;
         }
         dispatch(fetchTodolistsT())
