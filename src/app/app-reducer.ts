@@ -13,7 +13,7 @@ export type InitialStateType = {
 }
 
 // asyncThunk
-export const initializeAppT = createAsyncThunk('app/initializeApp', async (arg, {dispatch})=>{
+const initializeAppT = createAsyncThunk('app/initializeApp', async (arg, {dispatch})=>{
     const data = await authAPI.me()
     try {
         if (data.resultCode === 0) {
