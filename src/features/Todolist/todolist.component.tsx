@@ -3,12 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import {Delete} from '@mui/icons-material';
 import {Task} from '../Task/task.component'
-import {
-    changeTodolistFilterAC,
-    changeTodolistTitleT,
-    removeTodolistT,
-    TodolistDomainType
-} from './todolists-reducer'
+import {todolistActions, TodolistDomainType} from './todolists-reducer'
 import {tasksActions} from '../Task/tasks-reducer'
 import {TaskStatuses, TaskType} from "@app/api/todolists-api";
 import {EditableSpan} from "@app/components/EditableSpan/EditableSpan";
@@ -24,6 +19,11 @@ type PropsType = {
 export const Todolist: FC<PropsType> = React.memo(function ({todolist, tasks}) {
 
     const {addTaskT, fetchTasksT} = useActions(tasksActions)
+    const {
+        removeTodolistT,
+        changeTodolistTitleT,
+        changeTodolistFilterAC
+    } = useActions(todolistActions)
 
     useEffect(() => {
         fetchTasksT(todolist.id)

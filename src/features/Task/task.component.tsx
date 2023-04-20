@@ -34,7 +34,7 @@ export const Task = React.memo(({todolistId,task}: TaskPropsType) => {
             todolistId
         })
     }, [task.id,todolistId]);
-    const disabledTask = task.status === TaskStatuses.Completed ? 'line-through text-zinc-600' : ''
+    const isDisabledTask = task.status === TaskStatuses.Completed ? 'line-through text-zinc-600' : ''
 
     return <div key={task.id}
                 className='flex items-start'>
@@ -44,7 +44,7 @@ export const Task = React.memo(({todolistId,task}: TaskPropsType) => {
             onChange={onChangeHandler}
         />
         <span className='relative mt-[9px]'>
-            <span className={disabledTask}>
+            <span className={isDisabledTask}>
                 <EditableSpan value={task.title} onChange={onTitleChangeHandler}/>
             </span>
             <span className='absolute left-[240px] top-[-6px]'>
