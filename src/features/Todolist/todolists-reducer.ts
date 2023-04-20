@@ -11,7 +11,7 @@ export type TodolistDomainType = TodolistType & {
 }
 
 // asyncThunk
-const fetchTodolistsT = createAsyncThunk('todolist/fetchTodolists', async (arg, {dispatch,rejectWithValue}) => {
+export const fetchTodolistsT = createAsyncThunk('todolist/fetchTodolists', async (arg, {dispatch,rejectWithValue}) => {
     dispatch(setAppStatusAC({status: 'loading'}))
     try {
         const res = await todolistsAPI.getTodolists()
@@ -24,7 +24,7 @@ const fetchTodolistsT = createAsyncThunk('todolist/fetchTodolists', async (arg, 
         dispatch(setAppStatusAC({status: 'idle'}))
     }
 })
-const removeTodolistT = createAsyncThunk('todolist/removeTodolist', async (todolistId: string, {dispatch, rejectWithValue}) => {
+export const removeTodolistT = createAsyncThunk('todolist/removeTodolist', async (todolistId: string, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatusAC({status: 'loading'}))
     dispatch(changeTodolistEntityStatusAC({id: todolistId, status: 'loading'}))
     try {
@@ -39,7 +39,7 @@ const removeTodolistT = createAsyncThunk('todolist/removeTodolist', async (todol
         dispatch(setAppStatusAC({status: 'idle'}))
     }
 })
-const addTodolistT = createAsyncThunk('todolist/addTodolist', async (title: string, {dispatch, rejectWithValue}) => {
+export const addTodolistT = createAsyncThunk('todolist/addTodolist', async (title: string, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatusAC({status: 'loading'}))
     try {
         const res = await todolistsAPI.createTodolist(title)
@@ -58,7 +58,7 @@ const addTodolistT = createAsyncThunk('todolist/addTodolist', async (title: stri
         dispatch(setAppStatusAC({status: 'idle'}))
     }
 })
-const changeTodolistTitleT = createAsyncThunk('todolist/changeTodolistTitle', async ({id,title}: {id: string, title: string}, {dispatch, rejectWithValue}) => {
+export const changeTodolistTitleT = createAsyncThunk('todolist/changeTodolistTitle', async ({id,title}: {id: string, title: string}, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatusAC({status: 'loading'}))
     try {
         const res = await todolistsAPI.updateTodolist(id, title)

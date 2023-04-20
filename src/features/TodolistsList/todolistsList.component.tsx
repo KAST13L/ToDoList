@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {fetchTodolistsT} from '../Todolist/todolists-reducer'
+import {useSelector} from 'react-redux'
+import {todolistActions} from '../Todolist/todolists-reducer'
 import {Navigate} from "react-router-dom";
 import {Todolist} from "@app/features/Todolist/todolist.component";
 import Grid from "@mui/material/Grid";
 import {JackInTheBox} from "react-awesome-reveal";
 import {selectIsLoggedIn, selectTasks, selectTodolists} from "@app/app/selectors";
+import {useActions} from "@app/app/store";
 
 export const TodolistsList: React.FC = () => {
-    const dispatch = useDispatch()
-
     const todolists = useSelector(selectTodolists)
     const tasks = useSelector(selectTasks)
     const isLoggedIn = useSelector(selectIsLoggedIn)
+
+    const {fetchTodolistsT} = useActions(todolistActions)
 
     const [isShow, setIsShow] = useState<boolean>(false)
 
@@ -25,8 +26,8 @@ export const TodolistsList: React.FC = () => {
         if (!isLoggedIn) {
             return;
         }
-        dispatch(fetchTodolistsT())
-    }, [dispatch])
+        fetchTodolistsT()
+    }, [])
 
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>

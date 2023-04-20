@@ -29,7 +29,7 @@ export type TasksStateType = {
 }
 
 // asyncThunk
-const fetchTasksT = createAsyncThunk('tasks/fetchTasks', async (todolistId: string, {dispatch, rejectWithValue}) => {
+export const fetchTasksT = createAsyncThunk('tasks/fetchTasks', async (todolistId: string, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatusAC({status:'loading'}))
     try {
         const data = await todolistsAPI.getTasks(todolistId)
@@ -42,7 +42,7 @@ const fetchTasksT = createAsyncThunk('tasks/fetchTasks', async (todolistId: stri
         dispatch(setAppStatusAC({status: 'idle'}))
     }
 })
-const removeTaskT = createAsyncThunk('tasks/removeTask', async ({taskId, todolistId}: {taskId: string, todolistId: string}, {dispatch,rejectWithValue}) => {
+export const removeTaskT = createAsyncThunk('tasks/removeTask', async ({taskId, todolistId}: {taskId: string, todolistId: string}, {dispatch,rejectWithValue}) => {
     dispatch(setAppStatusAC({status: 'loading'}))
     try {
         await todolistsAPI.deleteTask(todolistId, taskId);
@@ -56,7 +56,7 @@ const removeTaskT = createAsyncThunk('tasks/removeTask', async ({taskId, todolis
         dispatch(setAppStatusAC({status: 'idle'}))
     }
 } )
-const addTaskT = createAsyncThunk('tasks/addTask', async ({title, todolistId}: {title: string, todolistId: string}, {dispatch,rejectWithValue}) => {
+export const addTaskT = createAsyncThunk('tasks/addTask', async ({title, todolistId}: {title: string, todolistId: string}, {dispatch,rejectWithValue}) => {
     dispatch(setAppStatusAC({status: 'loading'}))
     try {
         const res = await todolistsAPI.createTask(todolistId,title)
@@ -75,7 +75,7 @@ const addTaskT = createAsyncThunk('tasks/addTask', async ({title, todolistId}: {
         dispatch(setAppStatusAC({status: 'idle'}))
     }
 })
-const updateTaskT= createAsyncThunk('tasks/updateTask', async ({taskId,domainModel,todolistId}: {taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string}, {dispatch, getState, rejectWithValue} ) => {
+export const updateTaskT= createAsyncThunk('tasks/updateTask', async ({taskId,domainModel,todolistId}: {taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string}, {dispatch, getState, rejectWithValue} ) => {
     const state = getState() as AppRootStateType
     const task = state.tasks[todolistId].find(t => t.id === taskId)
     if (!task) {
