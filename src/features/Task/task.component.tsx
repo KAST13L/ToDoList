@@ -4,8 +4,8 @@ import {Delete} from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import Checkbox from '@mui/material/Checkbox';
 import {TaskStatuses, TaskType} from '@app/api/todolists-api'
-import {useAppDispatch} from "@app/app/store";
-import {removeTaskT, updateTaskT} from "@app/features/Task/tasks-reducer";
+import {useActions} from "@app/app/store";
+import {tasksActions} from "@app/features/Task/tasks-reducer";
 
 type TaskPropsType = {
     task: TaskType
@@ -13,25 +13,26 @@ type TaskPropsType = {
 }
 export const Task = React.memo(({todolistId,task}: TaskPropsType) => {
 
-    const dispatch = useAppDispatch()
+    const {updateTaskT,removeTaskT} = useActions(tasksActions)
+
     const onClickHandler = useCallback(() => {
-        dispatch(removeTaskT({taskId: task.id, todolistId}))
+        removeTaskT({taskId: task.id, todolistId})
     }, [task.id, todolistId]);
     const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked
         let currentStatus = newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New
-        dispatch(updateTaskT({
+        updateTaskT({
             taskId: task.id,
             domainModel: {status: currentStatus},
             todolistId
-        }))
+        })
     }, [task.id,todolistId]);
     const onTitleChangeHandler = useCallback((newValue: string) => {
-        dispatch(updateTaskT({
+        updateTaskT({
             taskId: task.id,
             domainModel: {title: newValue},
             todolistId
-        }))
+        })
     }, [task.id,todolistId]);
     const disabledTask = task.status === TaskStatuses.Completed ? 'line-through text-zinc-600' : ''
 
