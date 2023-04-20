@@ -1,14 +1,15 @@
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import Paper from "@mui/material/Paper";
 import {FormControl, FormControlLabel, FormGroup, FormLabel} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import {Navigate} from "react-router-dom";
-import {loginT} from "@app/features/Auth/auth-reducer";
+import {authActions} from "@app/features/Auth/auth-reducer";
 import {useFormik} from "formik";
 import React from "react";
 import {selectIsLoggedIn} from "@app/app/selectors";
+import {useActions} from "@app/app/store";
 
 
 type FormValuesType = {
@@ -19,8 +20,8 @@ type FormValuesType = {
 
 export const Login = () => {
 
-    const dispatch = useDispatch()
     const isLoggedIn = useSelector(selectIsLoggedIn)
+    const {loginT} = useActions(authActions)
 
     const formik = useFormik({
         validate: (values) => {
@@ -41,7 +42,7 @@ export const Login = () => {
             rememberMe: false
         },
         onSubmit: (values: FormValuesType) => {
-            dispatch(loginT(values));
+            loginT(values)
         },
     })
 

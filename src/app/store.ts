@@ -1,11 +1,12 @@
 import {tasksReducer} from '../features/Task/tasks-reducer';
 import {todolistsReducer} from '../features/Todolist/todolists-reducer';
-import {combineReducers} from 'redux'
+import {ActionCreatorsMapObject, bindActionCreators, combineReducers} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import {authReducer} from "../features/Auth/auth-reducer";
 import {appReducer} from './app-reducer'
 import {configureStore} from "@reduxjs/toolkit";
 import {useDispatch} from "react-redux";
+import {useMemo} from "react";
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -24,6 +25,12 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 
+export function useActions<T extends ActionCreatorsMapObject>(actions: T) {
+    const dispatch = useAppDispatch()
+    return useMemo(() => {
+        return bindActionCreators(actions, dispatch)
+    }, [])
+}
 
 // @ts-ignore
 window.store = store;
