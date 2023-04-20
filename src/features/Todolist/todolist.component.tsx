@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect} from 'react'
+import React, {FC, useEffect} from 'react'
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import {Delete} from '@mui/icons-material';
@@ -18,39 +18,28 @@ type PropsType = {
 
 export const Todolist: FC<PropsType> = React.memo(function ({todolist, tasks}) {
 
-    const {addTaskT, fetchTasksT} = useActions(tasksActions)
+    const {addTask, fetchTasks} = useActions(tasksActions)
     const {
-        removeTodolistT,
-        changeTodolistTitleT,
-        changeTodolistFilterAC
+        removeTodolist,
+        changeTodolistTitle,
+        changeTodolistFilter
     } = useActions(todolistActions)
 
     useEffect(() => {
-        fetchTasksT(todolist.id)
+        fetchTasks(todolist.id)
     }, [])
 
-    const addTask = useCallback((title: string) => {
-        addTaskT({title, todolistId: todolist.id})
-    }, [todolist.id])
-
-    const removeTodolist = () => {
-        removeTodolistT(todolist.id)
+    const onAllClickHandler = () => {
+        changeTodolistFilter({id: todolist.id, filter: 'all'})
     }
-    const changeTodolistTitle = useCallback((title: string) => {
-        changeTodolistTitleT({title, id: todolist.id})
-    }, [todolist.id])
 
-    const onAllClickHandler = useCallback(() => {
-        changeTodolistFilterAC({id: todolist.id, filter: 'all'})
-    }, [todolist.id])
+    const onActiveClickHandler = () => {
+        changeTodolistFilter({id: todolist.id, filter: 'active'})
+    }
 
-    const onActiveClickHandler = useCallback(() => {
-        changeTodolistFilterAC({id: todolist.id, filter: 'active'})
-    }, [todolist.id])
-
-    const onCompletedClickHandler = useCallback(() => {
-        changeTodolistFilterAC({id: todolist.id, filter: 'completed'})
-    }, [todolist.id])
+    const onCompletedClickHandler = () => {
+        changeTodolistFilter({id: todolist.id, filter: 'completed'})
+    }
 
 
     let tasksForTodolist = tasks
@@ -65,16 +54,19 @@ export const Todolist: FC<PropsType> = React.memo(function ({todolist, tasks}) {
     return <Paper elevation={8} className='flex-row w-[350px] mx-4 my-8 p-4'>
         <div className='relative w-[310px] text-2xl font-extrabold'>
             <EditableSpan value={todolist.title}
-                          onChange={changeTodolistTitle}/>
+                          onChange={(title) => changeTodolistTitle({
+                              title,
+                              id: todolist.id
+                          })}/>
             <span className='absolute left-[295px] top-[-17px]'>
-                    <IconButton onClick={removeTodolist}
+                    <IconButton onClick={() => removeTodolist(todolist.id)}
                                 disabled={todolist.entityStatus === 'loading'}>
                         <Delete/>
                     </IconButton>
                 </span>
         </div>
         <div className='my-2'>
-            <AddItemForm addItem={addTask}
+            <AddItemForm addItem={(title) => addTask({title, todolistId: todolist.id})}
                          disabled={todolist.entityStatus === 'loading'}/>
         </div>
         <span>

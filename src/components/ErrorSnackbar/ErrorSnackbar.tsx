@@ -2,7 +2,7 @@ import React from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Alert, {AlertColor} from '@mui/material/Alert';
 import {useDispatch, useSelector} from 'react-redux';
-import {setAppErrorAC, setAppSuccessAC} from "@app/app/app-reducer";
+import {setAppError, setAppSuccess} from "@app/app/app-reducer";
 import {AppRootStateType} from "@app/app/store";
 
 export function ErrorSnackbar() {
@@ -16,8 +16,8 @@ export function ErrorSnackbar() {
     const visualTime = error ? 6000 : 2000
 
     const handleClose = async () => {
-        success && dispatch(setAppSuccessAC({success: null}))
-        error && dispatch(setAppErrorAC({error: null}))
+        success && dispatch(setAppSuccess({success: null}))
+        error && dispatch(setAppError({error: null}))
     }
 
     const isOpen: boolean = !!error || !!success

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback} from 'react'
+import React, {ChangeEvent} from 'react'
 import {EditableSpan} from '@app/components/EditableSpan/EditableSpan'
 import {Delete} from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
@@ -11,29 +11,26 @@ type TaskPropsType = {
     task: TaskType
     todolistId: string
 }
-export const Task = React.memo(({todolistId,task}: TaskPropsType) => {
+export const Task = React.memo(({todolistId, task}: TaskPropsType) => {
 
-    const {updateTaskT,removeTaskT} = useActions(tasksActions)
+    const {updateTask, removeTask} = useActions(tasksActions)
 
-    const onClickHandler = useCallback(() => {
-        removeTaskT({taskId: task.id, todolistId})
-    }, [task.id, todolistId]);
-    const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked
         let currentStatus = newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New
-        updateTaskT({
+        updateTask({
             taskId: task.id,
             domainModel: {status: currentStatus},
             todolistId
         })
-    }, [task.id,todolistId]);
-    const onTitleChangeHandler = useCallback((newValue: string) => {
-        updateTaskT({
+    }
+    const onTitleChangeHandler = (newValue: string) => {
+        updateTask({
             taskId: task.id,
             domainModel: {title: newValue},
             todolistId
         })
-    }, [task.id,todolistId]);
+    }
     const isDisabledTask = task.status === TaskStatuses.Completed ? 'line-through text-zinc-600' : ''
 
     return <div key={task.id}
@@ -48,7 +45,7 @@ export const Task = React.memo(({todolistId,task}: TaskPropsType) => {
                 <EditableSpan value={task.title} onChange={onTitleChangeHandler}/>
             </span>
             <span className='absolute left-[240px] top-[-6px]'>
-                <IconButton onClick={onClickHandler}>
+                <IconButton onClick={() => removeTask({taskId: task.id, todolistId})}>
                     <Delete/>
                 </IconButton>
             </span>

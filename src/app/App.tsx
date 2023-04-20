@@ -17,10 +17,10 @@ type AppPropsType = {
 export const App: FC<AppPropsType> = ({demo}) => {
 
     const isInitialized = useSelector(selectIsInitialized)
-    const {initializeAppT} = useActions(appActions)
+    const {initializeApp} = useActions(appActions)
 
     useEffect(() => {
-        initializeAppT()
+        initializeApp()
     }, [])
 
     if (!demo && !isInitialized) {

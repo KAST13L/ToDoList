@@ -1,5 +1,5 @@
-import React, {FC, useCallback} from 'react';
-import {authActions, logoutT} from "@app/features/Auth/auth-reducer";
+import React, {FC} from 'react';
+import {authActions} from "@app/features/Auth/auth-reducer";
 import LinearProgress from "@mui/material/LinearProgress";
 import {useSelector} from "react-redux";
 import Button from "@mui/material/Button";
@@ -19,16 +19,8 @@ export const Header: FC<HeaderPropsType> = ({demo = false}) => {
     const status = useSelector(selectStatus)
     const isLoggedIn = useSelector(selectIsLoggedIn)
 
-    const {logoutT} = useActions(authActions)
-    const {addTodolistT} = useActions(todolistActions)
-
-    const logoutClick = () => {
-        logoutT()
-    }
-
-    const addTodolist = useCallback((title: string) => {
-        addTodolistT(title)
-    }, [])
+    const {logout} = useActions(authActions)
+    const {addTodolist} = useActions(todolistActions)
 
     const isAuthorizedAndIsDemo = demo || isLoggedIn
 
@@ -45,7 +37,7 @@ export const Header: FC<HeaderPropsType> = ({demo = false}) => {
                 </span>
                 <span>
                     {isAuthorizedAndIsDemo &&
-                        <Button onClick={demo ? action('logout') : logoutClick}
+                        <Button onClick={demo ? action('logout') : logout}
                                 color={'error'}
                                 variant={'contained'}>Log out</Button>}
                 </span>

@@ -21,7 +21,7 @@ type FormValuesType = {
 export const Login = () => {
 
     const isLoggedIn = useSelector(selectIsLoggedIn)
-    const {loginT} = useActions(authActions)
+    const {login} = useActions(authActions)
 
     const formik = useFormik({
         validate: (values) => {
@@ -42,7 +42,7 @@ export const Login = () => {
             rememberMe: false
         },
         onSubmit: (values: FormValuesType) => {
-            loginT(values)
+            login(values)
         },
     })
 

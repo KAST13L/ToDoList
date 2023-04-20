@@ -13,7 +13,7 @@ export const TodolistsList: React.FC = () => {
     const tasks = useSelector(selectTasks)
     const isLoggedIn = useSelector(selectIsLoggedIn)
 
-    const {fetchTodolistsT} = useActions(todolistActions)
+    const {fetchTodolists} = useActions(todolistActions)
 
     const [isShow, setIsShow] = useState<boolean>(false)
 
@@ -26,7 +26,7 @@ export const TodolistsList: React.FC = () => {
         if (!isLoggedIn) {
             return;
         }
-        fetchTodolistsT()
+        fetchTodolists()
     }, [])
 
     if (!isLoggedIn) {
