@@ -1,31 +1,34 @@
 import React, {FC, useCallback} from 'react';
-import {logoutT} from "@app/features/Auth/auth-reducer";
+import {authActions, logoutT} from "@app/features/Auth/auth-reducer";
 import LinearProgress from "@mui/material/LinearProgress";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import Button from "@mui/material/Button";
 import {AddItemForm} from "@app/components/AddItemForm/AddItemForm";
-import {addTodolistT} from "@app/features/Todolist/todolists-reducer";
+import {todolistActions} from "@app/features/Todolist/todolists-reducer";
 import {AppBar} from "@mui/material";
 import {action} from "@storybook/addon-actions";
 import {selectIsLoggedIn, selectStatus} from "@app/app/selectors";
+import {useActions} from "@app/app/store";
 
 interface HeaderPropsType {
     demo?: boolean
 }
 
 export const Header: FC<HeaderPropsType> = ({demo = false}) => {
-    const dispatch = useDispatch()
 
     const status = useSelector(selectStatus)
     const isLoggedIn = useSelector(selectIsLoggedIn)
 
+    const {logoutT} = useActions(authActions)
+    const {addTodolistT} = useActions(todolistActions)
+
     const logoutClick = () => {
-        dispatch(logoutT())
+        logoutT()
     }
 
     const addTodolist = useCallback((title: string) => {
-        dispatch(addTodolistT(title))
-    }, [dispatch])
+        addTodolistT(title)
+    }, [])
 
     const isAuthorizedAndIsDemo = demo || isLoggedIn
 
