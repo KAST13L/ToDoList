@@ -56,29 +56,4 @@ export const slice = createSlice({
 export const {setAppErrorAC,setAppStatusAC,setAppSuccessAC} = slice.actions
 export const appReducer = slice.reducer
 
-/*
-// sagas
-export function* initializeAppWS() {
-    // @ts-ignore
-    const data: ResponseMeType = yield call(authAPI.me)
-    try {
-        if (data.resultCode === 0) {
-            yield put(setIsLoggedInAC({isLoggedIn: true}))
-        } else {
-            /!*yield handleServerAppError(data)*!/
-        }
-    } catch (e) {
-        if (axios.isAxiosError(e)) {
-            yield handleServerNetworkError(e)
-        }
-    } finally {
-        yield put(setAppStatusAC({status: "idle"}))
-        yield put(setIsInitialized({isInitialized: true}))
-    }
-}
-// worker saga AC's
-export const initializeAppWSAC = () => ({type: 'APP/INITIALIZE'})
-// appWatcher
-export function* appWatcher() {
-    yield takeEvery('APP/INITIALIZE', initializeAppWS)
-}*/
+export const appActions = {initializeAppT}

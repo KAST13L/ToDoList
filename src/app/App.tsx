@@ -1,13 +1,14 @@
 import React, {FC, useEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import {useSelector} from 'react-redux'
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
 import {Navigate, Route, Routes} from "react-router-dom";
 import {CircularProgress} from "@mui/material";
-import {initializeAppT} from "./app-reducer";
+import {appActions} from "./app-reducer";
 import {Login} from "@app/features/Auth/login.component";
 import {TodolistsList} from "@app/features/TodolistsList/todolistsList.component";
 import {Header} from "@app/features/Header/header.component";
 import {selectIsInitialized} from "@app/app/selectors";
+import {useActions} from "@app/app/store";
 
 type AppPropsType = {
     demo?: boolean
@@ -16,11 +17,11 @@ type AppPropsType = {
 export const App: FC<AppPropsType> = ({demo}) => {
 
     const isInitialized = useSelector(selectIsInitialized)
-    const dispatch = useDispatch()
+    const {initializeAppT} = useActions(appActions)
 
     useEffect(() => {
-        dispatch(initializeAppT())
-    }, [dispatch])
+        initializeAppT()
+    }, [])
 
     if (!demo && !isInitialized) {
         return <div className="fixed w-[100%] text-center top-[30%]"><CircularProgress/>
