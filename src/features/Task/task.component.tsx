@@ -15,7 +15,7 @@ export const Task = React.memo(({todolistId, task}: TaskPropsType) => {
 
     const {updateTask, removeTask} = useActions(tasksActions)
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onStatusChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked
         let currentStatus = newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New
         updateTask({
@@ -33,12 +33,11 @@ export const Task = React.memo(({todolistId, task}: TaskPropsType) => {
     }
     const isDisabledTask = task.status === TaskStatuses.Completed ? 'line-through text-zinc-600' : ''
 
-    return <div key={task.id}
-                className='flex items-start'>
+    return <div key={task.id} className='flex items-start'>
         <Checkbox
             checked={task.status === TaskStatuses.Completed}
             color="primary"
-            onChange={onChangeHandler}
+            onChange={onStatusChangeHandler}
         />
         <span className='relative mt-[9px]'>
             <span className={isDisabledTask}>

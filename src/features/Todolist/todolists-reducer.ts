@@ -78,7 +78,6 @@ export const changeTodolistTitle = createAsyncThunk('todolist/changeTodolistTitl
     }
 })
 
-
 export const slice = createSlice({
     name: 'todolist',
     initialState: [] as TodolistDomainType[],
@@ -111,9 +110,7 @@ export const slice = createSlice({
     }
 })
 
-export const {
-    changeTodolistEntityStatus,
-} = slice.actions
+export const {changeTodolistEntityStatus} = slice.actions
 export const todolistsReducer = slice.reducer
 
 export const todolistActions = {fetchTodolists, removeTodolist, addTodolist, changeTodolistTitle, ...slice.actions}
