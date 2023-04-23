@@ -3,7 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import {Delete} from '@mui/icons-material';
 import {Task} from '../Task/task.component'
-import {todolistActions, TodolistDomainType} from './todolists-reducer'
+import {FilterValuesType, todolistActions, TodolistDomainType} from './todolists-reducer'
 import {tasksActions} from '../Task/tasks-reducer'
 import {TaskStatuses, TaskType} from "@app/api/todolists-api";
 import {EditableSpan} from "@app/components/EditableSpan/EditableSpan";
@@ -51,6 +51,15 @@ export const Todolist: FC<PropsType> = React.memo(function ({todolist, tasks}) {
         tasksForTodolist = tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
+    const renderFilterButton = (text: FilterValuesType, onClick: () => void, color: any) => {
+        return <Button
+            variant={todolist.filter === text ? 'outlined' : 'text'}
+            onClick={onClick}
+            color={color}>
+            {text}
+        </Button>
+    }
+
     return <Paper elevation={8} className='flex-row w-[350px] mx-4 my-8 p-4'>
         <div className='relative w-[310px] text-2xl font-extrabold'>
             <EditableSpan value={todolist.title}
@@ -83,18 +92,9 @@ export const Todolist: FC<PropsType> = React.memo(function ({todolist, tasks}) {
             }
         </span>
         <div className='mt-2 flex justify-evenly'>
-            <Button variant={todolist.filter === 'all' ? 'outlined' : 'text'}
-                    onClick={onAllClickHandler}
-                    color={'inherit'}>All
-            </Button>
-            <Button variant={todolist.filter === 'active' ? 'outlined' : 'text'}
-                    onClick={onActiveClickHandler}
-                    color={'primary'}>Active
-            </Button>
-            <Button variant={todolist.filter === 'completed' ? 'outlined' : 'text'}
-                    onClick={onCompletedClickHandler}
-                    color={'secondary'}>Completed
-            </Button>
+            {renderFilterButton('all',onAllClickHandler, 'inherit' )}
+            {renderFilterButton('active',onActiveClickHandler, 'primary' )}
+            {renderFilterButton('completed',onCompletedClickHandler, 'secondary' )}
         </div>
     </Paper>
 })
