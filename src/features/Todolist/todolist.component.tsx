@@ -29,19 +29,6 @@ export const Todolist: FC<PropsType> = React.memo(function ({todolist, tasks}) {
         fetchTasks(todolist.id)
     }, [])
 
-    const onAllClickHandler = () => {
-        changeTodolistFilter({id: todolist.id, filter: 'all'})
-    }
-
-    const onActiveClickHandler = () => {
-        changeTodolistFilter({id: todolist.id, filter: 'active'})
-    }
-
-    const onCompletedClickHandler = () => {
-        changeTodolistFilter({id: todolist.id, filter: 'completed'})
-    }
-
-
     let tasksForTodolist = tasks
 
     if (todolist.filter === 'active') {
@@ -51,12 +38,12 @@ export const Todolist: FC<PropsType> = React.memo(function ({todolist, tasks}) {
         tasksForTodolist = tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
-    const renderFilterButton = (text: FilterValuesType, onClick: () => void, color: any) => {
+    const renderFilterButton = (filter: FilterValuesType, color: any) => {
         return <Button
-            variant={todolist.filter === text ? 'outlined' : 'text'}
-            onClick={onClick}
+            variant={todolist.filter === filter ? 'outlined' : 'text'}
+            onClick={() => changeTodolistFilter({id: todolist.id, filter})}
             color={color}>
-            {text}
+            {filter}
         </Button>
     }
 
@@ -92,9 +79,9 @@ export const Todolist: FC<PropsType> = React.memo(function ({todolist, tasks}) {
             }
         </span>
         <div className='mt-2 flex justify-evenly'>
-            {renderFilterButton('all',onAllClickHandler, 'inherit' )}
-            {renderFilterButton('active',onActiveClickHandler, 'primary' )}
-            {renderFilterButton('completed',onCompletedClickHandler, 'secondary' )}
+            {renderFilterButton('all', 'inherit' )}
+            {renderFilterButton('active', 'primary' )}
+            {renderFilterButton('completed', 'secondary' )}
         </div>
     </Paper>
 })
