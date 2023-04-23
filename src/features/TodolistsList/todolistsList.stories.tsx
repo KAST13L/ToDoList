@@ -15,6 +15,7 @@ const Template: ComponentStory<typeof TodolistsList> = (args) => <BrowserRouter>
         store={store}>
         <Routes>
             <Route path='/todolist' element={<TodolistsList {...args}/>}/>
+            <Route path='/' element={<TodolistsList {...args}/>}/>
         </Routes>
     </Provider>
 </BrowserRouter>;

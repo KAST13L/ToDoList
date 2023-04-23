@@ -3,17 +3,17 @@ import React from 'react';
 import {App} from './App';
 import {Provider} from "react-redux";
 import {store} from "@app/app/store";
-import {HashRouter} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 
 export default {
     title: 'App/App',
-    component: App
+    component: App,
 } as ComponentMeta<typeof App>;
 
-const Template: ComponentStory<typeof App> = (args) => <HashRouter><Provider
+const Template: ComponentStory<typeof App> = (args) => <BrowserRouter><Provider
     store={store}>
     <App {...args} />
-</Provider></HashRouter>;
+</Provider></BrowserRouter>;
 
 export const True = Template.bind({});
 True.args = {

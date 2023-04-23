@@ -2,6 +2,9 @@ import React from 'react'
 import {ComponentMeta, ComponentStory} from "@storybook/react";
 import {Task} from "@app/features/Task/task.component";
 import {TaskPriorities, TaskStatuses} from "@app/api/todolists-api";
+import {Provider} from "react-redux";
+import {store} from "@app/app/store";
+import {HashRouter} from "react-router-dom";
 
 export default {
     title: 'Element TODO/Task',
@@ -13,7 +16,7 @@ export default {
     }
 } as ComponentMeta<typeof Task>;
 
-const Template: ComponentStory<typeof Task> = (args) => <Task {...args}/>;
+const Template: ComponentStory<typeof Task> = (args) => <HashRouter><Provider store={store}><Task {...args}/></Provider></HashRouter>;
 export const CompletedTask = Template.bind({});
 CompletedTask.args = {
     task: {

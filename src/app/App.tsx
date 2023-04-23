@@ -14,7 +14,7 @@ type AppPropsType = {
     demo?: boolean
 }
 
-export const App: FC<AppPropsType> = ({demo}) => {
+export const App: FC<AppPropsType> = ({demo = false}) => {
 
     const isInitialized = useSelector(selectIsInitialized)
     const {initializeApp} = useActions(appActions)
