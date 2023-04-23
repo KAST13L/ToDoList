@@ -1,7 +1,7 @@
 import {authAPI} from "../api/auth-api";
 import {setIsLoggedIn} from "../features/Auth/auth-reducer";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {handleServerNetworkError} from "@app/utils/error-utils";
+import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
 
 // types
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -13,19 +13,20 @@ export type InitialStateType = {
 }
 
 // asyncThunk
-const initializeApp = createAsyncThunk('app/initializeApp', async (arg, {dispatch})=>{
-    const data = await authAPI.me()
+const initializeApp = createAsyncThunk('app/initializeApp', async (arg, {dispatch,rejectWithValue})=>{
     try {
-        if (data.resultCode === 0) {
+        const res = await authAPI.me()
+        if (res.resultCode === 0) {
             dispatch(setIsLoggedIn({isLoggedIn: true}))
+        } else {
+            return handleServerAppError(res, dispatch, rejectWithValue)
         }
     } catch (e: any) {
-        handleServerNetworkError(e, dispatch)
+        return handleServerNetworkError(e, dispatch, rejectWithValue)
     } finally {
         dispatch(setAppStatus({status: "idle"}))
     }
 })
-
 
 export const slice = createSlice({
     name: 'app',

@@ -7,6 +7,7 @@ import {appReducer} from './app-reducer'
 import {configureStore} from "@reduxjs/toolkit";
 import {useDispatch} from "react-redux";
 import {useMemo} from "react";
+import {FieldErrorType} from "@app/api/types";
 
 const rootReducer = combineReducers({
     app: appReducer,

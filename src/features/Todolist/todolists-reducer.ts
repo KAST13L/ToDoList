@@ -18,8 +18,7 @@ export const fetchTodolists = createAsyncThunk('todolist/fetchTodolists', async 
         dispatch(setAppStatus({status: 'succeeded'}))
         return {todolists: res.data}
     } catch (e: any) {
-        handleServerNetworkError(e, dispatch)
-        return rejectWithValue({})
+        return handleServerNetworkError(e, dispatch, rejectWithValue)
     } finally {
         dispatch(setAppStatus({status: 'idle'}))
     }
@@ -33,8 +32,7 @@ export const removeTodolist = createAsyncThunk('todolist/removeTodolist', async 
         dispatch(setAppSuccess({success: 'Todolist removed'}))
         return {id: todolistId}
     } catch (e: any) {
-        handleServerNetworkError(e, dispatch)
-        return rejectWithValue({})
+        return handleServerNetworkError(e, dispatch, rejectWithValue)
     } finally {
         dispatch(setAppStatus({status: 'idle'}))
     }
@@ -48,12 +46,10 @@ export const addTodolist = createAsyncThunk('todolist/addTodolist', async (title
             dispatch(setAppSuccess({success: 'Todolist added'}))
             return {todolist: res.data.data.item}
         } else {
-            handleServerAppError(res.data, dispatch)
-            return rejectWithValue({})
+            return handleServerAppError(res.data, dispatch, rejectWithValue)
         }
     } catch (e: any) {
-        handleServerNetworkError(e, dispatch)
-        return rejectWithValue({})
+        return handleServerNetworkError(e, dispatch, rejectWithValue)
     } finally {
         dispatch(setAppStatus({status: 'idle'}))
     }
@@ -67,12 +63,10 @@ export const changeTodolistTitle = createAsyncThunk('todolist/changeTodolistTitl
             dispatch(setAppSuccess({success: 'Todolist title changed'}))
             return {id, title}
         } else {
-            handleServerAppError(res.data, dispatch)
-            return rejectWithValue({})
+            return  handleServerAppError(res.data, dispatch, rejectWithValue)
         }
     } catch (e: any) {
-        handleServerNetworkError(e, dispatch)
-        return rejectWithValue({})
+        return handleServerNetworkError(e, dispatch, rejectWithValue)
     } finally {
         dispatch(setAppStatus({status: 'idle'}))
     }
@@ -93,7 +87,7 @@ export const slice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchTodolists.fulfilled, (state, action) => {
-            return action.payload.todolists.map(tl => ({...tl, filter: 'all', entityStatus: 'idle'}))
+            return action.payload.todolists.map((tl: TodolistType) => ({...tl, filter: 'all', entityStatus: 'idle'}))
         })
         builder.addCase(removeTodolist.fulfilled, (state, action) => {
             state.filter(tl => tl.id !== action.payload.id)

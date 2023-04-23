@@ -14,12 +14,10 @@ export const login = createAsyncThunk<undefined, LoginParamsType, any>('auth/log
             dispatch(setAppStatus({status: 'succeeded'}))
             dispatch(setAppSuccess({success: 'You are authorized!'}))
         } else {
-            handleServerAppError(res.data, dispatch)
-            return rejectWithValue({})
+            return handleServerAppError(res.data, dispatch, rejectWithValue)
         }
     } catch (e: any) {
-        handleServerNetworkError(e, dispatch)
-        return rejectWithValue({})
+        return handleServerNetworkError(e, dispatch, rejectWithValue)
     } finally {
         dispatch(setAppStatus({status: "idle"}))
     }
@@ -36,12 +34,10 @@ export const logout = createAsyncThunk('auth/logout', async (arg, {
             dispatch(setAppStatus({status: 'succeeded'}))
             dispatch(setAppSuccess({success: 'You are signed out!'}))
         } else {
-            handleServerAppError(res.data, dispatch)
-            return rejectWithValue({})
+            return handleServerAppError(res.data, dispatch, rejectWithValue)
         }
     } catch (e: any) {
-        handleServerNetworkError(e, dispatch)
-        return rejectWithValue({})
+        return handleServerNetworkError(e, dispatch, rejectWithValue)
     } finally {
         dispatch(setAppStatus({status: 'idle'}))
     }
