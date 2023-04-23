@@ -79,9 +79,9 @@ export const Todolist: FC<PropsType> = React.memo(function ({todolist, tasks}) {
             }
         </span>
         <div className='mt-2 flex justify-evenly'>
-            {renderFilterButton('all', 'inherit' )}
-            {renderFilterButton('active', 'primary' )}
-            {renderFilterButton('completed', 'secondary' )}
+            {renderFilterButton('all', 'inherit')}
+            {renderFilterButton('active', 'primary')}
+            {renderFilterButton('completed', 'secondary')}
         </div>
     </Paper>
 })

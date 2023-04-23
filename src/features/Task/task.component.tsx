@@ -15,6 +15,7 @@ export const Task = React.memo(({todolistId, task}: TaskPropsType) => {
 
     const {updateTask, removeTask} = useActions(tasksActions)
 
+
     const onStatusChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let currentStatus = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New
         updateTask({
