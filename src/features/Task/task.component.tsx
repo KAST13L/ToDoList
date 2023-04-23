@@ -16,18 +16,17 @@ export const Task = React.memo(({todolistId, task}: TaskPropsType) => {
     const {updateTask, removeTask} = useActions(tasksActions)
 
     const onStatusChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        let newIsDoneValue = e.currentTarget.checked
-        let currentStatus = newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New
+        let currentStatus = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New
         updateTask({
             taskId: task.id,
             domainModel: {status: currentStatus},
             todolistId
         })
     }
-    const onTitleChangeHandler = (newValue: string) => {
+    const onTitleChangeHandler = (title: string) => {
         updateTask({
             taskId: task.id,
-            domainModel: {title: newValue},
+            domainModel: {title},
             todolistId
         })
     }
