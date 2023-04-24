@@ -38,7 +38,7 @@ export const removeTodolist = createAsyncThunk<{id: string}, string, ThunkError>
         dispatch(setAppStatus({status: 'idle'}))
     }
 })
-export const addTodolist = createAsyncThunk('todolist/addTodolist', async (title: string, {dispatch, rejectWithValue}) => {
+export const addTodolist = createAsyncThunk<{todolist: TodolistType}, string, ThunkError>('todolist/addTodolist', async (title, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatus({status: 'loading'}))
     try {
         const res = await todolistsAPI.createTodolist(title)
@@ -55,7 +55,7 @@ export const addTodolist = createAsyncThunk('todolist/addTodolist', async (title
         dispatch(setAppStatus({status: 'idle'}))
     }
 })
-export const changeTodolistTitle = createAsyncThunk('todolist/changeTodolistTitle', async ({id,title}: {id: string, title: string}, {dispatch, rejectWithValue}) => {
+export const changeTodolistTitle = createAsyncThunk<{id: string, title: string},  {id: string, title: string}, ThunkError>('todolist/changeTodolistTitle', async ({id,title}, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatus({status: 'loading'}))
     try {
         const res = await todolistsAPI.updateTodolist(id, title)
