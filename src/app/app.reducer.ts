@@ -1,5 +1,5 @@
 import {authAPI} from "../api/auth-api";
-import {setIsLoggedIn} from "../features/Auth/auth-reducer";
+import {setIsLoggedIn} from "../features/Auth/auth.reducer";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
 import {ThunkError} from "@app/app/store";

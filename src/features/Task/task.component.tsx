@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import Checkbox from '@mui/material/Checkbox';
 import {TaskStatuses, TaskType} from '@app/api/todolists-api'
 import {useActions} from "@app/app/store";
-import {tasksActions} from "@app/features/Task/tasks-reducer";
+import {tasksActions} from "@app/features/Task/tasks.reducer";
 
 type TaskPropsType = {
     task: TaskType

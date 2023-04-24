@@ -5,7 +5,7 @@ import {
     todolistsAPI,
     UpdateTaskModelType
 } from '@app/api/todolists-api'
-import {setAppStatus, setAppSuccess} from '@app/app/app-reducer'
+import {setAppStatus, setAppSuccess} from '@app/app/app.reducer'
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
 import {AppRootStateType, ThunkError} from "@app/app/store";
@@ -13,7 +13,7 @@ import {
     addTodolist,
     fetchTodolists,
     removeTodolist
-} from "@app/features/Todolist/todolists-reducer";
+} from "@app/features/Todolist/todolists.reducer";
 import {TodolistType} from "@app/api/types";
 
 // types

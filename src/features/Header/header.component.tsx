@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
-import {authActions} from "@app/features/Auth/auth-reducer";
+import {authActions} from "@app/features/Auth/auth.reducer";
 import LinearProgress from "@mui/material/LinearProgress";
 import {useSelector} from "react-redux";
 import Button from "@mui/material/Button";
 import {AddItemForm} from "@app/components/AddItemForm/AddItemForm";
-import {todolistActions} from "@app/features/Todolist/todolists-reducer";
+import {todolistActions} from "@app/features/Todolist/todolists.reducer";
 import {AppBar} from "@mui/material";
 import {action} from "@storybook/addon-actions";
 import {selectIsLoggedIn, selectStatus} from "@app/app/selectors";

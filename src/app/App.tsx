@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux'
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
 import {Navigate, Route, Routes} from "react-router-dom";
 import {CircularProgress} from "@mui/material";
-import {appActions} from "./app-reducer";
+import {appActions} from "./app.reducer";
 import {Login} from "@app/features/Auth/login.component";
 import {TodolistsList} from "@app/features/TodolistsList/todolistsList.component";
 import {Header} from "@app/features/Header/header.component";

@@ -3,8 +3,8 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import {Delete} from '@mui/icons-material';
 import {Task} from '../Task/task.component'
-import {FilterValuesType, todolistActions, TodolistDomainType} from './todolists-reducer'
-import {tasksActions} from '../Task/tasks-reducer'
+import {FilterValuesType, todolistActions, TodolistDomainType} from './todolists.reducer'
+import {tasksActions} from '../Task/tasks.reducer'
 import {TaskStatuses, TaskType} from "@app/api/todolists-api";
 import {EditableSpan} from "@app/components/EditableSpan/EditableSpan";
 import {AddItemForm} from "@app/components/AddItemForm/AddItemForm";

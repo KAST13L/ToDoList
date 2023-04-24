@@ -1,5 +1,5 @@
 import {authAPI, LoginParamsType} from "@app/api/auth-api";
-import {setAppStatus, setAppSuccess} from "@app/app/app-reducer";
+import {setAppStatus, setAppSuccess} from "@app/app/app.reducer";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
 import {ThunkError} from "@app/app/store";

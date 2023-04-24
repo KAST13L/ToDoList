@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
-import {todolistActions} from '../Todolist/todolists-reducer'
+import {todolistActions} from '../Todolist/todolists.reducer'
 import {Navigate} from "react-router-dom";
 import {Todolist} from "@app/features/Todolist/todolist.component";
 import Grid from "@mui/material/Grid";
