@@ -8,7 +8,7 @@ import {
 import {setAppStatus, setAppSuccess} from '@app/app/app-reducer'
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
-import {AppRootStateType} from "@app/app/store";
+import {AppRootStateType, ThunkError} from "@app/app/store";
 import {
     addTodolist,
     fetchTodolists,
@@ -30,7 +30,7 @@ export type TasksStateType = {
 }
 
 // asyncThunk
-export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (todolistId: string, {
+export const fetchTasks = createAsyncThunk<{tasks: TaskType[],todolistId: string}, string, ThunkError>('tasks/fetchTasks', async (todolistId, {
     dispatch,
     rejectWithValue
 }) => {
@@ -45,10 +45,10 @@ export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (todolistId
         dispatch(setAppStatus({status: 'idle'}))
     }
 })
-export const removeTask = createAsyncThunk('tasks/removeTask', async ({
+export const removeTask = createAsyncThunk<{taskId: string, todolistId: string},{ taskId: string, todolistId: string },ThunkError>('tasks/removeTask', async ({
                                                                           taskId,
                                                                           todolistId
-                                                                      }: { taskId: string, todolistId: string }, {
+                                                                      }, {
                                                                           dispatch,
                                                                           rejectWithValue
                                                                       }) => {
@@ -64,10 +64,10 @@ export const removeTask = createAsyncThunk('tasks/removeTask', async ({
         dispatch(setAppStatus({status: 'idle'}))
     }
 })
-export const addTask = createAsyncThunk('tasks/addTask', async ({
+export const addTask = createAsyncThunk<{task: TaskType},{ title: string, todolistId: string },ThunkError>('tasks/addTask', async ({
                                                                     title,
                                                                     todolistId
-                                                                }: { title: string, todolistId: string }, {
+                                                                }, {
                                                                     dispatch,
                                                                     rejectWithValue
                                                                 }) => {
@@ -87,11 +87,15 @@ export const addTask = createAsyncThunk('tasks/addTask', async ({
         dispatch(setAppStatus({status: 'idle'}))
     }
 })
-export const updateTask = createAsyncThunk('tasks/updateTask', async ({
+export const updateTask = createAsyncThunk<{
+    taskId: string,
+    model: UpdateDomainTaskModelType,
+    todolistId: string
+},{ taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string },ThunkError>('tasks/updateTask', async ({
                                                                           taskId,
                                                                           domainModel,
                                                                           todolistId
-                                                                      }: { taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string }, {
+                                                                      }, {
                                                                           dispatch,
                                                                           getState,
                                                                           rejectWithValue
@@ -99,7 +103,7 @@ export const updateTask = createAsyncThunk('tasks/updateTask', async ({
     const state = getState() as AppRootStateType
     const task = state.tasks[todolistId].find(t => t.id === taskId)
     if (!task) {
-        return rejectWithValue('task not found in the state')
+        return rejectWithValue({errors:['error']})
     }
     const apiModel: UpdateTaskModelType = {
         deadline: task.deadline,
