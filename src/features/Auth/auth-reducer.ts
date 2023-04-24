@@ -2,8 +2,9 @@ import {authAPI, LoginParamsType} from "@app/api/auth-api";
 import {setAppStatus, setAppSuccess} from "@app/app/app-reducer";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
+import {ThunkError} from "@app/app/store";
 
-export const login = createAsyncThunk<undefined, LoginParamsType, any>('auth/login', async (data, {
+export const login = createAsyncThunk<null, LoginParamsType, ThunkError>('auth/login', async (data, {
     dispatch,
     rejectWithValue
 }) => {
@@ -23,7 +24,7 @@ export const login = createAsyncThunk<undefined, LoginParamsType, any>('auth/log
     }
 })
 
-export const logout = createAsyncThunk('auth/logout', async (arg, {
+export const logout = createAsyncThunk<null, null, ThunkError>('auth/logout', async (arg, {
     dispatch,
     rejectWithValue
 }) => {
