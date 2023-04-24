@@ -2,6 +2,7 @@ import {authAPI} from "../api/auth-api";
 import {setIsLoggedIn} from "../features/Auth/auth-reducer";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
+import {ThunkError} from "@app/app/store";
 
 // types
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -13,7 +14,7 @@ export type InitialStateType = {
 }
 
 // asyncThunk
-const initializeApp = createAsyncThunk('app/initializeApp', async (arg, {dispatch,rejectWithValue})=>{
+const initializeApp = createAsyncThunk<null, null, ThunkError>('app/initializeApp', async (arg, {dispatch,rejectWithValue})=>{
     try {
         const res = await authAPI.me()
         if (res.resultCode === 0) {
