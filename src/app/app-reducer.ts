@@ -26,8 +26,6 @@ const initializeApp = createAsyncThunk<null, undefined, ThunkError>(
             }
         } catch (e: any) {
             return handleServerNetworkError(e, thunkAPI)
-        } finally {
-            dispatch(setAppStatus({status: "idle"}))
         }
     })
 

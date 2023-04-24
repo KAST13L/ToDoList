@@ -22,8 +22,6 @@ export const fetchTodolists = createAsyncThunk<{ todolists: TodolistType[] }, un
         return {todolists: res.data}
     } catch (e: any) {
         return handleServerNetworkError(e, thunkAPI)
-    } finally {
-        dispatch(setAppStatus({status: 'idle'}))
     }
 })
 export const removeTodolist = createAsyncThunk<{ id: string }, string, ThunkError>(
@@ -38,8 +36,6 @@ export const removeTodolist = createAsyncThunk<{ id: string }, string, ThunkErro
         return {id: todolistId}
     } catch (e: any) {
         return handleServerNetworkError(e, thunkAPI)
-    } finally {
-        dispatch(setAppStatus({status: 'idle'}))
     }
 })
 export const addTodolist = createAsyncThunk<{ todolist: TodolistType }, string, ThunkError>(
@@ -57,8 +53,6 @@ export const addTodolist = createAsyncThunk<{ todolist: TodolistType }, string, 
         }
     } catch (e: any) {
         return handleServerNetworkError(e, thunkAPI)
-    } finally {
-        dispatch(setAppStatus({status: 'idle'}))
     }
 })
 export const changeTodolistTitle = createAsyncThunk<{ id: string, title: string }, { id: string, title: string }, ThunkError>(
@@ -76,8 +70,6 @@ export const changeTodolistTitle = createAsyncThunk<{ id: string, title: string 
         }
     } catch (e: any) {
         return handleServerNetworkError(e, thunkAPI)
-    } finally {
-        dispatch(setAppStatus({status: 'idle'}))
     }
 })
 

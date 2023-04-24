@@ -19,8 +19,6 @@ export const login = createAsyncThunk<null, LoginParamsType, ThunkError>(
             }
         } catch (e: any) {
             return handleServerNetworkError(e, thunkAPI)
-        } finally {
-            dispatch(setAppStatus({status: "idle"}))
         }
     })
 
@@ -39,8 +37,6 @@ export const logout = createAsyncThunk<null, undefined, ThunkError>(
             }
         } catch (e: any) {
             return handleServerNetworkError(e, thunkAPI)
-        } finally {
-            dispatch(setAppStatus({status: 'idle'}))
         }
     })
 

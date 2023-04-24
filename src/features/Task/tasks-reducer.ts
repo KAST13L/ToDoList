@@ -40,8 +40,6 @@ export const fetchTasks = createAsyncThunk<{ tasks: TaskType[], todolistId: stri
             return {tasks: data.items, todolistId: todolistId}
         } catch (e: any) {
             return handleServerNetworkError(e, thunkAPI)
-        } finally {
-            dispatch(setAppStatus({status: 'idle'}))
         }
     })
 export const removeTask = createAsyncThunk<{ taskId: string, todolistId: string }, { taskId: string, todolistId: string }, ThunkError>(
@@ -55,8 +53,6 @@ export const removeTask = createAsyncThunk<{ taskId: string, todolistId: string 
             return {taskId: taskId, todolistId: todolistId}
         } catch (e: any) {
             return handleServerNetworkError(e, thunkAPI)
-        } finally {
-            dispatch(setAppStatus({status: 'idle'}))
         }
     })
 export const addTask = createAsyncThunk<{ task: TaskType }, { title: string, todolistId: string }, ThunkError>(
@@ -74,8 +70,6 @@ export const addTask = createAsyncThunk<{ task: TaskType }, { title: string, tod
             }
         } catch (e: any) {
             return handleServerNetworkError(e, thunkAPI)
-        } finally {
-            dispatch(setAppStatus({status: 'idle'}))
         }
     })
 export const updateTask = createAsyncThunk<{
@@ -85,6 +79,9 @@ export const updateTask = createAsyncThunk<{
 }, { taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string }, ThunkError>(
     'tasks/updateTask', async ({taskId, domainModel, todolistId}, thunkAPI) => {
         const {dispatch, getState,rejectWithValue} = thunkAPI
+
+        dispatch(setAppStatus({status: 'loading'}))
+
         const state = getState() as AppRootStateType
         const task = state.tasks[todolistId].find(t => t.id === taskId)
         if (!task) {
@@ -100,7 +97,6 @@ export const updateTask = createAsyncThunk<{
             ...domainModel
         }
 
-        dispatch(setAppStatus({status: 'loading'}))
         try {
             const res = await todolistsAPI.updateTask(todolistId, taskId, apiModel)
             if (res.data.resultCode === 0) {
@@ -116,8 +112,6 @@ export const updateTask = createAsyncThunk<{
             }
         } catch (e: any) {
             return handleServerNetworkError(e, thunkAPI);
-        } finally {
-            dispatch(setAppStatus({status: 'idle'}))
         }
     })
 
