@@ -33,6 +33,8 @@ export function useActions<T extends ActionCreatorsMapObject>(actions: T) {
     }, [])
 }
 
+export type ThunkError = { rejectValue: { errors: string[], fieldsErrors?: FieldErrorType[]} }
+
 // @ts-ignore
 window.store = store;
 

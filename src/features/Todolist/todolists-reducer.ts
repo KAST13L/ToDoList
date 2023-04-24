@@ -2,6 +2,7 @@ import {RequestStatusType, setAppStatus, setAppSuccess} from "@app/app/app-reduc
 import {todolistsAPI, TodolistType} from "@app/api/todolists-api";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
+import {ThunkError} from "@app/app/store";
 
 // types
 export type FilterValuesType = 'all' | 'active' | 'completed';
@@ -11,7 +12,7 @@ export type TodolistDomainType = TodolistType & {
 }
 
 // asyncThunk
-export const fetchTodolists = createAsyncThunk('todolist/fetchTodolists', async (arg, {dispatch,rejectWithValue}) => {
+export const fetchTodolists = createAsyncThunk<{todolists: TodolistType[]}, null, ThunkError>('todolist/fetchTodolists', async (arg, {dispatch,rejectWithValue}) => {
     dispatch(setAppStatus({status: 'loading'}))
     try {
         const res = await todolistsAPI.getTodolists()
@@ -23,7 +24,7 @@ export const fetchTodolists = createAsyncThunk('todolist/fetchTodolists', async 
         dispatch(setAppStatus({status: 'idle'}))
     }
 })
-export const removeTodolist = createAsyncThunk('todolist/removeTodolist', async (todolistId: string, {dispatch, rejectWithValue}) => {
+export const removeTodolist = createAsyncThunk<{id: string}, string, ThunkError>('todolist/removeTodolist', async (todolistId, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatus({status: 'loading'}))
     dispatch(changeTodolistEntityStatus({id: todolistId, status: 'loading'}))
     try {
@@ -87,7 +88,7 @@ export const slice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchTodolists.fulfilled, (state, action) => {
-            return action.payload.todolists.map((tl: TodolistType) => ({...tl, filter: 'all', entityStatus: 'idle'}))
+            return action.payload.todolists.map(tl => ({...tl, filter: 'all', entityStatus: 'idle'}))
         })
         builder.addCase(removeTodolist.fulfilled, (state, action) => {
             state.filter(tl => tl.id !== action.payload.id)
