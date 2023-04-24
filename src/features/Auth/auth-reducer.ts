@@ -4,45 +4,45 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
 import {ThunkError} from "@app/app/store";
 
-export const login = createAsyncThunk<null, LoginParamsType, ThunkError>('auth/login', async (data, {
-    dispatch,
-    rejectWithValue
-}) => {
-    dispatch(setAppStatus({status: "loading"}))
-    try {
-        const res = await authAPI.login(data)
-        if (res.data.resultCode === 0) {
-            dispatch(setAppStatus({status: 'succeeded'}))
-            dispatch(setAppSuccess({success: 'You are authorized!'}))
-        } else {
-            return handleServerAppError(res.data, dispatch, rejectWithValue)
-        }
-    } catch (e: any) {
-        return handleServerNetworkError(e, dispatch, rejectWithValue)
-    } finally {
-        dispatch(setAppStatus({status: "idle"}))
-    }
-})
+export const login = createAsyncThunk<null, LoginParamsType, ThunkError>(
+    'auth/login', async (data, thunkAPI) => {
+        const {dispatch} = thunkAPI
 
-export const logout = createAsyncThunk<null, null, ThunkError>('auth/logout', async (arg, {
-    dispatch,
-    rejectWithValue
-}) => {
-    dispatch(setAppStatus({status: 'loading'}))
-    try {
-        const res = await authAPI.logout()
-        if (res.data.resultCode === 0) {
-            dispatch(setAppStatus({status: 'succeeded'}))
-            dispatch(setAppSuccess({success: 'You are signed out!'}))
-        } else {
-            return handleServerAppError(res.data, dispatch, rejectWithValue)
+        dispatch(setAppStatus({status: "loading"}))
+        try {
+            const res = await authAPI.login(data)
+            if (res.data.resultCode === 0) {
+                dispatch(setAppStatus({status: 'succeeded'}))
+                dispatch(setAppSuccess({success: 'You are authorized!'}))
+            } else {
+                return handleServerAppError(res.data, thunkAPI)
+            }
+        } catch (e: any) {
+            return handleServerNetworkError(e, thunkAPI)
+        } finally {
+            dispatch(setAppStatus({status: "idle"}))
         }
-    } catch (e: any) {
-        return handleServerNetworkError(e, dispatch, rejectWithValue)
-    } finally {
-        dispatch(setAppStatus({status: 'idle'}))
-    }
-})
+    })
+
+export const logout = createAsyncThunk<null, undefined, ThunkError>(
+    'auth/logout', async (arg, thunkAPI) => {
+        const {dispatch} = thunkAPI
+
+        dispatch(setAppStatus({status: 'loading'}))
+        try {
+            const res = await authAPI.logout()
+            if (res.data.resultCode === 0) {
+                dispatch(setAppStatus({status: 'succeeded'}))
+                dispatch(setAppSuccess({success: 'You are signed out!'}))
+            } else {
+                return handleServerAppError(res.data, thunkAPI)
+            }
+        } catch (e: any) {
+            return handleServerNetworkError(e, thunkAPI)
+        } finally {
+            dispatch(setAppStatus({status: 'idle'}))
+        }
+    })
 
 export const slice = createSlice({
     name: 'auth',
@@ -67,4 +67,4 @@ export const slice = createSlice({
 export const authReducer = slice.reducer
 export const {setIsLoggedIn} = slice.actions
 
-export const authActions = {logout,login}
+export const authActions = {logout, login}

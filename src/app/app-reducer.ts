@@ -14,20 +14,22 @@ export type InitialStateType = {
 }
 
 // asyncThunk
-const initializeApp = createAsyncThunk<null, null, ThunkError>('app/initializeApp', async (arg, {dispatch,rejectWithValue})=>{
-    try {
-        const res = await authAPI.me()
-        if (res.resultCode === 0) {
-            dispatch(setIsLoggedIn({isLoggedIn: true}))
-        } else {
-            return handleServerAppError(res, dispatch, rejectWithValue)
+const initializeApp = createAsyncThunk<null, undefined, ThunkError>(
+    'app/initializeApp', async (arg, thunkAPI) => {
+        const {dispatch} = thunkAPI
+        try {
+            const res = await authAPI.me()
+            if (res.resultCode === 0) {
+                dispatch(setIsLoggedIn({isLoggedIn: true}))
+            } else {
+                return handleServerAppError(res, thunkAPI)
+            }
+        } catch (e: any) {
+            return handleServerNetworkError(e, thunkAPI)
+        } finally {
+            dispatch(setAppStatus({status: "idle"}))
         }
-    } catch (e: any) {
-        return handleServerNetworkError(e, dispatch, rejectWithValue)
-    } finally {
-        dispatch(setAppStatus({status: "idle"}))
-    }
-})
+    })
 
 export const slice = createSlice({
     name: 'app',
@@ -55,7 +57,7 @@ export const slice = createSlice({
     }
 })
 
-export const {setAppError,setAppStatus,setAppSuccess} = slice.actions
+export const {setAppError, setAppStatus, setAppSuccess} = slice.actions
 export const appReducer = slice.reducer
 
 export const appActions = {initializeApp}
