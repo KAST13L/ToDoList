@@ -76,8 +76,8 @@ export const updateTask = createAsyncThunk<{
     taskId: string,
     model: UpdateDomainTaskModelType,
     todolistId: string
-}, { taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string }, ThunkError>(
-    'tasks/updateTask', async ({taskId, domainModel, todolistId}, thunkAPI) => {
+}, { taskId: string, model: UpdateDomainTaskModelType, todolistId: string }, ThunkError>(
+    'tasks/updateTask', async ({taskId, model, todolistId}, thunkAPI) => {
         const {dispatch, getState, rejectWithValue} = thunkAPI
 
         dispatch(setAppStatus({status: 'loading'}))
@@ -94,7 +94,7 @@ export const updateTask = createAsyncThunk<{
             startDate: task.startDate,
             title: task.title,
             status: task.status,
-            ...domainModel
+            ...model
         }
 
         try {
@@ -102,11 +102,7 @@ export const updateTask = createAsyncThunk<{
             if (res.data.resultCode === 0) {
                 dispatch(setAppStatus({status: 'succeeded'}))
                 dispatch(setAppSuccess({success: 'Task changed'}))
-                return {
-                    taskId: taskId,
-                    model: domainModel,
-                    todolistId: todolistId
-                }
+                return {taskId, model, todolistId}
             } else {
                 return handleServerAppError(res.data, thunkAPI);
             }
