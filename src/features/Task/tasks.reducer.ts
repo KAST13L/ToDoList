@@ -116,7 +116,6 @@ export const slice = createSlice({
     name: 'tasks',
 
 
-
     initialState: {} as TasksStateType,
     reducers: {},
     extraReducers: (builder) => {
