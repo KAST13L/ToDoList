@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
-import {todolistActions} from '../Todolist/todolists.reducer'
+import {todolistsThunks} from '../Todolist/todolists.reducer'
 import {Navigate} from "react-router-dom";
 import {Todolist} from "@app/features/Todolist/todolist.component";
 import Grid from "@mui/material/Grid";
@@ -9,11 +9,12 @@ import {selectIsLoggedIn, selectTasks, selectTodolists} from "@app/app/selectors
 import {useActions} from "@app/app/store";
 
 export const TodolistsList: React.FC = () => {
+
     const todolists = useSelector(selectTodolists)
     const tasks = useSelector(selectTasks)
     const isLoggedIn = useSelector(selectIsLoggedIn)
 
-    const {fetchTodolists} = useActions(todolistActions)
+    const {fetchTodolists} = useActions(todolistsThunks)
 
     const [isShow, setIsShow] = useState<boolean>(false)
 

@@ -3,8 +3,13 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import {Delete} from '@mui/icons-material';
 import {Task} from '../Task/task.component'
-import {FilterValuesType, todolistActions, TodolistDomainType} from './todolists.reducer'
-import {tasksActions} from '../Task/tasks.reducer'
+import {
+    FilterValuesType,
+    TodolistDomainType,
+    todolistsActions,
+    todolistsThunks
+} from './todolists.reducer'
+import {tasksThunks} from '../Task/tasks.reducer'
 import {TaskStatuses, TaskType} from "@app/api/todolists-api";
 import {EditableSpan} from "@app/components/EditableSpan/EditableSpan";
 import {AddItemForm} from "@app/components/AddItemForm/AddItemForm";
@@ -18,12 +23,9 @@ type PropsType = {
 
 export const Todolist: FC<PropsType> = React.memo(function ({todolist, tasks}) {
 
-    const {addTask, fetchTasks} = useActions(tasksActions)
-    const {
-        removeTodolist,
-        changeTodolistTitle,
-        changeTodolistFilter
-    } = useActions(todolistActions)
+    const {addTask, fetchTasks} = useActions(tasksThunks)
+    const {removeTodolist, changeTodolistTitle} = useActions(todolistsThunks)
+    const {changeTodolistFilter} = useActions(todolistsActions)
 
     useEffect(() => {
         fetchTasks(todolist.id)

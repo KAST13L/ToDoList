@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {useSelector} from 'react-redux'
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
 import {Route, Routes} from "react-router-dom";
@@ -10,7 +10,7 @@ import {useActions} from "@app/app/store";
 import {Loader} from "@app/components/Loader/Loader";
 import {authThunks} from "@app/features/Auth/auth.reducer";
 
-export const App: FC = () => {
+export const App: React.FC = () => {
 
     const isInitialized = useSelector(selectIsInitialized)
     const {initializeApp} = useActions(authThunks)

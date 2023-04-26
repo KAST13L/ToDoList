@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import Checkbox from '@mui/material/Checkbox';
 import {TaskStatuses, TaskType} from '@app/api/todolists-api'
 import {useActions} from "@app/app/store";
-import {tasksActions} from "@app/features/Task/tasks.reducer";
+import {tasksThunks} from "@app/features/Task/tasks.reducer";
 
 type TaskPropsType = {
     task: TaskType
@@ -13,8 +13,7 @@ type TaskPropsType = {
 }
 export const Task = React.memo(({todolistId, task}: TaskPropsType) => {
 
-    const {updateTask, removeTask} = useActions(tasksActions)
-
+    const {updateTask, removeTask} = useActions(tasksThunks)
 
     const onStatusChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let currentStatus = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New

@@ -146,10 +146,5 @@ export const slice = createSlice({
 })
 
 export const tasksReducer = slice.reducer
-
-export const tasksActions = {
-    fetchTasks,
-    removeTask,
-    addTask,
-    updateTask, ...slice.actions
-}
+export const tasksActions = slice.actions
+export const tasksThunks = {fetchTasks, removeTask, addTask, updateTask}

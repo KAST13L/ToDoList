@@ -4,7 +4,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import {useSelector} from "react-redux";
 import Button from "@mui/material/Button";
 import {AddItemForm} from "@app/components/AddItemForm/AddItemForm";
-import {todolistActions} from "@app/features/Todolist/todolists.reducer";
+import {todolistsThunks} from "@app/features/Todolist/todolists.reducer";
 import {AppBar} from "@mui/material";
 import {selectIsLoggedIn, selectStatus} from "@app/app/selectors";
 import {useActions} from "@app/app/store";
@@ -16,7 +16,7 @@ export const Header: FC = () => {
     const isLoggedIn = useSelector(selectIsLoggedIn)
 
     const {logout} = useActions(authThunks)
-    const {addTodolist} = useActions(todolistActions)
+    const {addTodolist} = useActions(todolistsThunks)
 
     return (
         <AppBar position={'static'} color='default'>

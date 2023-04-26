@@ -1,8 +1,8 @@
 import {
 	FilterValuesType,
-	todolistActions,
+	todolistsActions,
 	TodolistDomainType,
-	todolistsReducer
+	todolistsReducer, todolistsThunks
 } from "@app/features/Todolist/todolists.reducer";
 import {useActions} from "@app/app/store";
 import {TodolistType} from "@app/api/types";
@@ -15,7 +15,7 @@ const {
 	changeTodolistTitle,
 	changeTodolistFilter,
 	changeTodolistEntityStatus
-} = useActions(todolistActions)
+} = useActions({...todolistsActions, ...todolistsThunks})
 
 let todolistId1: string
 let todolistId2: string
