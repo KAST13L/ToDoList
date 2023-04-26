@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {authActions} from "@app/features/Auth/auth.reducer";
+import {authThunks} from "@app/features/Auth/auth.reducer";
 import LinearProgress from "@mui/material/LinearProgress";
 import {useSelector} from "react-redux";
 import Button from "@mui/material/Button";
@@ -15,7 +15,7 @@ export const Header: FC = () => {
     const status = useSelector(selectStatus)
     const isLoggedIn = useSelector(selectIsLoggedIn)
 
-    const {logout} = useActions(authActions)
+    const {logout} = useActions(authThunks)
     const {addTodolist} = useActions(todolistActions)
 
     return (

@@ -8,4 +8,6 @@ export const selectTasks = (state: AppRootStateType): TasksStateType => state.ta
 export const selectIsLoggedIn = (state: AppRootStateType): boolean => state.auth.isLoggedIn
 export const selectIsInitialized = (state: AppRootStateType): boolean => state.app.isInitialized
 export const selectStatus = (state: AppRootStateType): RequestStatusType => state.app.status
+export const selectError = (state: AppRootStateType): null | string => state.app.error
+export const selectSuccess = (state: AppRootStateType): null | string => state.app.success
 

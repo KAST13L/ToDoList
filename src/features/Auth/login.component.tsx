@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import {Navigate} from "react-router-dom";
-import {authActions} from "@app/features/Auth/auth.reducer";
+import {authThunks} from "@app/features/Auth/auth.reducer";
 import {useFormik} from "formik";
 import React from "react";
 import {selectIsLoggedIn} from "@app/app/selectors";
@@ -21,7 +21,7 @@ type FormValuesType = {
 export const Login = () => {
 
     const isLoggedIn = useSelector(selectIsLoggedIn)
-    const {login} = useActions(authActions)
+    const {login} = useActions(authThunks)
 
     const formik = useFormik({
         validate: (values) => {
@@ -47,7 +47,7 @@ export const Login = () => {
     })
 
     if (isLoggedIn) {
-        return <Navigate to={'/todolist'}/>
+        return <Navigate to={'/'}/>
     }
 
     return (
