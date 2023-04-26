@@ -15,11 +15,5 @@ const Template: ComponentStory<typeof App> = (args) => <BrowserRouter><Provider
     <App {...args} />
 </Provider></BrowserRouter>;
 
-export const True = Template.bind({});
-True.args = {
-    demo: true
-}
-export const False = Template.bind({});
-False.args = {
-    demo: false
-}
+export const View = Template.bind({});
+View.args = {}
