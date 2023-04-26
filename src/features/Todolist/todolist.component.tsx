@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import {Delete} from '@mui/icons-material';
@@ -21,11 +21,10 @@ type PropsType = {
     tasks: Array<TaskType>
 }
 
-export const Todolist: FC<PropsType> = React.memo(function ({todolist, tasks}) {
+export const Todolist: React.FC<PropsType> = React.memo(function ({todolist, tasks}) {
 
     const {addTask, fetchTasks} = useActions(tasksThunks)
-    const {removeTodolist, changeTodolistTitle} = useActions(todolistsThunks)
-    const {changeTodolistFilter} = useActions(todolistsActions)
+    const {removeTodolist, changeTodolistTitle,changeTodolistFilter} = useActions({...todolistsThunks, ...todolistsActions})
 
     useEffect(() => {
         fetchTasks(todolist.id)
@@ -75,9 +74,7 @@ export const Todolist: FC<PropsType> = React.memo(function ({todolist, tasks}) {
                 }
             </div>
             {
-                tasksForTodolist.map(t => <Task key={t.id} task={t}
-                                                todolistId={todolist.id}
-                />)
+                tasksForTodolist.map(t => <Task key={t.id} task={t} todolistId={todolist.id}/>)
             }
         </span>
         <div className='mt-2 flex justify-evenly'>

@@ -3,8 +3,11 @@ import {
 	appReducer,
 	InitialAppStateType
 } from "@app/app/app.reducer";
+import {useActions} from "@app/app/store";
 
 let startState: InitialAppStateType
+
+const {setAppError,setAppStatus,setAppSuccess,setAppInitialized} = useActions(appActions)
 
 beforeEach(() => {
 	startState = {
@@ -16,17 +19,21 @@ beforeEach(() => {
 })
 
 test('correct error message should be set', () => {
-	const endState = appReducer(startState, appActions.setAppError({error: 'some error'}))
+	const endState = appReducer(startState, setAppError({error: 'some error'}))
 	expect(endState.error).toBe('some error');
 })
 
 test('correct success message should be set', () => {
-	const endState = appReducer(startState, appActions.setAppSuccess({success: 'some success'}))
+	const endState = appReducer(startState, setAppSuccess({success: 'some success'}))
 	expect(endState.success).toBe('some success');
 })
 
 test('correct status should be set', () => {
-	const endState = appReducer(startState, appActions.setAppStatus({status: 'loading'}))
+	const endState = appReducer(startState, setAppStatus({status: 'loading'}))
 	expect(endState.status).toBe('loading');
+})
+test('correct isInitialized should be set', () => {
+	const endState = appReducer(startState, setAppInitialized({isInitialized: true}))
+	expect(endState.isInitialized).toBeTruthy();
 })
 
