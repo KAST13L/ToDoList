@@ -48,7 +48,6 @@ export const removeTask = createAsyncThunk<{ taskId: string, todolistId: string 
         dispatch(appActions.setAppStatus({status: 'loading'}))
         try {
             await todolistsAPI.deleteTask(todolistId, taskId);
-            dispatch(appActions.setAppStatus({status: 'succeeded'}))
             dispatch(appActions.setAppSuccess({success: 'Task deleted'}))
             return {taskId: taskId, todolistId: todolistId}
         } catch (e: any) {
@@ -62,7 +61,6 @@ export const addTask = createAsyncThunk<{ task: TaskType }, { title: string, tod
         try {
             const res = await todolistsAPI.createTask(todolistId, title)
             if (res.data.resultCode === 0) {
-                dispatch(appActions.setAppStatus({status: 'succeeded'}))
                 dispatch(appActions.setAppSuccess({success: 'Task added'}))
                 return {task: res.data.data.item}
             } else {
@@ -100,7 +98,6 @@ export const updateTask = createAsyncThunk<{
         try {
             const res = await todolistsAPI.updateTask(todolistId, taskId, apiModel)
             if (res.data.resultCode === 0) {
-                dispatch(appActions.setAppStatus({status: 'succeeded'}))
                 dispatch(appActions.setAppSuccess({success: 'Task changed'}))
                 return {taskId, model, todolistId}
             } else {

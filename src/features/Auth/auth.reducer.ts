@@ -12,7 +12,6 @@ export const login = createAsyncThunk<null, LoginParamsType, ThunkError>(
         try {
             const res = await authAPI.login(data)
             if (res.data.resultCode === 0) {
-                dispatch(appActions.setAppStatus({status: 'succeeded'}))
                 dispatch(appActions.setAppSuccess({success: 'You are authorized!'}))
             } else {
                 return handleServerAppError(res.data, thunkAPI)
@@ -30,7 +29,6 @@ export const logout = createAsyncThunk<null, undefined, ThunkError>(
         try {
             const res = await authAPI.logout()
             if (res.data.resultCode === 0) {
-                dispatch(appActions.setAppStatus({status: 'succeeded'}))
                 dispatch(appActions.setAppSuccess({success: 'You are signed out!'}))
             } else {
                 return handleServerAppError(res.data, thunkAPI)
@@ -46,7 +44,7 @@ const initializeApp = createAsyncThunk<null, undefined, ThunkError>(
         try {
             const res = await authAPI.me()
             if (res.resultCode === 0) {
-                return {isLoggedIn: true}
+                return;
             }
         } catch (e: any) {
             return handleServerNetworkError(e, thunkAPI)

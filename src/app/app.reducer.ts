@@ -20,9 +20,11 @@ export const slice = createSlice({
     reducers: {
         setAppError(state, action: PayloadAction<{ error: string | null }>) {
             state.error = action.payload.error
+            state.status = 'failed'
         },
         setAppSuccess(state, action: PayloadAction<{ success: string | null }>) {
             state.success = action.payload.success
+            state.status = 'succeeded'
         },
         setAppStatus(state, action: PayloadAction<{ status: RequestStatusType }>) {
             state.status = action.payload.status
