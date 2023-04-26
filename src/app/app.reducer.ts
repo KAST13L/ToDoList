@@ -6,7 +6,7 @@ import {ThunkError} from "@app/app/store";
 
 // types
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
-export type InitialStateType = {
+export type InitialAppStateType = {
     status: RequestStatusType
     error: string | null
     success: string | null
@@ -36,7 +36,7 @@ export const slice = createSlice({
         error: null,
         success: null,
         isInitialized: false
-    } as InitialStateType,
+    } as InitialAppStateType,
     reducers: {
         setAppError(state, action: PayloadAction<{ error: string | null }>) {
             state.error = action.payload.error
