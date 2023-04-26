@@ -2,13 +2,13 @@ import React, {FC, useEffect} from 'react'
 import {useSelector} from 'react-redux'
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
 import {Route, Routes} from "react-router-dom";
-import {CircularProgress} from "@mui/material";
 import {appActions} from "./app.reducer";
 import {Login} from "@app/features/Auth/login.component";
 import {TodolistsList} from "@app/features/TodolistsList/todolistsList.component";
 import {Header} from "@app/features/Header/header.component";
 import {selectIsInitialized} from "@app/app/selectors";
 import {useActions} from "@app/app/store";
+import {Loader} from "@app/components/Loader/Loader";
 
 export const App: FC = () => {
 
@@ -19,10 +19,8 @@ export const App: FC = () => {
         initializeApp()
     }, [])
 
-    if (!isInitialized) {
-        return <div className="fixed w-[100%] text-center top-[30%]"><CircularProgress/>
-        </div>
-    }
+    if (!isInitialized) return <Loader/>
+
     return (
         <span>
             <ErrorSnackbar/>
