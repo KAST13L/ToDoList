@@ -24,7 +24,6 @@ export const TodolistsList: React.FC = () => {
     }
 
 
-
     useEffect(() => {
         if (!isLoggedIn) {
             return;
