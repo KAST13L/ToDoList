@@ -23,7 +23,6 @@ export const TodolistsList: React.FC = () => {
         setIsShow(() => !isShow)
     }
 
-
     useEffect(() => {
         if (!isLoggedIn) {
             return;
