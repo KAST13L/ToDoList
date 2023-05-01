@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {useSelector} from 'react-redux'
 import {todolistsThunks} from '../Todolist/todolists.reducer'
 import {Navigate} from "react-router-dom";
 import {Todolist} from "@app/features/Todolist/todolist.component";
 import Grid from "@mui/material/Grid";
-import {JackInTheBox} from "react-awesome-reveal";
 import {selectIsLoggedIn, selectTasks, selectTodolists} from "@app/app/selectors";
 import {useActions} from "@app/app/store";
+import {NoTodolistComponent} from "@app/features/TodolistsList/no-todolist.component";
 
 export const TodolistsList: React.FC = () => {
 
@@ -15,16 +15,6 @@ export const TodolistsList: React.FC = () => {
     const isLoggedIn = useSelector(selectIsLoggedIn)
 
     const {fetchTodolists} = useActions(todolistsThunks)
-
-    const [isShow, setIsShow] = useState<boolean>(false)
-
-    const onClickLinkHandler = (e: any) => {
-        e.preventDefault()
-        setIsShow(() => !isShow)
-    }
-
-
-
 
     useEffect(() => {
         if (!isLoggedIn) {
@@ -37,22 +27,7 @@ export const TodolistsList: React.FC = () => {
         return <Navigate to={'/login'}/>
     }
 
-    const ifDidNotTodolists = !todolists.length && <div>
-        <div className='my-5 text-3xl text-center font-thin text-zinc-500'>
-            Your todo list is empty. Just add them. And feel like a<span> </span>
-            <a href=''
-               className='underline'
-               onClick={onClickLinkHandler}>queen</a><span> </span>
-            over your tasks.
-        </div>
-        {isShow && <JackInTheBox>
-            <div className='max-w-[1000px]'>
-                <img
-                    src="https://media1.popsugar-assets.com/files/thumbor/BhFVdQXsyqCFQma1yI6arGCfR4c/489x0:2474x1985/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2022/09/13/694/n/1922398/e5f2c3646320a46be09002.39507938_/i/Queen-Elizabeth-II-Little-Known-Facts.jpg"
-                    alt="king"/>
-            </div>
-        </JackInTheBox>}
-    </div>
+
     const renderTodolists = todolists.map(tl => {
         let allTodolistTasks = tasks[tl.id]
         return <Todolist
@@ -64,7 +39,7 @@ export const TodolistsList: React.FC = () => {
 
     return (
         <Grid container className='flex justify-evenly items-start'>
-            {ifDidNotTodolists}
+            {!todolists.length && <NoTodolistComponent/>}
             {renderTodolists}
         </Grid>
     )
