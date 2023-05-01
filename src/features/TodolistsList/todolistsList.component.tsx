@@ -27,7 +27,6 @@ export const TodolistsList: React.FC = () => {
         return <Navigate to={'/login'}/>
     }
 
-
     const renderTodolists = todolists.map(tl => {
         let allTodolistTasks = tasks[tl.id]
         return <Todolist
