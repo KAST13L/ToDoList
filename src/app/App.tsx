@@ -6,9 +6,9 @@ import {Login} from "@app/features/Auth/login.component";
 import {TodolistsList} from "@app/features/TodolistsList/todolistsList.component";
 import {Header} from "@app/features/Header/header.component";
 import {selectIsInitialized} from "@app/app/selectors";
-import {useActions} from "@app/app/store";
 import {Loader} from "@app/components/Loader/Loader";
 import {authThunks} from "@app/features/Auth/auth.reducer";
+import {useActions} from "@app/common/hooks/useActions";
 
 export const App: React.FC = () => {
 

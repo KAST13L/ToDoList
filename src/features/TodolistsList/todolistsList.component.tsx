@@ -5,8 +5,8 @@ import {Navigate} from "react-router-dom";
 import {Todolist} from "@app/features/Todolist/todolist.component";
 import Grid from "@mui/material/Grid";
 import {selectIsLoggedIn, selectTasks, selectTodolists} from "@app/app/selectors";
-import {useActions} from "@app/app/store";
 import {NoTodolistComponent} from "@app/features/TodolistsList/no-todolist.component";
+import {useActions} from "@app/common/hooks/useActions";
 
 export const TodolistsList: React.FC = () => {
 

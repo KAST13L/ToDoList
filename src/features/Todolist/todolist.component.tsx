@@ -14,7 +14,7 @@ import {TaskStatuses, TaskType} from "@app/api/todolists-api";
 import {EditableSpan} from "@app/components/EditableSpan/EditableSpan";
 import {AddItemForm} from "@app/components/AddItemForm/AddItemForm";
 import Paper from '@mui/material/Paper';
-import {useActions} from "@app/app/store";
+import {useActions} from "@app/common/hooks/useActions";
 
 type PropsType = {
     todolist: TodolistDomainType

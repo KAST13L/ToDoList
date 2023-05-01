@@ -4,8 +4,8 @@ import {Delete} from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import Checkbox from '@mui/material/Checkbox';
 import {TaskStatuses, TaskType} from '@app/api/todolists-api'
-import {useActions} from "@app/app/store";
 import {tasksThunks} from "@app/features/Task/tasks.reducer";
+import {useActions} from "@app/common/hooks/useActions";
 
 type TaskPropsType = {
     task: TaskType
