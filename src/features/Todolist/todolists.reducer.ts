@@ -2,7 +2,7 @@ import {appActions, RequestStatusType} from "@app/app/app.reducer";
 import {todolistsAPI, TodolistType} from "@app/api/todolists-api";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
-import {ThunkError} from "@app/app/store";
+import {ThunkError} from "@app/common/hooks/useActions";
 
 // types
 export type FilterValuesType = 'all' | 'active' | 'completed';

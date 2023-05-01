@@ -3,7 +3,7 @@ import {
 	appReducer,
 	InitialAppStateType
 } from "@app/app/app.reducer";
-import {useActions} from "@app/app/store";
+import {useActions} from "@app/common/hooks/useActions";
 
 let startState: InitialAppStateType
 

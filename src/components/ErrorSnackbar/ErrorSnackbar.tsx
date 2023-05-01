@@ -2,9 +2,9 @@ import React from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Alert, {AlertColor} from '@mui/material/Alert';
 import {useSelector} from 'react-redux';
-import {useActions} from "@app/app/store";
 import {appActions} from "@app/app/app.reducer";
 import {selectError, selectSuccess} from "@app/app/selectors";
+import {useActions} from "@app/common/hooks/useActions";
 
 export function ErrorSnackbar() {
     const error = useSelector(selectError)

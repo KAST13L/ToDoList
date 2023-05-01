@@ -9,7 +9,7 @@ import {authThunks} from "@app/features/Auth/auth.reducer";
 import {useFormik} from "formik";
 import React from "react";
 import {selectIsLoggedIn} from "@app/app/selectors";
-import {useActions} from "@app/app/store";
+import {useActions} from "@app/common/hooks/useActions";
 
 
 type FormValuesType = {

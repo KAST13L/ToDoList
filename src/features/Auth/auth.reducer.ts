@@ -1,8 +1,8 @@
 import {authAPI, LoginParamsType} from "@app/api/auth-api";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
-import {ThunkError} from "@app/app/store";
 import {appActions} from "@app/app/app.reducer";
+import {ThunkError} from "@app/common/hooks/useActions";
 
 export const login = createAsyncThunk<null, LoginParamsType, ThunkError>(
     'auth/login', async (data, thunkAPI) => {

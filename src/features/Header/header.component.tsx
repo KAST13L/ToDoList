@@ -7,7 +7,7 @@ import {AddItemForm} from "@app/components/AddItemForm/AddItemForm";
 import {todolistsThunks} from "@app/features/Todolist/todolists.reducer";
 import {AppBar} from "@mui/material";
 import {selectIsLoggedIn, selectStatus} from "@app/app/selectors";
-import {useActions} from "@app/app/store";
+import {useActions} from "@app/common/hooks/useActions";
 
 
 export const Header: FC = () => {
@@ -15,8 +15,7 @@ export const Header: FC = () => {
     const status = useSelector(selectStatus)
     const isLoggedIn = useSelector(selectIsLoggedIn)
 
-    const {logout} = useActions(authThunks)
-    const {addTodolist} = useActions(todolistsThunks)
+    const {logout,addTodolist} = useActions({...authThunks, ...todolistsThunks})
 
     return (
         <AppBar position={'static'} color='default'>

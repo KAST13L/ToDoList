@@ -4,8 +4,8 @@ import {
 	TasksStateType,
 	tasksThunks
 } from "@app/features/Task/tasks.reducer";
-import {useActions} from "@app/app/store";
 import {todolistsThunks} from "@app/features/Todolist/todolists.reducer";
+import {useActions} from "@app/common/hooks/useActions";
 
 const {
 	removeTask,

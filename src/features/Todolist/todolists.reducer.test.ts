@@ -4,9 +4,9 @@ import {
 	TodolistDomainType,
 	todolistsReducer, todolistsThunks
 } from "@app/features/Todolist/todolists.reducer";
-import {useActions} from "@app/app/store";
 import {TodolistType} from "@app/api/types";
 import {RequestStatusType} from "@app/app/app.reducer";
+import {useActions} from "@app/common/hooks/useActions";
 
 const {
 	fetchTodolists,
