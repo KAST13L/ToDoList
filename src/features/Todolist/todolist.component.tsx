@@ -23,8 +23,15 @@ type PropsType = {
 
 export const Todolist: React.FC<PropsType> = React.memo(function ({todolist, tasks}) {
 
-    const {addTask, fetchTasks} = useActions(tasksThunks)
-    const {removeTodolist, changeTodolistTitle,changeTodolistFilter} = useActions({...todolistsThunks, ...todolistsActions})
+    const thunkAndActionsList = {...tasksThunks, ...todolistsThunks, ...todolistsActions}
+
+    const {
+        addTask,
+        fetchTasks,
+        removeTodolist,
+        changeTodolistTitle,
+        changeTodolistFilter
+    } = useActions({...thunkAndActionsList})
 
     useEffect(() => {
         fetchTasks(todolist.id)
@@ -74,7 +81,8 @@ export const Todolist: React.FC<PropsType> = React.memo(function ({todolist, tas
                 }
             </div>
             {
-                tasksForTodolist.map(t => <Task key={t.id} task={t} todolistId={todolist.id}/>)
+                tasksForTodolist.map(t => <Task key={t.id} task={t}
+                                                todolistId={todolist.id}/>)
             }
         </span>
         <div className='mt-2 flex justify-evenly'>
