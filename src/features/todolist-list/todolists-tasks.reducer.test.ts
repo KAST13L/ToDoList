@@ -1,11 +1,11 @@
-import {tasksReducer, TasksStateType} from "@app/features/TodolistList/Task/tasks.reducer";
+import {tasksReducer, TasksStateType} from "@app/features/todolist-list/task/tasks.reducer";
 import {
 	TodolistDomainType,
 	todolistsReducer,
 	todolistsThunks
-} from "@app/features/TodolistList/Todolist/todolists.reducer";
+} from "@app/features/todolist-list/todolist/todolists.reducer";
 import {useActions} from "@app/common/hooks/useActions";
-import {TodolistType} from "@app/features/TodolistList/Todolist/todolists.api";
+import {TodolistType} from "@app/features/todolist-list/todolist/todolists.api";
 
 const {addTodolist} = useActions(todolistsThunks)
 

@@ -1,5 +1,5 @@
 import {appActions, RequestStatusType} from "@app/app/app.reducer";
-import {todolistsApi, TodolistType} from "@app/features/TodolistList/Todolist/todolists.api";
+import {todolistsApi, TodolistType} from "@app/features/todolist-list/todolist/todolists.api";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {
     handleServerAppError,

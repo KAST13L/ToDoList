@@ -1,8 +1,8 @@
-import {tasksReducer} from '../features/TodolistList/Task/tasks.reducer';
-import {todolistsReducer} from '../features/TodolistList/Todolist/todolists.reducer';
+import {tasksReducer} from '../features/todolist-list/task/tasks.reducer';
+import {todolistsReducer} from '../features/todolist-list/todolist/todolists.reducer';
 import {AnyAction, combineReducers} from 'redux'
 import thunkMiddleware, {ThunkDispatch} from 'redux-thunk'
-import {authReducer} from "../features/Auth/auth.reducer";
+import {authReducer} from "../features/authh/auth.reducer";
 import {appReducer} from './app.reducer'
 import {configureStore} from "@reduxjs/toolkit";
 

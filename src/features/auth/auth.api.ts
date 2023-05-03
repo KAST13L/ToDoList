@@ -1,5 +1,5 @@
 import {AxiosResponse} from 'axios'
-import {ResponseType} from "@app/features/TodolistList/Todolist/todolists.api";
+import {ResponseType} from "@app/features/todolist-list/todolist/todolists.api";
 import {instance} from "@app/common/api/common.api";
 
 

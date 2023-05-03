@@ -1,6 +1,6 @@
 import {AppRootStateType} from "@app/app/store";
-import {TodolistDomainType} from "@app/features/TodolistList/Todolist/todolists.reducer";
-import {TasksStateType} from "@app/features/TodolistList/Task/tasks.reducer";
+import {TodolistDomainType} from "@app/features/todolist-list/todolist/todolists.reducer";
+import {TasksStateType} from "@app/features/todolist-list/task/tasks.reducer";
 import {RequestStatusType} from "@app/app/app.reducer";
 
 export const selectTodolists = (state: AppRootStateType): TodolistDomainType[] => state.todolists

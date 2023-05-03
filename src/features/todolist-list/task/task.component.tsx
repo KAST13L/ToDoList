@@ -3,9 +3,9 @@ import {EditableSpan} from '@app/common/components/EditableSpan/EditableSpan'
 import {Delete} from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import Checkbox from '@mui/material/Checkbox';
-import {tasksThunks} from "@app/features/TodolistList/Task/tasks.reducer";
+import {tasksThunks} from "@app/features/todolist-list/task/tasks.reducer";
 import {useActions} from "@app/common/hooks/useActions";
-import {TaskType} from "@app/features/TodolistList/Task/task.api";
+import {TaskType} from "@app/features/todolist-list/task/task.api";
 import {TaskStatuses} from "@app/common/enum/common.enums";
 
 type TaskPropsType = {

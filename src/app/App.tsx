@@ -2,12 +2,12 @@ import React, {useEffect} from 'react'
 import {useSelector} from 'react-redux'
 import {ErrorSnackbar} from '../common/components/ErrorSnackbar/ErrorSnackbar'
 import {Route, Routes} from "react-router-dom";
-import {Login} from "@app/features/Auth/Login/login.component";
-import {TodolistsList} from "@app/features/TodolistList/todolistsList.component";
-import {Header} from "@app/features/Header/header.component";
+import {Login} from "@app/features/authh/login/login.component";
+import {TodolistsList} from "@app/features/todolist-list/todolists-list.component";
+import {Header} from "@app/features/header/header.component";
 import {selectIsInitialized} from "@app/app/selectors";
 import {Loader} from "@app/common/components/Loader/Loader";
-import {authThunks} from "@app/features/Auth/auth.reducer";
+import {authThunks} from "@app/features/authh/auth.reducer";
 import {useActions} from "@app/common/hooks/useActions";
 
 export const App: React.FC = () => {

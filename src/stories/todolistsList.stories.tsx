@@ -1,6 +1,6 @@
 import React from 'react'
 import {ComponentMeta, ComponentStory} from "@storybook/react";
-import {TodolistsList} from "@app/features/TodolistList/todolistsList.component";
+import {TodolistsList} from "@app/features/todolist-list/todolists-list.component";
 import {Provider} from "react-redux";
 import {store} from "@app/app/store";
 import {BrowserRouter, Route, Routes} from "react-router-dom";

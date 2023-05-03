@@ -3,10 +3,10 @@ import {
 	todolistsActions,
 	TodolistDomainType,
 	todolistsReducer, todolistsThunks
-} from "@app/features/TodolistList/Todolist/todolists.reducer";
+} from "@app/features/todolist-list/todolist/todolists.reducer";
 import {RequestStatusType} from "@app/app/app.reducer";
 import {useActions} from "@app/common/hooks/useActions";
-import {TodolistType} from "@app/features/TodolistList/Todolist/todolists.api";
+import {TodolistType} from "@app/features/todolist-list/todolist/todolists.api";
 
 const {
 	fetchTodolists,

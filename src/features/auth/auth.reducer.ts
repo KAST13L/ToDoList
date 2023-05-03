@@ -1,4 +1,4 @@
-import {authApi, LoginParamsType} from "@app/features/Auth/auth.api";
+import {authApi, LoginParamsType} from "@app/features/authh/auth.api";
 import {createSlice} from "@reduxjs/toolkit";
 import {
     handleServerAppError,

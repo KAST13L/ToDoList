@@ -2,8 +2,8 @@ import {
 	tasksReducer,
 	TasksStateType,
 	tasksThunks
-} from "@app/features/TodolistList/Task/tasks.reducer";
-import {todolistsThunks} from "@app/features/TodolistList/Todolist/todolists.reducer";
+} from "@app/features/todolist-list/task/tasks.reducer";
+import {todolistsThunks} from "@app/features/todolist-list/todolist/todolists.reducer";
 import {useActions} from "@app/common/hooks/useActions";
 import {TaskPriorities, TaskStatuses } from "@app/common/enum/common.enums";
 

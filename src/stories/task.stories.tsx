@@ -1,13 +1,13 @@
 import React from 'react'
 import {ComponentMeta, ComponentStory} from "@storybook/react";
-import {Task} from "@app/features/TodolistList/Task/task.component";
+import {Task} from "@app/features/todolist-list/task/task.component";
 import {Provider} from "react-redux";
 import {store} from "@app/app/store";
 import {HashRouter} from "react-router-dom";
 import {TaskPriorities, TaskStatuses} from "@app/common/enum/common.enums";
 
 export default {
-    title: 'Element TODO/Task',
+    title: 'Element TODO/task',
     component: Task,
     argTypes: {
         removeTask: {action: 'remove task'},
