@@ -5,7 +5,7 @@ import {
 	todolistsThunks
 } from "@app/features/TodolistList/Todolist/todolists.reducer";
 import {useActions} from "@app/common/hooks/useActions";
-import {TodolistType} from "@app/features/TodolistList/todolists-api";
+import {TodolistType} from "@app/features/TodolistList/Todolist/todolists.api";
 
 const {addTodolist} = useActions(todolistsThunks)
 

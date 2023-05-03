@@ -1,7 +1,7 @@
 import { instance } from '@app/common/api/common.api';
 import { AxiosResponse } from 'axios'
 // api
-export const todolistsAPI = {
+export const todolistsApi = {
     getTodolists() {
         return instance.get<TodolistType[]>('todo-lists');
     },

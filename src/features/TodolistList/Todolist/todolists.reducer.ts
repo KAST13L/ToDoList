@@ -1,5 +1,5 @@
 import {appActions, RequestStatusType} from "@app/app/app.reducer";
-import {todolistsAPI, TodolistType} from "@app/features/TodolistList/todolists-api";
+import {todolistsApi, TodolistType} from "@app/features/TodolistList/Todolist/todolists.api";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {
     handleServerAppError,
@@ -20,7 +20,7 @@ export const fetchTodolists = createAppAsyncThunk<{ todolists: TodolistType[] },
         const {dispatch} = thunkAPI
         dispatch(appActions.setAppStatus({status: 'loading'}))
         try {
-            const res = await todolistsAPI.getTodolists()
+            const res = await todolistsApi.getTodolists()
             dispatch(appActions.setAppStatus({status: 'succeeded'}))
             return {todolists: res.data}
         } catch (e: any) {
@@ -36,7 +36,7 @@ export const removeTodolist = createAppAsyncThunk<{ id: string }, string>(
             status: 'loading'
         }))
         try {
-            await todolistsAPI.deleteTodolist(todolistId)
+            await todolistsApi.deleteTodolist(todolistId)
             dispatch(appActions.setAppSuccess({success: 'TodolistList removed'}))
             return {id: todolistId}
         } catch (e: any) {
@@ -48,7 +48,7 @@ export const addTodolist = createAppAsyncThunk<{ todolist: TodolistType }, strin
         const {dispatch} = thunkAPI
         dispatch(appActions.setAppStatus({status: 'loading'}))
         try {
-            const res = await todolistsAPI.createTodolist(title)
+            const res = await todolistsApi.createTodolist(title)
             if (res.data.resultCode === 0) {
                 dispatch(appActions.setAppSuccess({success: 'TodolistList added'}))
                 return {todolist: res.data.data.item}
@@ -64,7 +64,7 @@ export const changeTodolistTitle = createAppAsyncThunk<{ id: string, title: stri
         const {dispatch} = thunkAPI
         dispatch(appActions.setAppStatus({status: 'loading'}))
         try {
-            const res = await todolistsAPI.updateTodolist(id, title)
+            const res = await todolistsApi.updateTodolist(id, title)
             if (res.data.resultCode === 0) {
                 dispatch(appActions.setAppSuccess({success: 'TodolistList title changed'}))
                 return {id, title}

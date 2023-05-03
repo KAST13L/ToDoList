@@ -17,7 +17,7 @@ import {
     TaskType,
     UpdateTaskModelType
 } from "@app/features/TodolistList/Task/task.api";
-import {TodolistType} from "@app/features/TodolistList/todolists-api";
+import {TodolistType} from "@app/features/TodolistList/Todolist/todolists.api";
 
 // types
 export type UpdateDomainTaskModelType = {
