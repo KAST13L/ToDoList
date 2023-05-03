@@ -1,4 +1,4 @@
-import {tasksReducer, TasksStateType} from "@app/features/TodolistList/Todolist/Task/tasks.reducer";
+import {tasksReducer, TasksStateType} from "@app/features/TodolistList/Task/tasks.reducer";
 import {
 	TodolistDomainType,
 	todolistsReducer,

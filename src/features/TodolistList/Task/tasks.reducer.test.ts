@@ -1,11 +1,11 @@
-import {TaskPriorities, TaskStatuses} from "@app/features/TodolistList/todolists-api";
 import {
 	tasksReducer,
 	TasksStateType,
 	tasksThunks
-} from "@app/features/TodolistList/Todolist/Task/tasks.reducer";
+} from "@app/features/TodolistList/Task/tasks.reducer";
 import {todolistsThunks} from "@app/features/TodolistList/Todolist/todolists.reducer";
 import {useActions} from "@app/common/hooks/useActions";
+import {TaskPriorities, TaskStatuses } from "@app/common/enum/common.enums";
 
 const {
 	removeTask,

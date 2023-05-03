@@ -3,7 +3,7 @@ import {ComponentMeta, ComponentStory} from "@storybook/react";
 import {Provider} from "react-redux";
 import {store} from "@app/app/store";
 import {Todolist} from "@app/features/TodolistList/Todolist/todolist.component";
-import {TaskPriorities, TaskStatuses} from "@app/features/TodolistList/todolists-api";
+import {TaskPriorities, TaskStatuses} from "@app/common/enum/common.enums";
 
 export default {
     title: 'Element TODO/TodolistList',

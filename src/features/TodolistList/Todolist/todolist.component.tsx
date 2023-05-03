@@ -2,19 +2,20 @@ import React, {useEffect} from 'react'
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import {Delete} from '@mui/icons-material';
-import {Task} from './Task/task.component'
+import {Task} from '../Task/task.component'
 import {
     FilterValuesType,
     TodolistDomainType,
     todolistsActions,
     todolistsThunks
 } from './todolists.reducer'
-import {tasksThunks} from './Task/tasks.reducer'
-import {TaskStatuses, TaskType} from "@app/features/TodolistList/todolists-api";
+import {tasksThunks} from '../Task/tasks.reducer'
+import {TaskType} from "@app/features/TodolistList/Task/task.api";
 import {EditableSpan} from "@app/common/components/EditableSpan/EditableSpan";
 import {AddItemForm} from "@app/common/components/AddItemForm/AddItemForm";
 import Paper from '@mui/material/Paper';
 import {useActions} from "@app/common/hooks/useActions";
+import {TaskStatuses} from "@app/common/enum/common.enums";
 
 type PropsType = {
     todolist: TodolistDomainType

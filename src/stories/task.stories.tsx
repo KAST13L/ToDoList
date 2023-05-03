@@ -1,10 +1,10 @@
 import React from 'react'
 import {ComponentMeta, ComponentStory} from "@storybook/react";
-import {Task} from "@app/features/TodolistList/Todolist/Task/task.component";
-import {TaskPriorities, TaskStatuses} from "@app/features/TodolistList/todolists-api";
+import {Task} from "@app/features/TodolistList/Task/task.component";
 import {Provider} from "react-redux";
 import {store} from "@app/app/store";
 import {HashRouter} from "react-router-dom";
+import {TaskPriorities, TaskStatuses} from "@app/common/enum/common.enums";
 
 export default {
     title: 'Element TODO/Task',
