@@ -1,5 +1,6 @@
 import { instance } from '@app/common/api/common.api';
 import { AxiosResponse } from 'axios'
+import {ResponseType} from "@app/common/types/common.types";
 // api
 export const todolistsApi = {
     getTodolists() {
@@ -22,10 +23,4 @@ export type TodolistType = {
     title: string
     addedDate: string
     order: number
-}
-export type ResponseType<D = {}> = {
-    resultCode: number
-    messages: Array<string>
-    fieldsErrors: Array<string>
-    data: D
 }

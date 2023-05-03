@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {authThunks} from "@app/features/authh/auth.reducer";
+import {authThunks} from "@app/features/auth/auth.reducer";
 import LinearProgress from "@mui/material/LinearProgress";
 import {useSelector} from "react-redux";
 import Button from "@mui/material/Button";

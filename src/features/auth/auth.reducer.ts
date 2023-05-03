@@ -1,4 +1,4 @@
-import {authApi, LoginParamsType} from "@app/features/authh/auth.api";
+import {authApi, LoginParamsType} from "@app/features/auth/auth.api";
 import {createSlice} from "@reduxjs/toolkit";
 import {
     handleServerAppError,
@@ -71,7 +71,7 @@ export const slice = createSlice({
             .addCase(logout.fulfilled, (state) => {
                 state.isLoggedIn = false
             })
-            .addCase(initializeApp.fulfilled, (state,action) => {
+            .addCase(initializeApp.fulfilled, (state, action) => {
                 state.isLoggedIn = action.payload.isLoggedIn
             })
     }

@@ -1,6 +1,6 @@
 import {instance} from "@app/common/api/common.api";
 import {AxiosResponse} from "axios";
-import {ResponseType} from "@app/features/todolist-list/todolist/todolists.api";
+import {ResponseType} from "@app/common/types/common.types";
 import {TaskPriorities, TaskStatuses} from "@app/common/enum/common.enums";
 
 export const tasksAPI = {

@@ -1,6 +1,6 @@
 import React from 'react'
 import {ComponentMeta, ComponentStory} from "@storybook/react";
-import {Login} from "@app/features/authh/login/login.component";
+import {Login} from "@app/features/auth/login/login.component";
 import {Provider} from "react-redux";
 import {store} from "@app/app/store";
 import {HashRouter} from "react-router-dom";

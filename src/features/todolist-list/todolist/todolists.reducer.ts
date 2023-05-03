@@ -6,6 +6,7 @@ import {
     handleServerNetworkError
 } from "@app/common/utils/error-utils";
 import {createAppAsyncThunk} from "@app/common/utils/create-app-async-thunk";
+import {ResultCode} from "@app/common/enum/common.enums";
 
 // types
 export type FilterValuesType = 'all' | 'active' | 'completed';
@@ -49,7 +50,7 @@ export const addTodolist = createAppAsyncThunk<{ todolist: TodolistType }, strin
         dispatch(appActions.setAppStatus({status: 'loading'}))
         try {
             const res = await todolistsApi.createTodolist(title)
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === ResultCode.Success) {
                 dispatch(appActions.setAppSuccess({success: 'TodolistList added'}))
                 return {todolist: res.data.data.item}
             } else {

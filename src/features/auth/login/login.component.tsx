@@ -5,12 +5,12 @@ import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import {Navigate} from "react-router-dom";
-import {authThunks} from "@app/features/authh/auth.reducer";
+import {authThunks} from "@app/features/auth/auth.reducer";
 import {useFormik} from "formik";
 import React from "react";
 import {selectIsLoggedIn} from "@app/app/selectors";
 import {useActions} from "@app/common/hooks/useActions";
-import {LoginParamsType} from "@app/features/authh/auth.api";
+import {LoginParamsType} from "@app/features/auth/auth.api";
 
 export const Login = () => {
 
