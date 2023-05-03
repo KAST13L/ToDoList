@@ -6,7 +6,7 @@ import {
     UpdateTaskModelType
 } from '@app/features/TodolistList/todolists-api'
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
+import {handleServerAppError, handleServerNetworkError} from "@app/common/utils/error-utils";
 import {AppRootStateType} from "@app/app/store";
 import {
     addTodolist,
