@@ -1,9 +1,9 @@
-import {tasksReducer, TasksStateType} from "@app/features/Task/tasks.reducer";
+import {tasksReducer, TasksStateType} from "@app/features/TodolistList/Todolist/Task/tasks.reducer";
 import {
 	TodolistDomainType,
 	todolistsReducer,
 	todolistsThunks
-} from "@app/features/Todolist/todolists.reducer";
+} from "@app/features/TodolistList/Todolist/todolists.reducer";
 import {TodolistType} from "@app/api/types";
 import {useActions} from "@app/common/hooks/useActions";
 

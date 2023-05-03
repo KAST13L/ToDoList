@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react'
 import {useSelector} from 'react-redux'
-import {todolistsThunks} from '../Todolist/todolists.reducer'
+import {todolistsThunks} from './Todolist/todolists.reducer'
 import {Navigate} from "react-router-dom";
-import {Todolist} from "@app/features/Todolist/todolist.component";
+import {Todolist} from "@app/features/TodolistList/Todolist/todolist.component";
 import Grid from "@mui/material/Grid";
 import {selectIsLoggedIn, selectTasks, selectTodolists} from "@app/app/selectors";
-import {NoTodolistComponent} from "@app/features/TodolistsList/no-todolist.component";
+import {NoTodolistComponent} from "@app/features/TodolistList/Todolist/no-todolist.component";
 import {useActions} from "@app/common/hooks/useActions";
 
 export const TodolistsList: React.FC = () => {

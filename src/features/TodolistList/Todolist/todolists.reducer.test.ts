@@ -3,7 +3,7 @@ import {
 	todolistsActions,
 	TodolistDomainType,
 	todolistsReducer, todolistsThunks
-} from "@app/features/Todolist/todolists.reducer";
+} from "@app/features/TodolistList/Todolist/todolists.reducer";
 import {TodolistType} from "@app/api/types";
 import {RequestStatusType} from "@app/app/app.reducer";
 import {useActions} from "@app/common/hooks/useActions";
@@ -59,7 +59,7 @@ test('correct todolist should be removed', () => {
 
 test('correct todolist should be added', () => {
 	let todolist: TodolistType = {
-		title: 'New Todolist',
+		title: 'New TodolistList',
 		id: 'any id',
 		addedDate: '',
 		order: 0
@@ -77,7 +77,7 @@ test('correct todolist should be added', () => {
 })
 
 test('correct todolist should change its name', () => {
-	let newTodolistTitle = 'New Todolist'
+	let newTodolistTitle = 'New TodolistList'
 
 	const args = {id: todolistId2, title: newTodolistTitle}
 

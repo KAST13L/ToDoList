@@ -2,14 +2,14 @@ import React, {useEffect} from 'react'
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import {Delete} from '@mui/icons-material';
-import {Task} from '../Task/task.component'
+import {Task} from './Task/task.component'
 import {
     FilterValuesType,
     TodolistDomainType,
     todolistsActions,
     todolistsThunks
 } from './todolists.reducer'
-import {tasksThunks} from '../Task/tasks.reducer'
+import {tasksThunks} from './Task/tasks.reducer'
 import {TaskStatuses, TaskType} from "@app/api/todolists-api";
 import {EditableSpan} from "@app/components/EditableSpan/EditableSpan";
 import {AddItemForm} from "@app/components/AddItemForm/AddItemForm";
@@ -76,7 +76,7 @@ export const Todolist: React.FC<PropsType> = React.memo(function ({todolist, tas
         <span>
             <div className='my-3 text-center font-thin text-zinc-500'>
                 {!tasks.length
-                    ? 'Todolist is empty. Create your first task!'
+                    ? 'TodolistList is empty. Create your first task!'
                     : !tasksForTodolist.length && 'The list of tasks of the selected type is empty!'
                 }
             </div>

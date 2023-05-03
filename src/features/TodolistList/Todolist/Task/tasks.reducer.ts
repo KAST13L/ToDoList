@@ -12,7 +12,7 @@ import {
     addTodolist,
     fetchTodolists,
     removeTodolist
-} from "@app/features/Todolist/todolists.reducer";
+} from "@app/features/TodolistList/Todolist/todolists.reducer";
 import {TodolistType} from "@app/api/types";
 import {appActions} from "@app/app/app.reducer";
 import {ThunkError} from "@app/common/hooks/useActions";

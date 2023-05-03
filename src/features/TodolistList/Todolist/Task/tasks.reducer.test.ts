@@ -3,8 +3,8 @@ import {
 	tasksReducer,
 	TasksStateType,
 	tasksThunks
-} from "@app/features/Task/tasks.reducer";
-import {todolistsThunks} from "@app/features/Todolist/todolists.reducer";
+} from "@app/features/TodolistList/Todolist/Task/tasks.reducer";
+import {todolistsThunks} from "@app/features/TodolistList/Todolist/todolists.reducer";
 import {useActions} from "@app/common/hooks/useActions";
 
 const {

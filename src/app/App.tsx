@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux'
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
 import {Route, Routes} from "react-router-dom";
 import {Login} from "@app/features/Auth/Login/login.component";
-import {TodolistsList} from "@app/features/TodolistsList/todolistsList.component";
+import {TodolistsList} from "@app/features/TodolistList/todolistsList.component";
 import {Header} from "@app/features/Header/header.component";
 import {selectIsInitialized} from "@app/app/selectors";
 import {Loader} from "@app/components/Loader/Loader";

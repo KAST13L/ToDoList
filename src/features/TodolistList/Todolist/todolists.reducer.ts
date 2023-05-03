@@ -31,7 +31,7 @@ export const removeTodolist = createAsyncThunk<{ id: string }, string, ThunkErro
         dispatch(todolistsActions.changeTodolistEntityStatus({id: todolistId, status: 'loading'}))
         try {
             await todolistsAPI.deleteTodolist(todolistId)
-            dispatch(appActions.setAppSuccess({success: 'Todolist removed'}))
+            dispatch(appActions.setAppSuccess({success: 'TodolistList removed'}))
             return {id: todolistId}
         } catch (e: any) {
             return handleServerNetworkError(e, thunkAPI)
@@ -44,7 +44,7 @@ export const addTodolist = createAsyncThunk<{ todolist: TodolistType }, string, 
         try {
             const res = await todolistsAPI.createTodolist(title)
             if (res.data.resultCode === 0) {
-                dispatch(appActions.setAppSuccess({success: 'Todolist added'}))
+                dispatch(appActions.setAppSuccess({success: 'TodolistList added'}))
                 return {todolist: res.data.data.item}
             } else {
                 return handleServerAppError(res.data, thunkAPI)
@@ -60,7 +60,7 @@ export const changeTodolistTitle = createAsyncThunk<{ id: string, title: string 
         try {
             const res = await todolistsAPI.updateTodolist(id, title)
             if (res.data.resultCode === 0) {
-                dispatch(appActions.setAppSuccess({success: 'Todolist title changed'}))
+                dispatch(appActions.setAppSuccess({success: 'TodolistList title changed'}))
                 return {id, title}
             } else {
                 return handleServerAppError(res.data, thunkAPI)

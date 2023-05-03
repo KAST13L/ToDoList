@@ -1,6 +1,6 @@
 import React from 'react'
 import {ComponentMeta, ComponentStory} from "@storybook/react";
-import {Task} from "@app/features/Task/task.component";
+import {Task} from "@app/features/TodolistList/Todolist/Task/task.component";
 import {TaskPriorities, TaskStatuses} from "@app/api/todolists-api";
 import {Provider} from "react-redux";
 import {store} from "@app/app/store";

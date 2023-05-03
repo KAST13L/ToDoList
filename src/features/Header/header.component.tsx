@@ -4,7 +4,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import {useSelector} from "react-redux";
 import Button from "@mui/material/Button";
 import {AddItemForm} from "@app/components/AddItemForm/AddItemForm";
-import {todolistsThunks} from "@app/features/Todolist/todolists.reducer";
+import {todolistsThunks} from "@app/features/TodolistList/Todolist/todolists.reducer";
 import {AppBar} from "@mui/material";
 import {selectIsLoggedIn, selectStatus} from "@app/app/selectors";
 import {useActions} from "@app/common/hooks/useActions";
