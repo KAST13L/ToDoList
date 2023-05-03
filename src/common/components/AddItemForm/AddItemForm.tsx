@@ -3,12 +3,12 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import { AddBox } from '@mui/icons-material';
 
-interface AddItemFormPropsType {
+interface PropsType {
     addItem: (title: string) => void
     disabled?: boolean
 }
 
-export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo(function ({addItem, disabled = false}) {
+export const AddItemForm: React.FC<PropsType> = React.memo(function ({addItem, disabled = false}) {
 
     let [title, setTitle] = useState('')
     let [error, setError] = useState<string | null>(null)

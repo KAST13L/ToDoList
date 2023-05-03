@@ -8,11 +8,11 @@ import {useActions} from "@app/common/hooks/useActions";
 import {TaskType} from "@app/features/todolist-list/tasks/task.api";
 import {TaskStatuses} from "@app/common/enum/common.enums";
 
-type TaskPropsType = {
+type PropsType = {
     task: TaskType
     todolistId: string
 }
-export const Task = React.memo(({todolistId, task}: TaskPropsType) => {
+export const Task = React.memo(({todolistId, task}: PropsType) => {
 
     const {updateTask, removeTask} = useActions(tasksThunks)
 

@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import {useSelector} from "react-redux";
 import {selectStatus} from "@app/app/selectors";
 
-type EditableSpanPropsType = {
+type PropsType = {
     value: string
     onChange: (newValue: string) => void
 }
@@ -11,7 +11,7 @@ type EditableSpanPropsType = {
 export const EditableSpan = React.memo(function ({
                                                      value,
                                                      onChange
-                                                 }: EditableSpanPropsType) {
+                                                 }: PropsType) {
     let [editMode, setEditMode] = useState(false);
     let [title, setTitle] = useState(value);
     const status = useSelector(selectStatus)
