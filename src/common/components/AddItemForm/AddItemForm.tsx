@@ -15,8 +15,8 @@ export const AddItemForm: FC<PropsType> = memo(function ({addItem, disabled = fa
 
     const addItemHandler = () => {
         if (title.trim() !== '') {
-            addItem(title);
-            setTitle('');
+            addItem(title)
+            setTitle('')
         } else {
             setError('Title is required');
         }

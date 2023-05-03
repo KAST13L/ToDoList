@@ -9,7 +9,7 @@ export const NoTodolistComponent: React.FC = () => {
         setIsShow(() => !isShow)
     }
 
-    return (<div>
+    return (<>
             <div className='my-5 text-3xl text-center font-thin text-zinc-500'>
                 Your todo list is empty. Just add them. And feel like a<span> </span>
                 <a href=''
@@ -24,7 +24,7 @@ export const NoTodolistComponent: React.FC = () => {
                         alt="king"/>
                 </div>
             </JackInTheBox>}
-        </div>
+        </>
     );
 };
 

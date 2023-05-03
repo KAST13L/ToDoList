@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Task} from "@app/features/todolist-list/todolists/todolist/task/task.component";
+import {Task} from "@app/features/todolist-list/todolists/todolist/tasks/task/task.component";
 import {TaskType} from "@app/features/todolist-list/tasks/task.api";
 import {TaskStatuses} from "@app/common/enum/common.enums";
 import {
@@ -23,7 +23,7 @@ export const Tasks: FC<PropsType> = ({tasks,todolist}) => {
     }
 
     return (
-        <div>
+        <>
             <div className='my-3 text-center font-thin text-zinc-500'>
                 {!tasks.length
                     ? 'TodolistList is empty. Create your first tasks!'
@@ -34,6 +34,6 @@ export const Tasks: FC<PropsType> = ({tasks,todolist}) => {
                 tasksForTodolist.map(t => <Task key={t.id} task={t}
                                                 todolistId={todolist.id}/>)
             }
-        </div>
+        </>
     );
 };

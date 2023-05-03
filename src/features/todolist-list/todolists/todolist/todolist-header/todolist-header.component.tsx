@@ -7,8 +7,6 @@ import {
     TodolistDomainType,
     todolistsThunks
 } from "@app/features/todolist-list/todolists/todolists.reducer";
-import {AddItemForm} from "@app/common/components/AddItemForm/AddItemForm";
-import {tasksThunks} from "@app/features/todolist-list/tasks/tasks.reducer";
 
 type PropsType = {
     todolist: TodolistDomainType
@@ -17,7 +15,6 @@ type PropsType = {
 export const TodolistHeader: FC<PropsType> = ({todolist}) => {
 
     const {changeTodolistTitle, removeTodolist} = useActions(todolistsThunks)
-    const {addTask} = tasksThunks
 
     return (
         <div className='relative w-[310px] text-2xl font-extrabold'>
@@ -32,8 +29,6 @@ export const TodolistHeader: FC<PropsType> = ({todolist}) => {
                         <Delete/>
                     </IconButton>
             </span>
-            <AddItemForm addItem={(title) => addTask({title, todolistId: todolist.id})}
-                         disabled={todolist.entityStatus === 'loading'}/>
         </div>
 
     );
