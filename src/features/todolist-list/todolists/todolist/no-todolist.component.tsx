@@ -12,7 +12,7 @@ export const NoTodolistComponent: React.FC = () => {
     return (<div>
             <div className='my-5 text-3xl text-center font-thin text-zinc-500'>
                 Your todo list is empty. Just add them. And feel like a<span> </span>
-                <a href='@app/features/TodolistList/Todolist/no-todolist.component'
+                <a href=''
                    className='underline'
                    onClick={onClickLinkHandler}>queen</a><span> </span>
                 over your tasks.

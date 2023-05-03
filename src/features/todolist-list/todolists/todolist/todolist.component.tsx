@@ -1,14 +1,8 @@
-import React, {useEffect, memo, FC} from 'react'
+import React, {FC, memo, useEffect} from 'react'
 import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
 import {Delete} from '@mui/icons-material';
 import {Task} from './task/task.component'
-import {
-    FilterValuesType,
-    TodolistDomainType,
-    todolistsActions,
-    todolistsThunks
-} from '../todolists.reducer'
+import {TodolistDomainType, todolistsActions, todolistsThunks} from '../todolists.reducer'
 import {tasksThunks} from '../../tasks/tasks.reducer'
 import {TaskType} from "@app/features/todolist-list/tasks/task.api";
 import {EditableSpan} from "@app/common/components/EditableSpan/EditableSpan";
@@ -16,6 +10,9 @@ import {AddItemForm} from "@app/common/components/AddItemForm/AddItemForm";
 import Paper from '@mui/material/Paper';
 import {useActions} from "@app/common/hooks/useActions";
 import {TaskStatuses} from "@app/common/enum/common.enums";
+import {
+    FilterTasksButtons
+} from "@app/features/todolist-list/todolists/todolist/filter-tasks-buttons/filter-tasks-buttons.component";
 
 type PropsType = {
     todolist: TodolistDomainType
@@ -30,8 +27,7 @@ export const Todolist: FC<PropsType> = memo(function ({todolist, tasks}) {
         addTask,
         fetchTasks,
         removeTodolist,
-        changeTodolistTitle,
-        changeTodolistFilter
+        changeTodolistTitle
     } = useActions({...thunkAndActionsList})
 
     useEffect(() => {
@@ -47,14 +43,6 @@ export const Todolist: FC<PropsType> = memo(function ({todolist, tasks}) {
         tasksForTodolist = tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
-    const renderFilterButton = (filter: FilterValuesType, color: any) => {
-        return <Button
-            variant={todolist.filter === filter ? 'outlined' : 'text'}
-            onClick={() => changeTodolistFilter({id: todolist.id, filter})}
-            color={color}>
-            {filter}
-        </Button>
-    }
 
     return <Paper elevation={8} className='flex-row w-[350px] mx-4 my-8 p-4'>
         <div className='relative w-[310px] text-2xl font-extrabold'>
@@ -86,11 +74,8 @@ export const Todolist: FC<PropsType> = memo(function ({todolist, tasks}) {
                                                 todolistId={todolist.id}/>)
             }
         </span>
-        <div className='mt-2 flex justify-evenly'>
-            {renderFilterButton('all', 'inherit')}
-            {renderFilterButton('active', 'primary')}
-            {renderFilterButton('completed', 'secondary')}
-        </div>
+
+        <FilterTasksButtons todolist={todolist}/>
     </Paper>
 })
 
