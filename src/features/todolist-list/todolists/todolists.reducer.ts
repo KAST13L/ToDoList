@@ -1,5 +1,5 @@
 import {appActions, RequestStatusType} from "@app/app/app.reducer";
-import {todolistsApi, TodolistType} from "@app/features/todolist-list/todolist/todolists.api";
+import {todolistsApi, TodolistType} from "@app/features/todolist-list/todolists/todolists.api";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {
     handleServerAppError,
@@ -17,7 +17,7 @@ export type TodolistDomainType = TodolistType & {
 
 // asyncThunk
 export const fetchTodolists = createAppAsyncThunk<{ todolists: TodolistType[] }, undefined>(
-    'todolist/fetchTodolists', async (arg, thunkAPI) => {
+    'todolists/fetchTodolists', async (arg, thunkAPI) => {
         const {dispatch} = thunkAPI
         dispatch(appActions.setAppStatus({status: 'loading'}))
         try {
@@ -29,7 +29,7 @@ export const fetchTodolists = createAppAsyncThunk<{ todolists: TodolistType[] },
         }
     })
 export const removeTodolist = createAppAsyncThunk<{ id: string }, string>(
-    'todolist/removeTodolist', async (todolistId, thunkAPI) => {
+    'todolists/removeTodolist', async (todolistId, thunkAPI) => {
         const {dispatch} = thunkAPI
         dispatch(appActions.setAppStatus({status: 'loading'}))
         dispatch(todolistsActions.changeTodolistEntityStatus({
@@ -45,7 +45,7 @@ export const removeTodolist = createAppAsyncThunk<{ id: string }, string>(
         }
     })
 export const addTodolist = createAppAsyncThunk<{ todolist: TodolistType }, string>(
-    'todolist/addTodolist', async (title, thunkAPI) => {
+    'todolists/addTodolist', async (title, thunkAPI) => {
         const {dispatch} = thunkAPI
         dispatch(appActions.setAppStatus({status: 'loading'}))
         try {
@@ -61,7 +61,7 @@ export const addTodolist = createAppAsyncThunk<{ todolist: TodolistType }, strin
         }
     })
 export const changeTodolistTitle = createAppAsyncThunk<{ id: string, title: string }, { id: string, title: string }>(
-    'todolist/changeTodolistTitle', async ({id, title}, thunkAPI) => {
+    'todolists/changeTodolistTitle', async ({id, title}, thunkAPI) => {
         const {dispatch} = thunkAPI
         dispatch(appActions.setAppStatus({status: 'loading'}))
         try {

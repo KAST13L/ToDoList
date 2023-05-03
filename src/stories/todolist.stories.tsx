@@ -2,20 +2,20 @@ import React from 'react'
 import {ComponentMeta, ComponentStory} from "@storybook/react";
 import {Provider} from "react-redux";
 import {store} from "@app/app/store";
-import {Todolist} from "@app/features/todolist-list/todolist/todolist.component";
+import {Todolist} from "@app/features/todolist-list/todolists/todolist/todolist.component";
 import {TaskPriorities, TaskStatuses} from "@app/common/enum/common.enums";
 
 export default {
     title: 'Element TODO/TodolistList',
     component: Todolist,
     argTypes: {
-        removeTodolist: {action: 'remove todolist'},
-        removeTask: {action: 'remove task'},
+        removeTodolist: {action: 'remove todolists'},
+        removeTask: {action: 'remove tasks'},
         changeFilter: {action: 'change filter'},
-        changeTaskTitle: {action: 'change task title'},
-        changeTodolistTitle: {action: 'change todolist title'},
-        changeTaskStatus: {action: 'change task status'},
-        addTask: {action: 'add task'},
+        changeTaskTitle: {action: 'change tasks title'},
+        changeTodolistTitle: {action: 'change todolists title'},
+        changeTaskStatus: {action: 'change tasks status'},
+        addTask: {action: 'add tasks'},
     }
 } as ComponentMeta<typeof Todolist>;
 

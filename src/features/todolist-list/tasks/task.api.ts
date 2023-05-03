@@ -6,7 +6,6 @@ import {TaskPriorities, TaskStatuses} from "@app/common/enum/common.enums";
 export const tasksAPI = {
     getTasks(todolistId: string) {
         return instance.get<GetTasksResponse>(`todo-lists/${todolistId}/tasks`)
-            .then(res => res.data)
     },
     deleteTask(todolistId: string, taskId: string) {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`);

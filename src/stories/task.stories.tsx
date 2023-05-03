@@ -1,18 +1,18 @@
 import React from 'react'
 import {ComponentMeta, ComponentStory} from "@storybook/react";
-import {Task} from "@app/features/todolist-list/task/task.component";
+import {Task} from "@app/features/todolist-list/todolists/todolist/task/task.component";
 import {Provider} from "react-redux";
 import {store} from "@app/app/store";
 import {HashRouter} from "react-router-dom";
 import {TaskPriorities, TaskStatuses} from "@app/common/enum/common.enums";
 
 export default {
-    title: 'Element TODO/task',
+    title: 'Element TODO/tasks',
     component: Task,
     argTypes: {
-        removeTask: {action: 'remove task'},
-        changeTaskTitle: {action: 'change task title'},
-        changeTaskStatus: {action: 'change task status'}
+        removeTask: {action: 'remove tasks'},
+        changeTaskTitle: {action: 'change tasks title'},
+        changeTaskStatus: {action: 'change tasks status'}
     }
 } as ComponentMeta<typeof Task>;
 

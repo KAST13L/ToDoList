@@ -3,10 +3,10 @@ import {
 	todolistsActions,
 	TodolistDomainType,
 	todolistsReducer, todolistsThunks
-} from "@app/features/todolist-list/todolist/todolists.reducer";
+} from "@app/features/todolist-list/todolists/todolists.reducer";
 import {RequestStatusType} from "@app/app/app.reducer";
 import {useActions} from "@app/common/hooks/useActions";
-import {TodolistType} from "@app/features/todolist-list/todolist/todolists.api";
+import {TodolistType} from "@app/features/todolist-list/todolists/todolists.api";
 
 const {
 	fetchTodolists,
@@ -44,7 +44,7 @@ beforeEach(() => {
 	]
 })
 
-test('correct todolist should be removed', () => {
+test('correct todolists should be removed', () => {
 	const endState = todolistsReducer(
 		startState,
 		removeTodolist.fulfilled(
@@ -57,7 +57,7 @@ test('correct todolist should be removed', () => {
 	expect(endState[0].id).toBe(todolistId2)
 })
 
-test('correct todolist should be added', () => {
+test('correct todolists should be added', () => {
 	let todolist: TodolistType = {
 		title: 'New TodolistList',
 		id: 'any id',
@@ -76,7 +76,7 @@ test('correct todolist should be added', () => {
 	expect(endState[0].filter).toBe('all')
 })
 
-test('correct todolist should change its name', () => {
+test('correct todolists should change its name', () => {
 	let newTodolistTitle = 'New TodolistList'
 
 	const args = {id: todolistId2, title: newTodolistTitle}
@@ -89,7 +89,7 @@ test('correct todolist should change its name', () => {
 	expect(endState[1].title).toBe(newTodolistTitle)
 })
 
-test('correct filter of todolist should be changed', () => {
+test('correct filter of todolists should be changed', () => {
 	let newFilter: FilterValuesType = 'completed'
 
 	const action = changeTodolistFilter({id: todolistId2, filter: newFilter})
@@ -106,7 +106,7 @@ test('todolists should be added', () => {
 	expect(endState.length).toBe(2)
 })
 
-test('correct entity status of todolist should be changed', () => {
+test('correct entity status of todolists should be changed', () => {
 	let newStatus: RequestStatusType = 'loading'
 
 	const action = changeTodolistEntityStatus({id: todolistId2, status: newStatus})
