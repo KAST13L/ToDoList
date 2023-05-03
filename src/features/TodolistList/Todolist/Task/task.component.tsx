@@ -3,7 +3,7 @@ import {EditableSpan} from '@app/common/components/EditableSpan/EditableSpan'
 import {Delete} from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import Checkbox from '@mui/material/Checkbox';
-import {TaskStatuses, TaskType} from '@app/api/todolists-api'
+import {TaskStatuses, TaskType} from '@app/features/TodolistList/todolists-api'
 import {tasksThunks} from "@app/features/TodolistList/Todolist/Task/tasks.reducer";
 import {useActions} from "@app/common/hooks/useActions";
 

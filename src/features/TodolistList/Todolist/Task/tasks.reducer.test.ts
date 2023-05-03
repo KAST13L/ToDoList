@@ -1,4 +1,4 @@
-import {TaskPriorities, TaskStatuses} from "@app/api/todolists-api";
+import {TaskPriorities, TaskStatuses} from "@app/features/TodolistList/todolists-api";
 import {
 	tasksReducer,
 	TasksStateType,
