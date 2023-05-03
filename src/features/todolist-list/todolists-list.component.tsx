@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, FC} from 'react'
 import {useSelector} from 'react-redux'
 import {todolistsThunks} from './todolists/todolists.reducer'
 import {Navigate} from "react-router-dom";
@@ -8,7 +8,7 @@ import {selectIsLoggedIn, selectTasks, selectTodolists} from "@app/app/selectors
 import {NoTodolistComponent} from "@app/features/todolist-list/todolists/todolist/no-todolist.component";
 import {useActions} from "@app/common/hooks/useActions";
 
-export const TodolistsList: React.FC = () => {
+export const TodolistsList: FC = () => {
 
     const todolists = useSelector(selectTodolists)
     const tasks = useSelector(selectTasks)

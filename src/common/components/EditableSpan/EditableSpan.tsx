@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, FC, KeyboardEvent, memo, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import {useSelector} from "react-redux";
 import {selectStatus} from "@app/app/selectors";
@@ -8,10 +8,8 @@ type PropsType = {
     onChange: (newValue: string) => void
 }
 
-export const EditableSpan = React.memo(function ({
-                                                     value,
-                                                     onChange
-                                                 }: PropsType) {
+export const EditableSpan: FC<PropsType> = memo(function ({value, onChange}) {
+
     let [editMode, setEditMode] = useState(false);
     let [title, setTitle] = useState(value);
     const status = useSelector(selectStatus)

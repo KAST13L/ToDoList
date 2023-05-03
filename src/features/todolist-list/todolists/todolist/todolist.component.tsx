@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, memo, FC} from 'react'
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import {Delete} from '@mui/icons-material';
@@ -22,7 +22,7 @@ type PropsType = {
     tasks: Array<TaskType>
 }
 
-export const Todolist: React.FC<PropsType> = React.memo(function ({todolist, tasks}) {
+export const Todolist: FC<PropsType> = memo(function ({todolist, tasks}) {
 
     const thunkAndActionsList = {...tasksThunks, ...todolistsThunks, ...todolistsActions}
 
