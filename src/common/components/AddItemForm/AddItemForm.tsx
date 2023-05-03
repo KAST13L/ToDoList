@@ -39,7 +39,7 @@ export const AddItemForm: FC<PropsType> = memo(function ({addItem, disabled = fa
         }
     }
 
-    return <div className="relative" >
+    return <div className="relative my-2" >
         <TextField variant="outlined"
                    fullWidth
                    disabled={disabled}
