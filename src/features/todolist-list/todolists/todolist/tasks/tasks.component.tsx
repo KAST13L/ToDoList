@@ -37,5 +37,3 @@ export const Tasks: FC<PropsType> = ({tasks,todolist}) => {
         </div>
     );
 };
-
-k
