@@ -1,6 +1,6 @@
 import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import {LOCALE} from "@app/variables";
+import {initReactI18next} from "react-i18next";
+import {Locale} from "@app/common/enum/common.enums";
 
 export const resources = {
     en: {
@@ -16,11 +16,11 @@ export const resources = {
 };
 
 i18n.use(initReactI18next).init({
-        resources,
-        lng: LOCALE.EN,
-        interpolation: {
-            escapeValue: false
-        }
-    });
+    resources,
+    lng: Locale.Eng,
+    interpolation: {
+        escapeValue: false
+    }
+});
 
 export default i18n;
