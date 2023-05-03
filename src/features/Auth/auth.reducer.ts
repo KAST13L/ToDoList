@@ -1,4 +1,4 @@
-import {authAPI, LoginParamsType} from "@app/api/auth-api";
+import {authApi, LoginParamsType} from "@app/features/Auth/auth.api";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
 import {appActions} from "@app/app/app.reducer";
@@ -10,7 +10,7 @@ export const login = createAsyncThunk<null, LoginParamsType, ThunkError>(
 
         dispatch(appActions.setAppStatus({status: "loading"}))
         try {
-            const res = await authAPI.login(data)
+            const res = await authApi.login(data)
             if (res.data.resultCode === 0) {
                 dispatch(appActions.setAppSuccess({success: 'You are authorized!'}))
             } else {
@@ -27,7 +27,7 @@ export const logout = createAsyncThunk<null, undefined, ThunkError>(
 
         dispatch(appActions.setAppStatus({status: 'loading'}))
         try {
-            const res = await authAPI.logout()
+            const res = await authApi.logout()
             if (res.data.resultCode === 0) {
                 dispatch(appActions.setAppSuccess({success: 'You are signed out!'}))
             } else {
@@ -42,8 +42,8 @@ const initializeApp = createAsyncThunk<null, undefined, ThunkError>(
     'app/initializeApp', async (arg, thunkAPI) => {
         const {dispatch} = thunkAPI
         try {
-            const res = await authAPI.me()
-            if (res.resultCode === 0) {
+            const res = await authApi.me()
+            if (res.data.resultCode === 0) {
                 return;
             }
         } catch (e: any) {

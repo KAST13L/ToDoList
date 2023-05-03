@@ -1,13 +1,5 @@
-import axios, { AxiosResponse } from 'axios'
-
-const instance = axios.create({
-    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
-    withCredentials: true,
-    headers: {
-        'API-KEY': 'bdde517a-46a7-467a-aaf3-bd81b358e84b',
-    }
-})
-
+import { instance } from '@app/common/api/common.api';
+import { AxiosResponse } from 'axios'
 // api
 export const todolistsAPI = {
     getTodolists() {

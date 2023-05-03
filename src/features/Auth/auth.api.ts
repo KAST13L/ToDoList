@@ -1,13 +1,7 @@
-import axios, {AxiosResponse} from 'axios'
-import {ResponseType} from "./todolists-api";
+import {AxiosResponse} from 'axios'
+import {ResponseType} from "@app/api/todolists-api";
+import {instance} from "@app/common/api/common.api";
 
-const instance = axios.create({
-    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
-    withCredentials: true,
-    headers: {
-        'API-KEY': 'bdde517a-46a7-467a-aaf3-bd81b358e84b'
-    }
-})
 
 export type LoginParamsType = {
     email: string
@@ -16,16 +10,15 @@ export type LoginParamsType = {
     captcha?: string
 }
 
-export const authAPI = {
+export const authApi = {
     login(data: LoginParamsType) {
         return instance.post<LoginParamsType, AxiosResponse<ResponseType<{ userId?: string }>>>('auth/login', data)
     },
-    me() {
-        return instance.get<ResponseMeType>('auth/me')
-            .then(response => response.data)
-    },
     logout() {
         return instance.delete<ResponseType>('auth/login')
+    },
+    me() {
+        return instance.get<ResponseMeType>('auth/me')
     }
 }
 
