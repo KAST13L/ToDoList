@@ -2,7 +2,7 @@ import {
     TaskPriorities,
     TaskStatuses,
     TaskType,
-    todolistsAPI,
+    todolistsAPI, TodolistType,
     UpdateTaskModelType
 } from '@app/features/TodolistList/todolists-api'
 import {createSlice} from "@reduxjs/toolkit";
@@ -16,7 +16,6 @@ import {
     fetchTodolists,
     removeTodolist
 } from "@app/features/TodolistList/Todolist/todolists.reducer";
-import {TodolistType} from "@app/api/types";
 import {appActions} from "@app/app/app.reducer";
 import {createAppAsyncThunk} from '@app/common/utils/create-app-async-thunk';
 

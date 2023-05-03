@@ -6,7 +6,6 @@ import {
 } from '@reduxjs/toolkit';
 import {useMemo} from 'react';
 import {useAppDispatch} from "@app/common/hooks/useAppDispatch";
-import {FieldErrorType} from "@app/api/types";
 
 export const useActions = <Actions extends ActionCreatorsMapObject = ActionCreatorsMapObject>
 (actions: Actions): BoundActions<Actions> => {
@@ -25,5 +24,3 @@ type BoundActions<Actions extends ActionCreatorsMapObject> = {
 type BoundAsyncThunk<Action extends ActionCreator<any>> = (
     ...args: Parameters<Action>
 ) => ReturnType<ReturnType<Action>>;
-
-export type ThunkError = { rejectValue: { errors: string[], fieldsErrors?: FieldErrorType[] } }

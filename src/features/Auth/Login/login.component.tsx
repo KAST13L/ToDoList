@@ -10,13 +10,7 @@ import {useFormik} from "formik";
 import React from "react";
 import {selectIsLoggedIn} from "@app/app/selectors";
 import {useActions} from "@app/common/hooks/useActions";
-
-
-type FormValuesType = {
-    email: string
-    password: string
-    rememberMe: boolean
-}
+import {LoginParamsType} from "@app/features/Auth/auth.api";
 
 export const Login = () => {
 
@@ -41,7 +35,7 @@ export const Login = () => {
             password: 'asdasdasd',
             rememberMe: false
         },
-        onSubmit: (values: FormValuesType) => {
+        onSubmit: (values: LoginParamsType) => {
             login(values)
         },
     })
