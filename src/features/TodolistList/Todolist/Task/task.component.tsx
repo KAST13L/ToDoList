@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react'
-import {EditableSpan} from '@app/components/EditableSpan/EditableSpan'
+import {EditableSpan} from '@app/common/components/EditableSpan/EditableSpan'
 import {Delete} from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import Checkbox from '@mui/material/Checkbox';

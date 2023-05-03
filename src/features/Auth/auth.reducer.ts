@@ -3,6 +3,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {handleServerAppError, handleServerNetworkError} from "@app/utils/error-utils";
 import {appActions} from "@app/app/app.reducer";
 import {ThunkError} from "@app/common/hooks/useActions";
+import {ResultCode} from "@app/common/enum/common.enums";
 
 export const login = createAsyncThunk<null, LoginParamsType, ThunkError>(
     'auth/login', async (data, thunkAPI) => {
@@ -11,7 +12,7 @@ export const login = createAsyncThunk<null, LoginParamsType, ThunkError>(
         dispatch(appActions.setAppStatus({status: "loading"}))
         try {
             const res = await authApi.login(data)
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === ResultCode.Success) {
                 dispatch(appActions.setAppSuccess({success: 'You are authorized!'}))
             } else {
                 return handleServerAppError(res.data, thunkAPI)

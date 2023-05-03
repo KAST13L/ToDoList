@@ -11,8 +11,8 @@ import {
 } from './todolists.reducer'
 import {tasksThunks} from './Task/tasks.reducer'
 import {TaskStatuses, TaskType} from "@app/api/todolists-api";
-import {EditableSpan} from "@app/components/EditableSpan/EditableSpan";
-import {AddItemForm} from "@app/components/AddItemForm/AddItemForm";
+import {EditableSpan} from "@app/common/components/EditableSpan/EditableSpan";
+import {AddItemForm} from "@app/common/components/AddItemForm/AddItemForm";
 import Paper from '@mui/material/Paper';
 import {useActions} from "@app/common/hooks/useActions";
 
