@@ -11,7 +11,7 @@ type PropsType = {
     todolist: TodolistDomainType
 }
 
-export const TasksList: FC<PropsType> = ({tasks,todolist}) => {
+export const Tasks: FC<PropsType> = ({tasks,todolist}) => {
 
     let tasksForTodolist = tasks
 
@@ -23,7 +23,7 @@ export const TasksList: FC<PropsType> = ({tasks,todolist}) => {
     }
 
     return (
-        <span>
+        <div>
             <div className='my-3 text-center font-thin text-zinc-500'>
                 {!tasks.length
                     ? 'TodolistList is empty. Create your first tasks!'
@@ -34,7 +34,8 @@ export const TasksList: FC<PropsType> = ({tasks,todolist}) => {
                 tasksForTodolist.map(t => <Task key={t.id} task={t}
                                                 todolistId={todolist.id}/>)
             }
-        </span>
+        </div>
     );
 };
 
+k
