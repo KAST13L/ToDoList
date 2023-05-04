@@ -46,7 +46,7 @@ export const addTodolist = createAppAsyncThunk<{ todolist: TodolistType }, strin
                 return rejectWithValue({data: res.data})
             }
     })
-// perfe
+
 export const changeTodolistTitle = createAppAsyncThunk<{ id: string, title: string }, { id: string, title: string }>(
     'todolists/changeTodolistTitle', async ({id, title}, thunkAPI) => {
         const {dispatch} = thunkAPI
