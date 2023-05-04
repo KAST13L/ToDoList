@@ -11,8 +11,6 @@ import {createAppAsyncThunk} from "@app/common/utils/create-app-async-thunk";
 export const login = createAppAsyncThunk<null, LoginParamsType>(
     'auth/login', async (data, thunkAPI) => {
         const {dispatch} = thunkAPI
-
-        dispatch(appActions.setAppStatus({status: "loading"}))
         try {
             const res = await authApi.login(data)
             if (res.data.resultCode === ResultCode.Success) {
@@ -29,7 +27,6 @@ export const logout = createAppAsyncThunk<null, undefined>(
     'auth/logout', async (arg, thunkAPI) => {
         const {dispatch} = thunkAPI
 
-        dispatch(appActions.setAppStatus({status: 'loading'}))
         try {
             const res = await authApi.logout()
             if (res.data.resultCode === ResultCode.Success) {

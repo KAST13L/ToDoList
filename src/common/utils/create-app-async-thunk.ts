@@ -5,5 +5,9 @@ import {ResponseType} from "@app/common/types/common.types";
 export const createAppAsyncThunk = createAsyncThunk.withTypes<{
 	state: AppRootStateType
 	dispatch: AppDispatch
-	rejectValue: null | ResponseType
+	rejectValue: null | RejectValueType
 }>()
+
+export type RejectValueType = {
+	data: ResponseType
+}

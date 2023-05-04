@@ -7,6 +7,8 @@ import {tasksThunks} from "@app/features/todolist-list/tasks/tasks.reducer";
 import {useActions} from "@app/common/hooks/useActions";
 import {TaskType} from "@app/features/todolist-list/tasks/task.api";
 import {TaskStatuses} from "@app/common/enum/common.enums";
+import {useSelector} from "react-redux";
+import {selectStatus} from "@app/app/selectors";
 
 type PropsType = {
     task: TaskType
@@ -15,6 +17,8 @@ type PropsType = {
 export const Task: FC<PropsType> = memo(({todolistId, task}) => {
 
     const {updateTask, removeTask} = useActions(tasksThunks)
+
+    const status = useSelector(selectStatus)
 
     const onStatusChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let currentStatus = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New
@@ -44,7 +48,9 @@ export const Task: FC<PropsType> = memo(({todolistId, task}) => {
                 <EditableSpan value={task.title} onChange={onTitleChangeHandler}/>
             </span>
             <span className='absolute left-[240px] top-[-6px]'>
-                <IconButton onClick={() => removeTask({taskId: task.id, todolistId})}>
+                <IconButton
+                    onClick={() => removeTask({taskId: task.id, todolistId})}
+                >
                     <Delete/>
                 </IconButton>
             </span>

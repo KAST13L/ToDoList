@@ -32,6 +32,36 @@ export const slice = createSlice({
         setAppInitialized(state, action: PayloadAction<{ isInitialized: boolean }>) {
             state.isInitialized = action.payload.isInitialized
         },
+    },
+    extraReducers : (builder) => {
+        builder
+            .addMatcher(
+                (action) => {
+                    return action.type.endsWith('/pending')
+                },
+                (state) => {
+                    state.status = 'loading'
+                })
+            .addMatcher(
+                (action) => {
+                    return action.type.endsWith('/rejected')
+                },
+                (state, action) => {
+                    const {payload, error} = action
+                    if (payload) {
+                        state.error = payload.data.messages.length ? payload.data.messages[0] : 'some error occurred'
+                    } else {
+                        state.error = error.message ? error.message : 'some error occurred'
+                    }
+                    state.status = 'failed'
+                })
+            .addMatcher(
+                (action) => {
+                    return action.type.endsWith('/fulfilled')
+                },
+                (state) => {
+                    state.status = 'succeeded'
+                })
     }
 })
 

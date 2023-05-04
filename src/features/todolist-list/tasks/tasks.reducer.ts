@@ -36,7 +36,6 @@ export type TasksStateType = {
 export const fetchTasks = createAppAsyncThunk<{ tasks: TaskType[], todolistId: string }, string>(
     'tasks/fetchTasks', async (todolistId, thunkAPI) => {
         const {dispatch} = thunkAPI
-        dispatch(appActions.setAppStatus({status: 'loading'}))
         try {
             const data = await tasksAPI.getTasks(todolistId)
             dispatch(appActions.setAppStatus({status: 'succeeded'}))
@@ -48,7 +47,6 @@ export const fetchTasks = createAppAsyncThunk<{ tasks: TaskType[], todolistId: s
 export const removeTask = createAppAsyncThunk<{ taskId: string, todolistId: string }, { taskId: string, todolistId: string }>(
     'tasks/removeTask', async ({taskId, todolistId}, thunkAPI) => {
         const {dispatch} = thunkAPI
-        dispatch(appActions.setAppStatus({status: 'loading'}))
         try {
             await tasksAPI.deleteTask(todolistId, taskId);
             dispatch(appActions.setAppSuccess({success: 'tasks deleted'}))
@@ -60,7 +58,6 @@ export const removeTask = createAppAsyncThunk<{ taskId: string, todolistId: stri
 export const addTask = createAppAsyncThunk<{ task: TaskType }, { title: string, todolistId: string }>(
     'tasks/addTask', async ({title, todolistId}, thunkAPI) => {
         const {dispatch} = thunkAPI
-        dispatch(appActions.setAppStatus({status: 'loading'}))
         try {
             const res = await tasksAPI.createTask(todolistId, title)
             if (res.data.resultCode === 0) {
@@ -80,8 +77,6 @@ export const updateTask = createAppAsyncThunk<{
 }, { taskId: string, model: UpdateDomainTaskModelType, todolistId: string }>(
     'tasks/updateTask', async ({taskId, model, todolistId}, thunkAPI) => {
         const {dispatch, getState, rejectWithValue} = thunkAPI
-
-        dispatch(appActions.setAppStatus({status: 'loading'}))
 
         const state = getState() as AppRootStateType
         const task = state.tasks[todolistId].find(t => t.id === taskId)
