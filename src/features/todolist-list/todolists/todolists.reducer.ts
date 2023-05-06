@@ -1,4 +1,4 @@
-import {appActions, RequestStatusType} from "@app/app/app.reducer";
+import {RequestStatusType} from "@app/app/app.reducer";
 import {
     todolistsApi,
     TodolistType
