@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {authThunks} from "@app/features/auth/auth.reducer";
+import {tasksThunks} from "@app/features/todolist-list/tasks/tasks.reducer";
 
 // types
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -36,15 +37,26 @@ export const slice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(authThunks.login.fulfilled, (state)=>{
+            .addCase(authThunks.login.fulfilled, (state) => {
                 state.success = 'You are authorized!'
             })
-            .addCase(authThunks.logout.fulfilled, (state)=>{
+            .addCase(authThunks.logout.fulfilled, (state) => {
                 state.success = 'You are signed out!'
+            })
+            .addCase(tasksThunks.removeTask.fulfilled, (state) => {
+                state.success = 'Tasks deleted!'
+            })
+            .addCase(tasksThunks.addTask.fulfilled, (state) => {
+                state.success = 'Task added!'
+            })
+            .addCase(tasksThunks.updateTask.fulfilled, (state) => {
+                state.success = 'Task changed!'
             })
             .addMatcher(
                 action => action.type.endsWith('/pending'),
-                state => {state.status = 'loading'})
+                state => {
+                    state.status = 'loading'
+                })
             .addMatcher(
                 action => action.type.endsWith('/rejected'),
                 (state, action) => {
