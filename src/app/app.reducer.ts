@@ -33,7 +33,7 @@ export const slice = createSlice({
             state.isInitialized = action.payload.isInitialized
         },
     },
-    extraReducers : (builder) => {
+    extraReducers: (builder) => {
         builder
             .addMatcher(
                 action => action.type.endsWith('/pending'),
@@ -51,7 +51,9 @@ export const slice = createSlice({
                 })
             .addMatcher(
                 action => action.type.endsWith('/fulfilled'),
-                state => {state.status = 'succeeded'})
+                state => {
+                    state.status = 'succeeded'
+                })
     }
 })
 

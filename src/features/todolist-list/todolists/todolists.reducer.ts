@@ -15,7 +15,7 @@ export type TodolistDomainType = TodolistType & {
 }
 
 // asyncThunk
-export const fetchTodolists = createAppAsyncThunk<{ todolists: TodolistType[] }, undefined>(
+export const fetchTodolists = createAppAsyncThunk<{ todolists: TodolistType[] }, void>(
     'todolists/fetchTodolists', async () => {
         const res = await todolistsApi.getTodolists()
         return {todolists: res.data}
