@@ -36,16 +36,10 @@ export const slice = createSlice({
     extraReducers : (builder) => {
         builder
             .addMatcher(
-                (action) => {
-                    return action.type.endsWith('/pending')
-                },
-                (state) => {
-                    state.status = 'loading'
-                })
+                action => action.type.endsWith('/pending'),
+                state => {state.status = 'loading'})
             .addMatcher(
-                (action) => {
-                    return action.type.endsWith('/rejected')
-                },
+                action => action.type.endsWith('/rejected'),
                 (state, action) => {
                     const {payload, error} = action
                     if (payload) {
@@ -56,12 +50,8 @@ export const slice = createSlice({
                     state.status = 'failed'
                 })
             .addMatcher(
-                (action) => {
-                    return action.type.endsWith('/fulfilled')
-                },
-                (state) => {
-                    state.status = 'succeeded'
-                })
+                action => action.type.endsWith('/fulfilled'),
+                state => {state.status = 'succeeded'})
     }
 })
 
