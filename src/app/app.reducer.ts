@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {authThunks} from "@app/features/auth/auth.reducer";
 
 // types
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -35,6 +36,12 @@ export const slice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            .addCase(authThunks.login.fulfilled, (state)=>{
+                state.success = 'You are authorized!'
+            })
+            .addCase(authThunks.logout.fulfilled, (state)=>{
+                state.success = 'You are signed out!'
+            })
             .addMatcher(
                 action => action.type.endsWith('/pending'),
                 state => {state.status = 'loading'})

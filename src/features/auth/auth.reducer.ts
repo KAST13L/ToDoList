@@ -5,20 +5,20 @@ import {ResultCode} from "@app/common/enum/common.enums";
 import {createAppAsyncThunk} from "@app/common/utils/create-app-async-thunk";
 
 export const login = createAppAsyncThunk<any, LoginParamsType>(
-    'auth/login', async (data, {dispatch, rejectWithValue}) => {
+    'auth/login', async (data, {rejectWithValue}) => {
         const res = await authApi.login(data)
         if (res.data.resultCode === ResultCode.Success) {
-            dispatch(appActions.setAppSuccess({success: 'You are authorized!'}))
+            return;
         } else {
             return rejectWithValue({data: res.data})
         }
     })
 
 export const logout = createAppAsyncThunk<any, void>(
-    'auth/logout', async (arg, {rejectWithValue, dispatch}) => {
+    'auth/logout', async (arg, {rejectWithValue}) => {
         const res = await authApi.logout()
         if (res.data.resultCode === ResultCode.Success) {
-            dispatch(appActions.setAppSuccess({success: 'You are signed out!'}))
+            return;
         } else {
             return rejectWithValue({data: res.data})
         }
