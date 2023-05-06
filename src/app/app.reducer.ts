@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {authThunks} from "@app/features/auth/auth.reducer";
 import {tasksThunks} from "@app/features/todolist-list/tasks/tasks.reducer";
+import {todolistsThunks} from "@app/features/todolist-list/todolists/todolists.reducer";
 
 // types
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -51,6 +52,15 @@ export const slice = createSlice({
             })
             .addCase(tasksThunks.updateTask.fulfilled, (state) => {
                 state.success = 'Task changed!'
+            })
+            .addCase(todolistsThunks.removeTodolist.fulfilled, (state) => {
+                state.success = 'TodolistList removed!'
+            })
+            .addCase(todolistsThunks.addTodolist.fulfilled, (state) => {
+                state.success = 'TodolistList added!'
+            })
+            .addCase(todolistsThunks.changeTodolistTitle.fulfilled, (state) => {
+                state.success = 'TodolistList title changed!'
             })
             .addMatcher(
                 action => action.type.endsWith('/pending'),

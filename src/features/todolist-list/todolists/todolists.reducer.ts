@@ -28,7 +28,6 @@ export const removeTodolist = createAppAsyncThunk<{ id: string }, string>(
         }))
         const res = await todolistsApi.deleteTodolist(todolistId)
         if (res.data.resultCode === ResultCode.Success) {
-            dispatch(appActions.setAppSuccess({success: 'TodolistList removed'}))
             return {id: todolistId}
         } else {
             return rejectWithValue({data: res.data})
@@ -36,10 +35,9 @@ export const removeTodolist = createAppAsyncThunk<{ id: string }, string>(
 
     })
 export const addTodolist = createAppAsyncThunk<{ todolist: TodolistType }, string>(
-    'todolists/addTodolist', async (title, {dispatch, rejectWithValue}) => {
+    'todolists/addTodolist', async (title, {rejectWithValue}) => {
         const res = await todolistsApi.createTodolist(title)
         if (res.data.resultCode === ResultCode.Success) {
-            dispatch(appActions.setAppSuccess({success: 'TodolistList added'}))
             return {todolist: res.data.data.item}
         } else {
             return rejectWithValue({data: res.data})
@@ -47,10 +45,9 @@ export const addTodolist = createAppAsyncThunk<{ todolist: TodolistType }, strin
     })
 
 export const changeTodolistTitle = createAppAsyncThunk<{ id: string, title: string }, { id: string, title: string }>(
-    'todolists/changeTodolistTitle', async ({id, title}, {dispatch, rejectWithValue}) => {
+    'todolists/changeTodolistTitle', async ({id, title}, {rejectWithValue}) => {
         const res = await todolistsApi.updateTodolist(id, title)
         if (res.data.resultCode === ResultCode.Success) {
-            dispatch(appActions.setAppSuccess({success: 'TodolistList title changed'}))
             return {id, title}
         } else {
             return rejectWithValue({data: res.data})
