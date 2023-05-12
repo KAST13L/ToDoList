@@ -39,10 +39,7 @@ export const fetchTasks = createAppAsyncThunk<
   const data = await tasksAPI.getTasks(todolistId);
   return { tasks: data.data.items, todolistId: todolistId };
 });
-export const removeTask = createAppAsyncThunk<
-  { taskId: string; todolistId: string },
-  { taskId: string; todolistId: string }
->("tasks/removeTask", async ({ taskId, todolistId }, { rejectWithValue }) => {
+export const removeTask = createAppAsyncThunk<{ taskId: string; todolistId: string }, { taskId: string; todolistId: string }>("tasks/removeTask", async ({ taskId, todolistId }, { rejectWithValue }) => {
   const res = await tasksAPI.deleteTask(todolistId, taskId);
   if (res.data.resultCode === ResultCode.Success) {
     return { taskId: taskId, todolistId: todolistId };
