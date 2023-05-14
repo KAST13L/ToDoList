@@ -65,5 +65,6 @@ export const slice = createSlice({
 });
 
 
+
 export const authReducer = slice.reducer;
 export const authThunks = { logout, login, initializeApp };
