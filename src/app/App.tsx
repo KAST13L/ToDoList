@@ -8,7 +8,8 @@ import { selectIsInitialized } from "@app/app/selectors";
 import { Loader } from "@app/common/components/Loader/Loader";
 import { authThunks } from "@app/features/auth/auth.reducer";
 import { useActions } from "@app/common/hooks/useActions";
-import {ErrorSnackbar} from "@app/common/components/ErrorSnackbar/ErrorSnackbar";
+import { ErrorSnackbar } from "@app/common/components/ErrorSnackbar/ErrorSnackbar";
+import { Dnd } from "@app/features/dnd/Dnd";
 
 export const App: FC = () => {
   const isInitialized = useSelector(selectIsInitialized);
@@ -25,6 +26,7 @@ export const App: FC = () => {
       <ErrorSnackbar />
       <Header />
       <div className="mx-8">
+        <Dnd position={"horizontal"} />
         <Routes>
           <Route path="/" element={<TodolistsList />} />
           <Route path="/login" element={<Login />} />
