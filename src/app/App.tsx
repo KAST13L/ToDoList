@@ -26,7 +26,6 @@ export const App: FC = () => {
       <ErrorSnackbar />
       <Header />
       <div className="mx-8">
-        <Dnd position={"horizontal"} />
         <Routes>
           <Route path="/" element={<TodolistsList />} />
           <Route path="/login" element={<Login />} />

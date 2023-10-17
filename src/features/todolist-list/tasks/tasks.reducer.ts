@@ -33,24 +33,67 @@ export type TasksStateType = {
 
 // asyncThunk
 export const fetchTasks = createAppAsyncThunk<
-  { tasks: TaskType[]; todolistId: string },
+  {
+    tasks: TaskType[];
+    todolistId: string;
+  },
   string
 >("tasks/fetchTasks", async (todolistId) => {
   const data = await tasksAPI.getTasks(todolistId);
-  return { tasks: data.data.items, todolistId: todolistId };
+  return {
+    tasks: data.data.items,
+    todolistId: todolistId,
+  };
 });
-export const removeTask = createAppAsyncThunk<{ taskId: string; todolistId: string }, { taskId: string; todolistId: string }>("tasks/removeTask", async ({ taskId, todolistId }, { rejectWithValue }) => {
+export const removeTask = createAppAsyncThunk<
+  {
+    taskId: string;
+    todolistId: string;
+  },
+  {
+    taskId: string;
+    todolistId: string;
+  }
+>("tasks/removeTask", async ({ taskId, todolistId }, { rejectWithValue }) => {
   const res = await tasksAPI.deleteTask(todolistId, taskId);
   if (res.data.resultCode === ResultCode.Success) {
-    return { taskId: taskId, todolistId: todolistId };
+    return {
+      taskId: taskId,
+      todolistId: todolistId,
+    };
+  } else {
+    return rejectWithValue({ data: res.data });
+  }
+});
+export const reorderTask = createAppAsyncThunk<
+  {
+    taskId: string;
+    todolistId: string;
+  },
+  {
+    taskId: string;
+    todolistId: string;
+  }
+>("tasks/reorderTask", async ({ taskId, todolistId }, { rejectWithValue }) => {
+  const res = await tasksAPI.reorderTask(todolistId, taskId);
+  if (res.data.resultCode === ResultCode.Success) {
+    return {
+      taskId: taskId,
+      todolistId: todolistId,
+    };
   } else {
     return rejectWithValue({ data: res.data });
   }
 });
 
 export const addTask = createAppAsyncThunk<
-  { task: TaskType },
-  { title: string; todolistId: string }
+  {
+    task: TaskType;
+  },
+  {
+    title: string;
+    todolistId: string;
+  }
 >("tasks/addTask", async ({ title, todolistId }, { rejectWithValue }) => {
   const res = await tasksAPI.createTask(todolistId, title);
   if (res.data.resultCode === ResultCode.Success) {
@@ -65,7 +108,11 @@ export const updateTask = createAppAsyncThunk<
     model: UpdateDomainTaskModelType;
     todolistId: string;
   },
-  { taskId: string; model: UpdateDomainTaskModelType; todolistId: string }
+  {
+    taskId: string;
+    model: UpdateDomainTaskModelType;
+    todolistId: string;
+  }
 >(
   "tasks/updateTask",
   async ({ taskId, model, todolistId }, { getState, rejectWithValue }) => {
@@ -86,7 +133,11 @@ export const updateTask = createAppAsyncThunk<
 
     const res = await tasksAPI.updateTask(todolistId, taskId, apiModel);
     if (res.data.resultCode === ResultCode.Success) {
-      return { taskId, model, todolistId };
+      return {
+        taskId,
+        model,
+        todolistId,
+      };
     } else {
       return rejectWithValue({ data: res.data });
     }
@@ -131,4 +182,10 @@ export const slice = createSlice({
 });
 
 export const tasksReducer = slice.reducer;
-export const tasksThunks = { fetchTasks, removeTask, addTask, updateTask };
+export const tasksThunks = {
+  fetchTasks,
+  removeTask,
+  addTask,
+  updateTask,
+  reorderTask,
+};
